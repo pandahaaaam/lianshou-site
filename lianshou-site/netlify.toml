@@ -1,0 +1,7 @@
+# 练手交易所 · Netlify 配置
+[build]
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

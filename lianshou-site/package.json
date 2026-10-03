@@ -1,0 +1,9 @@
+{
+  "name": "lianshou-exchange-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "练手交易所网页版 + 排行榜",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.3"
+  }
+}
