@@ -85,7 +85,7 @@ button{cursor:pointer;touch-action:manipulation}
 .card-h h2{font-family:var(--f-display);font-size:15px;font-weight:600;margin:0}
 
 /* coin cards */
-.coins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.coins{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .coin{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;position:relative;overflow:hidden;transition:border-color .15s}
 .coin:hover{border-color:var(--fg-3)}
 .coin[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 1px var(--fg)}
@@ -93,11 +93,22 @@ button{cursor:pointer;touch-action:manipulation}
 .coin .nm{display:flex;align-items:baseline;gap:6px;min-width:0}
 .coin .nm b{font-family:var(--f-display);font-size:14px}
 .coin .nm span{font-size:12px;color:var(--fg-3)}
-.coin .px{display:flex;align-items:baseline;gap:8px;min-width:0}
-.coin .px .p{font-size:17px;font-weight:500;border-radius:4px;transition:background .6s}
+.coin .px{display:flex;align-items:baseline;column-gap:6px;flex-wrap:wrap;min-width:0}
+.coin .px .p{font-size:15px;font-weight:500;border-radius:4px;transition:background .6s}
 .coin .px .c{font-size:12px}
 .coin [data-s]{display:contents}
-.coin svg.spark{position:absolute;right:10px;top:10px;width:70px;height:26px}
+.coin svg.spark{grid-column:1/-1;width:100%;height:22px;margin-top:6px}
+.coin .nm b{white-space:nowrap}
+.coin .nm span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.risk-tag{font-size:10.5px!important;padding:0 6px;border-radius:5px;color:var(--red)!important;background:color-mix(in srgb,var(--red) 12%,transparent);font-weight:500;line-height:1.6}
+.coin.meme{border-style:dashed}
+.coin .risk-tag{position:absolute;top:7px;right:8px}
+.coin.meme[aria-pressed="true"]{border-style:solid;border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
+.meme-warn{border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 7%,var(--surface));border-radius:10px;padding:9px 12px;font-size:12.5px;color:var(--fg-2);line-height:1.6}
+.meme-warn b{color:var(--red);font-weight:700}
+.chart-card-warn{margin:2px 18px 6px}
+.btns-row{display:flex;gap:8px;flex-wrap:wrap}
+.btns-row .primary{flex:1}
 .flash-up{background:color-mix(in srgb,var(--up) 18%,transparent)!important;transition:none!important}
 .flash-down{background:color-mix(in srgb,var(--down) 18%,transparent)!important;transition:none!important}
 
@@ -341,7 +352,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   .logo{width:32px;height:32px;font-size:16px;border-radius:9px}
   .iconbtn{padding:7px 9px}
   .iconbtn .lbl{display:none}
-  .feed{padding:5px 10px;font-size:12px}
+  .feed{padding:5px 10px;font-size:12px;order:3;width:100%;justify-content:center}
   .mstrip{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .mstrip div{background:var(--surface);padding:9px 12px;min-width:0}
   .mstrip small{display:block;font-size:11.5px;color:var(--fg-3)}
@@ -349,7 +360,9 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   .mstrip b span{font-size:12px;margin-left:4px}
   .coins{grid-template-columns:1fr;gap:8px}
   .coin{padding:10px 12px}
-  .coin svg.spark{top:50%;transform:translateY(-50%);width:84px}
+  .coin svg.spark{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:84px;height:26px;margin:0}
+  .coin .px .p{font-size:17px}
+  .chart-card-warn{margin:2px 14px 6px}
   .stat{padding:12px 14px} .stat .v{font-size:20px} .stat:nth-child(n+3) .v{font-size:16px}
   #mainChart{min-height:300px}
   .chart-top{padding:14px 14px 4px;gap:10px}
@@ -413,6 +426,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
             <button id="tCandle" aria-pressed="false">K线</button>
           </div>
         </div>
+        <div class="meme-warn chart-card-warn" id="chMeme" hidden></div>
         <div id="mainChart"></div>
         <div class="chart-legend">
           <span id="lgUnit">每个点 = 1 分钟</span>
@@ -445,6 +459,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
         <div class="lev-row"><span class="lev-val" id="levVal">5×</span><input id="lev" type="range" min="0" max="13" step="1" value="4" aria-label="杠杆倍数"><span class="risk" id="levRisk">有风险</span></div>
         <div class="chips" id="levChips"></div>
       </div>
+      <div class="meme-warn" id="tMeme" hidden></div>
       <div class="preview" id="preview"></div>
       <div class="err" id="tErr" hidden></div>
       <div class="broke" id="broke" hidden><span><b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。好在这里可以重来。</span><button class="primary" id="brokeRestart">重新开始</button></div>
@@ -501,7 +516,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <label class="money"><span>$</span><input id="capCustom" type="number" min="100" step="100" placeholder="或输入任意金额" aria-label="自定义起始资金"></label>
     </div>
     <div class="three">
-      <div><span><b>选一个币</b>：比特币、以太坊或狗狗币。</span></div>
+      <div><span><b>选一个币</b>：比特币、以太坊、狗狗币，或者波动极大的 PEPE、WIF。</span></div>
       <div><span><b>猜方向</b>：觉得会涨点「做多」，觉得会跌点「做空」。</span></div>
       <div><span><b>随时平仓</b>：把盈亏落袋，解锁成就，目标是资产翻 100 倍。</span></div>
     </div>
@@ -528,6 +543,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <div><b>爆仓</b>价格反向走太多、本金快亏光时，系统强制平仓，本金就没了。杠杆越高越容易爆仓。</div>
       <div><b>手续费</b>开仓和平仓各收「仓位价值」的 0.1%。开了杠杆，仓位变大，手续费也跟着变大。</div>
       <div><b>净盈亏</b>价格带来的盈亏，减去开仓和平仓的手续费。这才是你真正赚到或亏掉的钱。</div>
+      <div><b>迷因币（PEPE、WIF）</b>源自网络梗的币：PEPE 是青蛙表情包，WIF 是戴毛线帽的柴犬。没有实际用途，价格靠热度和情绪推动，涨跌是比特币的近 3 倍，现实中很多迷因币最终归零。</div>
     </div>
     <p style="font-size:12.5px">小提示：1× 做多就等于直接买币，最安全；先用它熟悉一下，再慢慢试杠杆。</p>
   </div>
@@ -568,6 +584,20 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   </div>
 </div>
 
+<!-- meme coin warning (first trade) -->
+<div class="modal" id="mMeme" hidden>
+  <div class="sheet" role="dialog" aria-labelledby="memeTitle">
+    <h3 id="memeTitle">先了解一下迷因币</h3>
+    <p>PEPE 和 WIF 是「迷因币」：源自网络梗（青蛙表情包、戴帽子的柴犬），没有实际用途或业绩支撑，价格主要靠热度和情绪推动。</p>
+    <div class="three">
+      <div><span><b>涨跌极快</b>：近 30 天日均波动约 5–6%，是比特币的近 3 倍；单日涨跌接近 20% 也发生过，几分钟内动 5% 并不稀奇。</span></div>
+      <div><span><b>杠杆非常危险</b>：10× 杠杆下反向 9% 就爆仓。真实交易所 Kraken 对 PEPE 最多只给 5×，对 WIF 最多 3×。</span></div>
+      <div><span><b>现实中很多迷因币最终归零</b>。这里是游戏，可以放心体验心跳；真实世界里千万别重仓。</span></div>
+    </div>
+    <div class="btns-row"><button class="primary" id="memeGo">我了解风险，继续下单</button><button class="ghost" id="memeNo">再想想</button></div>
+  </div>
+</div>
+
 <div class="toasts" id="toasts" aria-live="polite"></div>
 <canvas id="confetti" hidden></canvas>
 
@@ -589,11 +619,17 @@ const COINS = {
   BTC:{name:'比特币', glyph:'₿', color:'#F7931A', dp:2, qdp:5, seed:84774.4, vol:0.00022},
   ETH:{name:'以太坊', glyph:'Ξ', color:'#627EEA', dp:2, qdp:4, seed:2678.66, vol:0.0003},
   DOGE:{name:'狗狗币', glyph:'Ð', color:'#BA9A2E', dp:5, qdp:0, seed:0.0926815, vol:0.00045},
+  // meme coins: stats from Kraken daily closes, 30 days to 2026-10-02
+  PEPE:{name:'佩佩蛙', glyph:'P', color:'#3E9B4F', dp:9, qdp:0, seed:0.000004307, vol:0.0007, meme:true, maxLev:5,
+        story:'青蛙表情包', stat:'近 30 天日均波动约 5.3%，是比特币的 2.7 倍；单日最大涨跌 17%'},
+  WIF:{name:'戴帽狗', glyph:'W', color:'#B4734A', dp:4, qdp:2, seed:0.2541, vol:0.00075, meme:true, maxLev:3,
+        story:'戴毛线帽的柴犬', stat:'近 30 天日均波动约 5.6%，是比特币的 2.9 倍；单日最大涨跌 19%'},
 };
-const ORDER = ['BTC','ETH','DOGE'];
-const KRAKEN_SYMS = {'BTC/USD':'BTC','ETH/USD':'ETH','DOGE/USD':'DOGE','XDG/USD':'DOGE'};
-const CB_SYMS = {'BTC-USD':'BTC','ETH-USD':'ETH','DOGE-USD':'DOGE'};
-const BN_SYMS = {'BTCUSDT':'BTC','ETHUSDT':'ETH','DOGEUSDT':'DOGE'};
+const ORDER = ['BTC','ETH','DOGE','PEPE','WIF'];
+const MEME_ACK_KEY = 'lianshou-meme-ack-v1';
+const KRAKEN_SYMS = {'BTC/USD':'BTC','ETH/USD':'ETH','DOGE/USD':'DOGE','XDG/USD':'DOGE','PEPE/USD':'PEPE','WIF/USD':'WIF'};
+const CB_SYMS = {'BTC-USD':'BTC','ETH-USD':'ETH','DOGE-USD':'DOGE','PEPE-USD':'PEPE','WIF-USD':'WIF'};
+const BN_SYMS = {'BTCUSDT':'BTC','ETHUSDT':'ETH','DOGEUSDT':'DOGE','PEPEUSDT':'PEPE','WIFUSDT':'WIF'};
 const LEVS = [1,2,3,4,5,6,8,10,15,20,25,30,40,50];
 const LEV_CHIPS = [1,3,5,10,20,50];
 const FEE = 0.001;      // 0.1% of position value, charged on open and on close
@@ -614,6 +650,14 @@ const $ = id => document.getElementById(id);
 const usdF = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2});
 function fmtUSD(v, sign){ if(v==null||!isFinite(v)) return '—'; const s = usdF.format(Math.abs(v)); if(sign) return (v>0.004?'+':v<-0.004?'−':'')+s; return v<-0.004?'−'+s:s; }
 function fmtPx(coin, p){ if(p==null||!isFinite(p)) return '—'; const dp = COINS[coin].dp; return '$'+p.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
+// tiny prices in narrow spots: $0.000004319 -> $0.0₅4319 (5 zeros after the decimal point)
+function fmtPxShort(coin, p){
+  if(p==null||!isFinite(p)||COINS[coin].dp<8) return fmtPx(coin,p);
+  const m = p.toFixed(COINS[coin].dp).match(/^0\.(0+)(\d+)$/);
+  if(!m || m[1].length<4) return fmtPx(coin,p);
+  const sub='₀₁₂₃₄₅₆₇₈₉';
+  return '$0.0'+String(m[1].length).split('').map(d=>sub[+d]).join('')+m[2].slice(0,4);
+}
 function fmtPct(v, sign=true){ if(v==null||!isFinite(v)) return '—'; const a=Math.abs(v)*100; const s=(a>=1000?a.toFixed(0):a.toFixed(2))+'%'; return sign?((v>0.00004?'+':v<-0.00004?'−':'')+s):s; }
 function fmtQty(coin,q){ const d=COINS[coin].qdp; return q.toLocaleString('en-US',{maximumFractionDigits:d, minimumFractionDigits:Math.min(d,2)}); }
 function cls(v){ return v>0.004?'up':v<-0.004?'down':'muted'; }
@@ -893,10 +937,10 @@ function simStep(){
     const cfg=COINS[c], m=market[c];
     if(Math.random()<0.006) simDrift[c] = randn()*cfg.vol*0.35;
     let r = simDrift[c] + cfg.vol*(0.6*z0 + 0.8*randn());
-    if(Math.random()<0.0015) r += randn()*cfg.vol*10;
+    if(Math.random()<(cfg.meme?0.004:0.0015)) r += randn()*cfg.vol*(cfg.meme?12:10);
     applyTick(c, m.price*Math.exp(r));
   });
-  if(state){ state.sim = {BTC:market.BTC.price, ETH:market.ETH.price, DOGE:market.DOGE.price}; saveSoon(); }
+  if(state){ state.sim = {}; ORDER.forEach(c=>state.sim[c]=market[c].price); saveSoon(); }
 }
 
 /* ---------- trading math ---------- */
@@ -916,7 +960,9 @@ function equity(){ if(!state) return 0; let e=state.cash; state.positions.forEac
 function openNet(){ if(!state) return 0; return state.positions.reduce((s,p)=>s+calc(p,market[p.coin].price).net,0); }
 function maxMargin(L){ return state ? Math.max(0, state.cash/(1+L*FEE)) : 0; }
 
+function memeAcked(){ if(window.__memeAck) return true; try{ return localStorage.getItem(MEME_ACK_KEY)==='1'; }catch(e){ return false; } }
 function openPos(){
+  if(COINS[ui.coin].meme && !memeAcked() && !validate(+$('amt').value)){ openModal('mMeme'); return; }
   const coin=ui.coin, side=ui.side, L=lev(), p=market[coin].price;
   const margin = +$('amt').value;
   const err = validate(margin);
@@ -927,7 +973,8 @@ function openPos(){
   state.positions.unshift(pos);
   toast(`<b>开仓成功</b>　${side==='long'?'做多':'做空'} ${coin} ${L}×，本金 ${fmtUSD(margin)} + 手续费 ${fmtUSD(fee)}，共扣 ${fmtUSD(margin+fee)}`);
   unlock('first'); if(side==='short') unlock('short'); if(L>=10) unlock('bold'); if(L>=50) unlock('max');
-  if(ORDER.every(c=>state.positions.some(x=>x.coin===c))) unlock('trio');
+  if(['BTC','ETH','DOGE'].every(c=>state.positions.some(x=>x.coin===c))) unlock('trio');
+  if(COINS[coin].meme) unlock('meme');
   afterChange();
 }
 function closePos(id, frac, reason){
@@ -955,6 +1002,7 @@ function closePos(id, frac, reason){
       st.wins++; state.streak++; unlock('profit');
       if(pos.side==='short') unlock('shortwin');
       if(net>=part.margin) unlock('big');
+      if(net>=part.margin && COINS[pos.coin].meme) unlock('memewin');
       if(state.streak>=3) unlock('streak3'); if(state.streak>=5) unlock('streak5'); if(state.streak>=10) unlock('streak10');
     } else state.streak=0;
     if(Date.now()-pos.opened>3600e3) unlock('hodl');
@@ -1013,8 +1061,10 @@ const ACH = [
   ['comeback','绝地翻盘','资产跌破一半后，又回到起始资金以上','冒险'],
   ['hodl','拿得住','一个仓位持有超过 1 小时','冒险'],
   ['diamond','钻石手','一个仓位持有超过 24 小时','冒险'],
+  ['meme','冲浪手','第一次交易迷因币（PEPE 或 WIF）','冒险'],
+  ['memewin','迷因暴富','迷因币单笔净赚超过投入的本金','冒险'],
 ];
-const BIG = new Set(['x2','x5','x10','x100','x1000','big','streak10','comeback','champ']);
+const BIG = new Set(['x2','x5','x10','x100','x1000','big','streak10','comeback','champ','memewin']);
 function unlock(k){
   if(!state || state.ach[k]) return; state.ach[k]=Date.now();
   const a=ACH.find(x=>x[0]===k);
@@ -1149,8 +1199,8 @@ function spark(c){
   return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="var(${up?'--up':'--down'})" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
 }
 function buildCoins(){
-  $('coins').innerHTML = ORDER.map(c=>`<button class="coin" data-coin="${c}" aria-pressed="${c===ui.coin}">
-    ${badge(c)}<div class="nm"><b>${c}</b><span>${COINS[c].name}</span></div>
+  $('coins').innerHTML = ORDER.map(c=>`<button class="coin ${COINS[c].meme?'meme':''}" data-coin="${c}" aria-pressed="${c===ui.coin}" title="${COINS[c].name}${COINS[c].meme?' · 高风险迷因币':''}">
+    ${badge(c)}<div class="nm"><b>${c}</b>${COINS[c].meme?'<span class="risk-tag">高风险</span>':`<span>${COINS[c].name}</span>`}</div>
     <div class="px"><span class="p num" data-p>—</span><span class="c num" data-c></span></div><span data-s></span></button>`).join('');
   $('cswitch').innerHTML = ORDER.map(c=>`<button data-coin="${c}" aria-pressed="${c===ui.coin}"><b>${c}</b><span class="num" data-p>—</span></button>`).join('');
   $('cswitch').style.display='';
@@ -1161,19 +1211,21 @@ function renderCoins(){
   ORDER.forEach(c=>{
     const el = document.querySelector(`.coin[data-coin="${c}"]`); if(!el) return; const m=market[c];
     el.setAttribute('aria-pressed', c===ui.coin);
-    const pEl = el.querySelector('[data-p]'); pEl.textContent = fmtPx(c,m.price);
+    const pEl = el.querySelector('[data-p]'); pEl.textContent = fmtPxShort(c,m.price); pEl.title = fmtPx(c,m.price);
     if(m.prev!=null && m.price!=null && m.price!==m.prev) flash(pEl, m.price>m.prev);
     m.prev = m.price;
     const cEl = el.querySelector('[data-c]'); cEl.textContent = fmtPct(m.chg); cEl.className='c num '+cls(m.chg);
     if(doSpark || !el.querySelector('svg')) el.querySelector('[data-s]').innerHTML = spark(c);
     const sw = document.querySelector(`#cswitch [data-coin="${c}"]`);
-    if(sw){ sw.setAttribute('aria-pressed', c===ui.coin); const sp=sw.querySelector('[data-p]'); sp.textContent=fmtPx(c,m.price); sp.className='num '+cls(m.chg); }
+    if(sw){ sw.setAttribute('aria-pressed', c===ui.coin); const sp=sw.querySelector('[data-p]'); sp.textContent=fmtPxShort(c,m.price); sp.className='num '+cls(m.chg); }
   });
 }
 function flash(el, up){ el.classList.remove('flash-up','flash-down'); void el.offsetWidth; el.classList.add(up?'flash-up':'flash-down'); setTimeout(()=>el.classList.remove('flash-up','flash-down'),250); }
 function renderChartHead(){
   const c=ui.coin, m=market[c];
   $('chName').textContent = `${COINS[c].name} ${c} / 美元`;
+  const cw=$('chMeme'); cw.hidden = !COINS[c].meme;
+  if(COINS[c].meme && cw.dataset.coin!==c){ cw.dataset.coin=c; cw.innerHTML = `<b>高风险 · 迷因币</b>　${c} 是以「${COINS[c].story}」为题材的币，没有实际用途，价格靠热度和情绪推动。${COINS[c].stat}。`; }
   $('chPrice').textContent = fmtPx(c,m.price);
   const ch=$('chChg'); ch.textContent = (m.chg>0?'▲ ':m.chg<0?'▼ ':'')+fmtPct(m.chg,false); ch.className='pill num '+cls(m.chg);
   const vis = m.bars.slice(-180); if(vis.length){ let hi=-Infinity, lo=Infinity; vis.forEach(b=>{hi=Math.max(hi,b.high); lo=Math.min(lo,b.low);}); $('chHL').innerHTML=`<span>3小时高 ${fmtPx(c,hi)}</span><span>低 ${fmtPx(c,lo)}</span>`; }
@@ -1224,6 +1276,12 @@ function renderTrade(){
     <div class="row"><span>开仓价</span><span class="num">${fmtPx(c,p)}</span></div>
     <div class="row"><span>爆仓价</span><span class="num" style="color:${liq==null?'var(--fg-3)':'var(--warn)'}">${liq==null?'不会爆仓':fmtPx(c,liq)}</span></div>
     <div class="say">${say}</div>`;
+  const tw=$('tMeme'); tw.hidden = !COINS[c].meme;
+  if(COINS[c].meme){
+    const mv=(LIQ/L*100);
+    tw.innerHTML = `<b>高风险迷因币</b>　几分钟内涨跌 5% 并不稀奇，${COINS[c].stat}。真实交易所 Kraken 对 ${c} 最多只给 ${COINS[c].maxLev}× 杠杆。`+
+      (L>COINS[c].maxLev ? `<br>你选了 <b>${L}×</b>：价格反向 ${mv.toFixed(mv<10?1:0)}% 就爆仓，这个幅度它可能一天甚至几分钟内就走完。` : (L>1?`<br>${L}× 杠杆下，价格反向 ${mv.toFixed(mv<10?1:0)}% 就会爆仓。`:''));
+  }
   const go=$('goBtn'); go.dataset.side=side; go.textContent = (side==='long'?'买入做多 ':'做空 ')+c+(L>1?' · '+L+'×':'');
   const broke = !!(state && state.positions.length===0 && state.cash<1);
   $('broke').hidden = !broke; go.hidden = broke;
@@ -1468,6 +1526,8 @@ $('pctChips').addEventListener('click', e=>{ const b=e.target.closest('.chip'); 
 $('amt').addEventListener('input', ()=>{ renderTrade(); showErr(''); });
 $('goBtn').addEventListener('click', openPos);
 $('brokeRestart').addEventListener('click', ()=>openModal('mStart'));
+$('memeGo').addEventListener('click', ()=>{ try{ localStorage.setItem(MEME_ACK_KEY,'1'); }catch(e){} window.__memeAck=true; closeModal('mMeme'); openPos(); });
+$('memeNo').addEventListener('click', ()=>closeModal('mMeme'));
 $('pPos').addEventListener('click', e=>{ const b=e.target.closest('button[data-act]'); if(!b) return; closePos(b.closest('.pos').dataset.id, b.dataset.act==='half'?0.5:1, 'manual'); });
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   ui.tab=t.dataset.tab; document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected', x===t));
@@ -1482,7 +1542,7 @@ function closeModal(id){ $(id).hidden=true; }
 document.querySelectorAll('.modal').forEach(m=>{
   m.addEventListener('click', e=>{ if((e.target===m || e.target.closest('[data-close]')) && m.id!=='mStart') closeModal(m.id); });
 });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ ['mGuide','mSettings'].forEach(closeModal); } });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ ['mGuide','mSettings','mMeme'].forEach(closeModal); } });
 $('btnGuide').addEventListener('click',()=>openModal('mGuide'));
 $('btnSettings').addEventListener('click',()=>{ $('resetConfirm').hidden=true; openModal('mSettings'); });
 function restartFeed(){ ORDER.forEach(c=>{ market[c].bars=[]; market[c].reset=true; }); startFeed(); }
