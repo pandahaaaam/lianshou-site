@@ -279,6 +279,85 @@ input[type=range]{width:100%;accent-color:var(--fg)}
 .lb-foot{padding:6px 18px 14px;font-size:12px;color:var(--fg-3);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .lb-foot button,.lb-link{border:0;background:none;color:var(--fg-3);text-decoration:underline;padding:0;font-size:12px;align-self:flex-start}
 .lb-confirm{margin:0 18px 14px}
+.loan-body{padding:10px 18px 16px;display:flex;flex-direction:column;gap:10px}
+.loan-body .v{font-size:22px;font-weight:500}
+.loan-body small{display:block;font-size:12px}
+.debt{color:var(--red)}
+.loan-note{margin:0;font-size:12px;color:var(--fg-3);line-height:1.6}
+
+/* simple / advanced mode */
+html[data-mode="simple"] .pro-only{display:none!important}
+html:not([data-mode="simple"]) .simple-only{display:none!important}
+html[data-mode="simple"] .summary{grid-template-columns:repeat(3,1fr)}
+.modeseg{margin-left:0}
+.modeseg button{padding:5px 10px}
+.sline{font-size:12.5px;color:var(--fg-2);display:flex;flex-wrap:wrap;gap:2px 14px}
+.sline .num{color:var(--fg)}
+
+/* level pill */
+.lvpill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);padding:5px 10px 5px 6px;border-radius:99px;font-size:12.5px;color:var(--fg-2)}
+.lvpill:hover{border-color:var(--fg-3)}
+.lvpill .lv{font-family:var(--f-num);font-size:11.5px;background:var(--fg);color:var(--bg);border-radius:99px;padding:1px 7px;font-weight:500}
+.lvpill b{color:var(--fg);font-weight:500;white-space:nowrap}
+.lvpill .xp{width:38px;height:4px;border-radius:99px;background:var(--surface-2);overflow:hidden;flex:none}
+.lvpill .xp i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.lvtag{font-size:10.5px;padding:0 5px;border-radius:5px;background:var(--surface-2);color:var(--fg-3);font-weight:400;margin-left:4px;white-space:nowrap}
+.lvbig{display:flex;align-items:center;gap:14px}
+.lvbig .lv{font-family:var(--f-num);font-size:30px;font-weight:500;width:64px;height:64px;border-radius:18px;background:var(--fg);color:var(--bg);display:grid;place-items:center;flex:none}
+.lvbig b{font-family:var(--f-display);font-size:20px;display:block}
+.lvbig small{color:var(--fg-3);font-size:12.5px}
+.xpbar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.xpbar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.titles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.titles div{border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:12.5px;color:var(--fg-3)}
+.titles div b{display:block;color:var(--fg-2);font-weight:500;font-size:13.5px}
+.titles div.on{border-color:var(--fg);background:var(--surface-2)}
+.titles div.on b{color:var(--fg)}
+.xprules{display:grid;grid-template-columns:1fr auto;gap:4px 14px;font-size:13px;color:var(--fg-2);background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.xprules span:nth-child(even){font-family:var(--f-num);color:var(--fg);text-align:right}
+
+/* stop-loss / take-profit */
+.stops{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stop{display:flex;align-items:center;gap:4px;border:1.5px solid var(--line);border-radius:11px;padding:0 10px;background:var(--surface);font-size:12.5px;color:var(--fg-3);min-width:0}
+.stop:focus-within{border-color:var(--accent)}
+.stop input{border:0;outline:0;background:none;width:100%;min-width:0;padding:9px 2px;font-family:var(--f-num);font-size:15px;text-align:right}
+.stop em{font-style:normal;font-weight:500;white-space:nowrap}
+.stop.sl em{color:var(--warn)} .stop.tp em{color:var(--accent)}
+.stops-px{font-size:12px;color:var(--fg-3)}
+.stops-px .num{color:var(--fg-2)}
+.stops-px .w{color:var(--warn)}
+.chip.sl[aria-pressed="true"]{background:var(--warn);border-color:var(--warn);color:#fff}
+.chip.tp[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.srow{display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap;font-size:12.5px;color:var(--fg-3)}
+.srow .num{color:var(--fg-2)}
+.srow button{border:0;background:none;color:var(--accent);padding:0;font-size:12.5px;margin-left:auto}
+.sedit{display:flex;flex-direction:column;gap:8px;background:var(--surface-2);border-radius:10px;padding:10px}
+.sedit .btns{display:flex;gap:8px}
+.sedit .btns button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 12px;font-size:12.5px;color:var(--fg-2)}
+.sedit .btns button.ok{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.tag.tpx{color:var(--accent);background:var(--accent-soft)}
+
+/* seasons */
+.lb-tabs{display:flex;margin:12px 18px 0}
+.lb-tabs button{flex:1}
+.lb-season{margin:10px 18px 0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--fg-3)}
+.lb-season b{font-family:var(--f-display);font-size:14px;color:var(--fg)}
+.lb-season .left{margin-left:auto;font-family:var(--f-num);color:var(--fg-2)}
+.lb-past{margin:8px 18px 0;padding:8px 10px;border-radius:10px;background:var(--surface-2);font-size:12px;color:var(--fg-3);display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.lb-past .pk{display:inline-flex;align-items:center;gap:4px;color:var(--fg-2)}
+.lb-past .pk i{font-style:normal;font-family:var(--f-num);font-size:10.5px;width:16px;height:16px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.lb-past .pk.me{color:var(--accent);font-weight:500}
+
+/* ROCKET news */
+.news{display:flex;align-items:flex-start;gap:8px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12.5px;line-height:1.55;color:var(--fg-2);background:var(--surface-2)}
+.chart-card .news,.a-chart .news{margin:0 18px 6px}
+.news .nt{flex:none;font-size:11px;font-weight:700;padding:1px 6px;border-radius:5px;background:#C2378A;color:#fff;margin-top:1px}
+.news .hl{color:var(--fg);font-weight:500}
+.news .st{display:inline-block;margin-left:6px;font-size:11.5px;padding:0 6px;border-radius:5px;white-space:nowrap}
+.news .st.q{color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,transparent)}
+.news .st.t{color:#fff;background:var(--green)}
+.news .st.f{color:#fff;background:var(--fg-3)}
+.news.wait .hl{animation:blink 1.4s infinite}
 
 footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
 
@@ -352,13 +431,20 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   body[data-view="board"] [data-view]:not([data-view~="board"]){display:none!important}
   .lb-join,.lb-foot,.lb-list li{padding-inline:14px}
   .lb-me{margin-inline:14px}
+  .loan-body{padding-inline:14px}
   .top{gap:8px}
   .brand small{display:none}
   .brand b{font-size:16px}
   .logo{width:32px;height:32px;font-size:16px;border-radius:9px}
   .iconbtn{padding:7px 9px}
   .iconbtn .lbl{display:none}
-  .feed{padding:5px 10px;font-size:12px;order:3;width:100%;justify-content:center}
+  .feed{padding:5px 10px;font-size:12px;order:3;flex:1 1 55%;min-width:0;justify-content:center}
+  .modeseg{order:4}
+  .lvpill{padding:4px 8px 4px 5px}
+  .lvpill .xp{display:none}
+  .lb-tabs,.lb-season,.lb-past{margin-inline:14px}
+  .a-chart .news{margin-inline:14px}
+  .titles{grid-template-columns:1fr 1fr}
   .mstrip{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .mstrip div{background:var(--surface);padding:9px 12px;min-width:0}
   .mstrip small{display:block;font-size:11.5px;color:var(--fg-3)}
@@ -394,6 +480,8 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   <header class="top">
     <div class="brand"><div class="logo">练</div><div><b>练手交易所</b><small>假的钱 · 真的行情 · 零风险</small></div></div>
     <div class="feed" id="feed" data-mode="connecting"><i class="dot"></i><span id="feedText">正在连接行情…</span></div>
+    <div class="seg modeseg" role="group" aria-label="界面"><button data-mode="simple" aria-pressed="false">简易</button><button data-mode="pro" aria-pressed="true">高级</button></div>
+    <button class="lvpill" id="lvPill" aria-label="等级与称号"><span class="lv" id="lvNum">Lv.1</span><b id="lvTitle">韭菜</b><span class="xp"><i id="lvBar" style="width:0%"></i></span></button>
     <button class="iconbtn" id="btnGuide" aria-label="新手指南"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M8 7h8M8 11h6"/></svg><span class="lbl">新手指南</span></button>
     <button class="iconbtn" id="btnSettings" aria-label="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span class="lbl">设置</span></button>
   </header>
@@ -411,9 +499,9 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   <section class="summary" data-view="me" aria-label="账户详情">
     <div class="stat"><label>总资产</label><div class="v num" id="sEquity">—</div><div class="s" id="sInitial">起始资金 —</div></div>
     <div class="stat"><label>总盈亏</label><div class="v num" id="sPnl">—</div><div class="s num" id="sPnlPct">—</div></div>
-    <div class="stat"><label>可用资金</label><div class="v num" id="sCash">—</div><div class="s">还能用来开仓的钱</div></div>
-    <div class="stat"><label>持仓盈亏（扣费后）</label><div class="v num" id="sUpnl">—</div><div class="s" id="sUpnlN">现在全部平仓的结果</div></div>
-    <div class="stat"><label>累计手续费</label><div class="v num" id="sFees">—</div><div class="s">已经付给交易所的钱</div></div>
+    <div class="stat"><label>可用资金</label><div class="v num" id="sCash">—</div><div class="s" id="sCashN">还能用来开仓的钱</div></div>
+    <div class="stat pro-only"><label>持仓盈亏（扣费后）</label><div class="v num" id="sUpnl">—</div><div class="s" id="sUpnlN">现在全部平仓的结果</div></div>
+    <div class="stat pro-only"><label>累计手续费</label><div class="v num" id="sFees">—</div><div class="s">已经付给交易所的钱</div></div>
   </section>
 
   <main class="grid">
@@ -427,17 +515,19 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
           </div>
           <span class="pill num" id="chChg">—</span>
           <div class="hl num" id="chHL"></div>
-          <div class="seg" role="group" aria-label="图表样式">
+          <div class="seg pro-only" role="group" aria-label="图表样式">
             <button id="tLine" aria-pressed="true">折线</button>
             <button id="tCandle" aria-pressed="false">K线</button>
           </div>
         </div>
         <div class="meme-warn chart-card-warn" id="chMeme" hidden></div>
+        <div class="news" id="chNews" hidden></div>
         <div id="mainChart"></div>
         <div class="chart-legend">
           <span id="lgUnit">每个点 = 1 分钟</span>
           <span class="up"><i></i>你的开仓价</span>
           <span style="color:var(--warn)"><i></i>爆仓价</span>
+          <span class="pro-only" style="color:var(--accent)"><i style="border-top-style:dotted"></i>止损 / 止盈</span>
         </div>
         <div class="mquick m-only">
           <button id="qLong" style="background:var(--up)">看涨 · 做多</button>
@@ -461,14 +551,26 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
         </div>
       </div>
       <div class="field">
-        <div class="field-h"><span>杠杆（放大倍数）</span><span class="faint">盈亏都会放大</span></div>
-        <div class="lev-row"><span class="lev-val" id="levVal">5×</span><input id="lev" type="range" min="0" max="13" step="1" value="4" aria-label="杠杆倍数"><span class="risk" id="levRisk">有风险</span></div>
+        <div class="field-h"><span>杠杆（放大倍数）</span><span class="faint"><span class="simple-only" id="levSimple"></span><span class="pro-only">盈亏都会放大</span></span></div>
+        <div class="lev-row pro-only"><span class="lev-val" id="levVal">5×</span><input id="lev" type="range" min="0" max="13" step="1" value="4" aria-label="杠杆倍数"><span class="risk" id="levRisk">有风险</span></div>
         <div class="chips" id="levChips"></div>
       </div>
+      <div class="field pro-only" id="stopsField">
+        <div class="field-h"><span>止损 / 止盈 <span class="faint">可选</span></span><span class="faint">按本金的盈亏算</span></div>
+        <div class="stops">
+          <label class="stop sl"><span>亏</span><input id="slPct" type="number" inputmode="decimal" min="1" step="any" placeholder="不设" aria-label="止损：亏损达到本金的百分之几"><span>%</span><em>止损</em></label>
+          <label class="stop tp"><span>赚</span><input id="tpPct" type="number" inputmode="decimal" min="1" step="any" placeholder="不设" aria-label="止盈：盈利达到本金的百分之几"><span>%</span><em>止盈</em></label>
+        </div>
+        <div class="chips" id="stopChips">
+          <button class="chip sl" data-sl="20">亏20%</button><button class="chip sl" data-sl="50">亏50%</button><button class="chip tp" data-tp="50">赚50%</button><button class="chip tp" data-tp="100">赚100%</button><button class="chip" data-clear>不设</button>
+        </div>
+        <div class="stops-px" id="stopsPx"></div>
+      </div>
       <div class="meme-warn" id="tMeme" hidden></div>
+      <div class="news" id="tNews" hidden></div>
       <div class="preview" id="preview"></div>
       <div class="err" id="tErr" hidden></div>
-      <div class="broke" id="broke" hidden><span><b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。好在这里可以重来。</span><button class="primary" id="brokeRestart">重新开始</button></div>
+      <div class="broke" id="broke" hidden><span id="brokeText"><b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。</span><div class="btns-row"><button class="primary pro-only" id="brokeLoan">去借钱翻身</button><button class="ghost" id="brokeRestart">重新开始</button></div></div>
       <button class="go" id="goBtn" data-side="long">买入做多 BTC</button>
     </section>
 
@@ -489,8 +591,20 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
         <div id="equityChart"></div>
         <div class="eq-note">每 5 秒记录一次总资产（按现在全部平仓计算，已扣手续费）。线在虚线上方说明你在赚钱。</div>
       </section>
+      <section class="card a-loan pro-only" data-view="me" id="loanCard">
+        <div class="card-h"><h2>贷款</h2><span class="faint" style="font-size:12px;margin-left:auto" id="loanRoom">还能借 —</span></div>
+        <div class="loan-body">
+          <div><small class="faint">当前欠款</small><div class="v num" id="loanDebt">$0.00</div><small class="faint" id="loanInt">没有欠款</small></div>
+          <label class="money"><span>$</span><input id="loanAmt" type="number" inputmode="decimal" min="1" step="any" placeholder="金额" aria-label="借款或还款金额"></label>
+          <div class="chips"><button class="chip" data-loan="1000">$1,000</button><button class="chip" data-loan="room">借满</button><button class="chip" data-loan="all">全部还清</button></div>
+          <div class="btns-row"><button class="primary" id="loanBorrow">借款</button><button class="ghost" id="loanRepay">还款</button></div>
+          <div class="err" id="loanErr" hidden></div>
+          <p class="loan-note">利息每小时 5%，利滚利：借 $1,000，1 小时后欠 $1,050，24 小时后欠 $3,225，7 天后欠约 $363 万。欠款上限是起始资金的 3 倍，还款从可用资金里扣。</p>
+        </div>
+      </section>
       <section class="card a-board" data-view="board" id="boardCard">
         <div class="card-h"><h2>排行榜</h2><span class="faint" id="lbCount" style="font-size:12px;margin-left:auto">按收益率排名</span></div>
+        <div class="seg lb-tabs" role="group" aria-label="榜单" id="lbTabs"><button data-lbtab="s" aria-pressed="true">小赛季</button><button data-lbtab="S" aria-pressed="false">大赛季</button><button data-lbtab="all" aria-pressed="false">总榜</button></div>
         <div id="lbBody"></div>
       </section>
     </div>
@@ -521,10 +635,17 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       </div>
       <label class="money"><span>$</span><input id="capCustom" type="number" min="100" step="100" placeholder="或输入任意金额" aria-label="自定义起始资金"></label>
     </div>
+    <div class="field">
+      <div class="field-h"><span>选一个界面</span><span class="faint">随时可以在右上角切换</span></div>
+      <div class="caps" id="startMode" style="grid-template-columns:1fr 1fr">
+        <button class="cap" data-smode="simple" aria-pressed="true"><b style="font-family:var(--f-body)">简易</b><small>只有买入、做空和杠杆，适合新手</small></button>
+        <button class="cap" data-smode="pro" aria-pressed="false"><b style="font-family:var(--f-body)">高级</b><small>加上止损止盈、费用明细、贷款</small></button>
+      </div>
+    </div>
     <div class="three">
       <div><span><b>选一个币</b>：比特币、以太坊、狗狗币，波动极大的 PEPE、WIF，或者每分钟都在上蹿下跳的虚构「火箭币」。</span></div>
       <div><span><b>猜方向</b>：觉得会涨点「做多」，觉得会跌点「做空」。</span></div>
-      <div><span><b>随时平仓</b>：把盈亏落袋，解锁成就，目标是资产翻 100 倍。</span></div>
+      <div><span><b>随时平仓</b>：把盈亏落袋，解锁成就、升级称号，在每 2 天一季的赛季里和朋友比收益。</span></div>
     </div>
     <button class="primary" id="startBtn">开始练习</button>
   </div>
@@ -549,7 +670,13 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <div><b>爆仓</b>价格反向走太多、本金快亏光时，系统强制平仓，本金就没了。杠杆越高越容易爆仓。</div>
       <div><b>手续费</b>开仓和平仓各收「仓位价值」的 0.1%。开了杠杆，仓位变大，手续费也跟着变大。</div>
       <div><b>净盈亏</b>价格带来的盈亏，减去开仓和平仓的手续费。这才是你真正赚到或亏掉的钱。</div>
-      <div><b>火箭币（虚构）</b>游戏生成的假币，现实中不存在。每 15 分钟一局，从 $1.00 发射，局末自动结算；手续费 1%，每次交易后冷却 20 秒。所有玩家看到同一个价格。现实里遇到这样波动的币，多半是骗局。</div>
+      <div><b>火箭币（虚构）</b>游戏生成的假币，现实中不存在。每 8 分钟一局，从 $1.00 发射，局末自动结算；每局只能开仓一次，平仓延迟 20 秒成交，手续费 5%。所有玩家看到同一个价格。现实里遇到这样波动的币，多半是骗局。</div>
+      <div><b>穿仓</b>价格一下子跳过了爆仓价，亏损超过了本金。超出的部分要从可用资金里倒贴，总资产可能变成负数。</div>
+      <div><b>贷款</b>可以借钱继续玩，利息每小时 5%，利滚利：一天后欠款变成 3.2 倍，一周后变成约 3,600 倍。</div>
+      <div><b>止损 / 止盈（高级界面）</b>开仓时提前定好：亏到本金的多少就自动卖（止损），赚到多少就自动卖（止盈）。价格一碰到就按当时价格平仓。</div>
+      <div><b>火箭币快讯</b>每局会冒出一条快讯，可能是真消息也可能是假消息，真假各一半。几十秒后揭晓：真消息价格按消息方向跳，假消息反着跳。</div>
+      <div><b>赛季</b>每 2 天一个小赛季、每 10 天一个大赛季，按这一季里的收益排名，前三名进往届冠军榜。总榜照常保留。</div>
+      <div><b>等级和称号</b>交易、赚钱、解锁成就都能加经验，从「韭菜」一路升到「传奇」。称号会显示在排行榜上。</div>
       <div><b>迷因币（PEPE、WIF）</b>源自网络梗的币：PEPE 是青蛙表情包，WIF 是戴毛线帽的柴犬。没有实际用途，价格靠热度和情绪推动，涨跌是比特币的近 3 倍，现实中很多迷因币最终归零。</div>
     </div>
     <p style="font-size:12.5px">小提示：1× 做多就等于直接买币，最安全；先用它熟悉一下，再慢慢试杠杆。</p>
@@ -568,6 +695,10 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
           <button data-colors="cn" aria-pressed="true">红涨绿跌</button>
           <button data-colors="intl" aria-pressed="false">绿涨红跌</button>
         </div>
+      </div>
+      <div class="set-row">
+        <div class="lbl"><b>界面</b><small>简易：只有买入、做空和杠杆；高级：止损止盈、费用明细、贷款等全部功能</small></div>
+        <div class="seg modeseg" role="group" aria-label="界面" style="margin:0"><button data-mode="simple" aria-pressed="false">简易</button><button data-mode="pro" aria-pressed="true">高级</button></div>
       </div>
       <div class="set-row set-col">
         <div class="lbl"><b>行情来源</b><small id="srcInfo">—</small></div>
@@ -611,11 +742,21 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     <h3 id="rocketTitle">火箭币是虚构的</h3>
     <p>火箭币（ROCKET）不是真实存在的币，现实中买不到。它的价格由游戏按固定规则每秒生成，专门用来体验超短线的刺激。</p>
     <div class="three">
-      <div><span><b>每 15 分钟一局</b>：整点、15、30、45 分从 $1.00 重新发射，局末未平仓位按最后价格自动结算。所有玩家看到同一条行情，走势没有规律可循，比的是胆量和运气。</span></div>
-      <div><span><b>规则更严</b>：手续费 1%（普通币 0.1%），每次开仓或平仓后要冷却 20 秒才能再交易火箭币。</span></div>
+      <div><span><b>每 8 分钟一局</b>：每局从 $1.00 重新发射，局末未平仓位按最后价格自动结算；每局只能开仓一次。所有玩家看到同一条行情，走势没有规律可循，比的是胆量和运气。</span></div>
+      <div><span><b>规则更严</b>：手续费 5%（普通币 0.1%）；点平仓后要等 20 秒才按当时价格成交；价格跳空越过爆仓价时，多亏的部分要从可用资金里倒贴（穿仓）。</span></div>
+      <div><span><b>真假快讯</b>：每局会出现一条快讯，真假各一半，几十秒后揭晓。真消息价格顺着消息跳，假消息反着跳，幅度 15–40%。现实中靠「内幕消息」炒币，同样经常被假消息收割。</span></div>
       <div><span><b>每分钟都在上蹿下跳，高杠杆几十秒就可能爆仓</b>。真实市场里没有正规的币会这样波动，遇到这样的币通常意味着骗局。</span></div>
     </div>
     <div class="btns-row"><button class="primary" id="rocketGo">我知道是虚构的，开始玩</button><button class="ghost" id="rocketNo">再想想</button></div>
+  </div>
+</div>
+
+<!-- level -->
+<div class="modal" id="mLevel" hidden>
+  <div class="sheet" role="dialog" aria-labelledby="lvTitleH">
+    <button class="x" data-close aria-label="关闭">×</button>
+    <h3 id="lvTitleH">等级与称号</h3>
+    <div id="lvBody"></div>
   </div>
 </div>
 
@@ -647,7 +788,7 @@ const COINS = {
         story:'戴毛线帽的柴犬', stat:'近 30 天日均波动约 5.6%，是比特币的 2.9 倍；单日最大涨跌 19%'},
 };
 // ROCKET is fictional: its price is generated by the game, the same for every player
-COINS.ROCKET = {name:'火箭币', glyph:'R', color:'#C2378A', dp:4, qdp:2, seed:1, vol:0, fictional:true, barSec:5, fee:0.01, cooldown:20};
+COINS.ROCKET = {name:'火箭币', glyph:'R', color:'#C2378A', dp:4, qdp:2, seed:1, vol:0, fictional:true, barSec:5, fee:0.05, closeDelay:20};
 const ORDER = ['BTC','ETH','DOGE','PEPE','WIF','ROCKET'];
 const REAL = ORDER.filter(c=>!COINS[c].fictional);
 const ROCKET_ACK_KEY = 'lianshou-rocket-ack-v1';
@@ -657,6 +798,8 @@ const CB_SYMS = {'BTC-USD':'BTC','ETH-USD':'ETH','DOGE-USD':'DOGE','PEPE-USD':'P
 const BN_SYMS = {'BTCUSDT':'BTC','ETHUSDT':'ETH','DOGEUSDT':'DOGE','PEPEUSDT':'PEPE','WIFUSDT':'WIF'};
 const LEVS = [1,2,3,4,5,6,8,10,15,20,25,30,40,50];
 const LEV_CHIPS = [1,3,5,10,20,50];
+const LEV_CHIPS_SIMPLE = [1,2,3,5,10];   // the simple screen tops out at 10×
+const MODE_KEY = 'lianshou-mode-v1';
 const FEE = 0.001;      // 0.1% of position value, charged on open and on close (ROCKET: 1%)
 const LIQ = 0.9;        // liquidated once the price loss reaches 90% of the margin
 const LS_KEY = 'lianshou-exchange-v1';
@@ -709,14 +852,19 @@ function migrate(s){
   if(s.feesPaid==null) s.feesPaid = s.positions.reduce((a,p)=>a+(p.openFee||0),0) + s.history.reduce((a,h)=>a+(h.fee||0),0);
   if(!s.stats) s.stats = {trades:s.history.length, wins:s.history.filter(h=>h.pnl>0).length, liqs:s.history.filter(h=>h.reason==='liq').length, minRatio:1, best:Math.max(0,...s.history.map(h=>h.pnl))};
   s.streak = s.streak||0;
+  if(s.stats.qt==null){ s.stats.qt = s.stats.trades; s.stats.qw = s.stats.wins; }   // trades that count for XP
+  if(!s.created) s.created = (s.equity[0] && s.equity[0].time*1000) || Date.now();
   return s;
 }
 state = migrate(state);
 function newState(capital){
-  return migrate({v:2, initial:capital, cash:capital, positions:[], history:[], equity:[{time:Math.floor(Date.now()/1000), value:capital}], ach:{}, streak:0, feesPaid:0, prefs, sim:(state&&state.sim)||{}, created:Date.now()});
+  return migrate({v:2, initial:capital, cash:capital, positions:[], history:[], equity:[{time:Math.floor(Date.now()/1000), value:capital}], ach:{}, streak:0, feesPaid:0, loan:{debt:0, principal:0, at:Date.now()}, rkEntry:null, prefs, sim:(state&&state.sim)||{}, created:Date.now()});
 }
 
-const ui = { coin:'BTC', side:'long', levIdx:4, chart:'area', tab:'pos', view:'market' };
+const ui = { coin:'BTC', side:'long', levIdx:4, chart:'area', tab:'pos', view:'market', mode:'pro', lbTab:'s', stopEdit:null };
+// new players start on the simple screen; people who already played keep the full one
+try{ const m = localStorage.getItem(MODE_KEY); ui.mode = (m==='simple'||m==='pro') ? m : (state ? 'pro' : 'simple'); }catch(e){ ui.mode = state ? 'pro' : 'simple'; }
+document.documentElement.dataset.mode = ui.mode;
 const market = {};
 ORDER.forEach(c => market[c] = { price:null, prev:null, chg:null, ref:null, bars:[], dirty:true, reset:false });
 
@@ -752,6 +900,7 @@ function applyTick(coin, price, t){
   if(!last || bt > last.time){ upsertBar(coin,{time:bt, open:price, high:price, low:price, close:price}); }
   else if(bt===last.time){ last.close=price; if(price>last.high) last.high=price; if(price<last.low) last.low=price; m.dirty=true; }
   if(m.ref) m.chg = price/m.ref - 1;
+  checkStops(coin);
   checkLiq(coin);
   scheduleRender();
 }
@@ -971,13 +1120,13 @@ function simStep(){
 
 
 /* ---------- ROCKET: fictional coin, generated from the clock ----------
-   Rounds of 15 minutes, aligned to :00 :15 :30 :45 on the world clock. Each round launches at $1.00.
+   Rounds of 8 minutes, aligned to the world clock (every 480 s since 1970). Each round launches at $1.00.
    Every second has a fixed random shock derived from the second's number, so every player sees
    exactly the same price at the same moment. The walk is "fair": the expected next price equals
    the current price, so there is no level it drifts back to and no free direction to bet on.
    Shocks: ~0.55% per second, plus jumps (≈ every 4 min ±6–22%, ≈ every 90 min ±30–60%).
    At the end of a round, open ROCKET positions are settled at the round's last price.           */
-const RK = { seed:0x5EED1234, base:1.0, sig:0.0055, round:900, pJump:1/240, pMega:1/5400, j0:0.06, j1:0.16, m0:0.30, m1:0.30 };
+const RK = { seed:0x5EED1234, base:1.0, sig:0.0055, round:480, pJump:1/240, pMega:1/5400, j0:0.06, j1:0.16, m0:0.30, m1:0.30 };
 const rkEcosh = (a,w)=> (Math.sinh(a+w)-Math.sinh(a))/w - 1;
 const RK_C = RK.sig*RK.sig/2 + Math.log(1 + RK.pJump*rkEcosh(RK.j0,RK.j1) + RK.pMega*rkEcosh(RK.m0,RK.m1)); // keeps E[next price] = price
 let clockSkew = 0;                       // server minus local clock, learned from the leaderboard
@@ -990,11 +1139,33 @@ function rkShock(sec){
   const j=rkHash(k,3);
   if(j<RK.pJump) e+=(rkHash(k,4)<0.5?-1:1)*(RK.j0+RK.j1*rkHash(k,5));
   else if(j<RK.pJump+RK.pMega) e+=(rkHash(k,6)<0.5?-1:1)*(RK.m0+RK.m1*rkHash(k,7));
+  const n = rkNews(rkRound(sec));
+  if(sec===n.reveal) e += n.move*n.J - Math.log(Math.cosh(n.J));   // the news jump; −log cosh keeps the walk fair
   return e - RK_C;
+}
+/* One news flash per round, the same for everyone. It shows up 1–5 minutes into the round and is
+   settled 10–39 seconds later. Half are true (the price jumps the way the headline says), half are
+   fake (it jumps the other way). Since true and fake are equally likely, the headline itself tells
+   you nothing about the direction: it's a test of nerve, not a free tip. All stories are made up. */
+const RK_NEWS_UP = ['链上监测：神秘巨鲸刚刚买入 2 亿枚火箭币','传闻某大型交易所即将上线火箭币','火箭币团队宣布：下周销毁一半的币',
+  '网传一家连锁奶茶店将接受火箭币付款','火箭币社区投票通过「永不增发」提案','据称火箭币刚刚冲上热搜第一','有人爆料：一家基金正在悄悄收购火箭币'];
+const RK_NEWS_DOWN = ['传闻火箭币核心开发者已经跑路','链上监测：早期大户正把 3 亿枚火箭币转进交易所','网传火箭币的智能合约有严重漏洞',
+  '传闻某交易所将下架火箭币','火箭币官方账号疑似被盗，发布了奇怪的链接','有人爆料：火箭币团队偷偷增发了 10 亿枚','据称监管部门正在调查火箭币项目'];
+const rkNewsCache = new Map();
+function rkNews(r){
+  let n = rkNewsCache.get(r); if(n) return n;
+  const k = ((r*2654435761) ^ 0x4E35A9)>>>0, st = r*RK.round;
+  const at = st + 60 + Math.floor(rkHash(k,11)*240);
+  const reveal = at + 10 + Math.floor(rkHash(k,12)*30);
+  const J = 0.15 + 0.25*rkHash(k,13), dir = rkHash(k,14)<0.5 ? 1 : -1, truth = rkHash(k,15)<0.5;
+  const list = dir>0 ? RK_NEWS_UP : RK_NEWS_DOWN;
+  n = {round:r, at, reveal, J, dir, truth, move: truth?dir:-dir, text: list[Math.floor(rkHash(k,16)*list.length)]};
+  if(rkNewsCache.size>64) rkNewsCache.clear();
+  rkNewsCache.set(r, n); return n;
 }
 const rkRound = sec => Math.floor(sec/RK.round);
 const rkRoundStart = sec => rkRound(sec)*RK.round;
-function rkLogAt(sec){ let x=0; for(let i=rkRoundStart(sec)+1;i<=sec;i++) x+=rkShock(i); return x; }   // ≤ 900 steps
+function rkLogAt(sec){ let x=0; for(let i=rkRoundStart(sec)+1;i<=sec;i++) x+=rkShock(i); return x; }   // ≤ 480 steps
 const rk = { sec:0, x:0, timer:null };
 const rkPrice = ()=> RK.base*Math.exp(rk.x);
 function rkSet(sec){ rk.sec=sec; rk.x=rkLogAt(sec); }
@@ -1007,7 +1178,10 @@ function rkSettle(beforeSec){
     const end=(p.round+1)*RK.round-1; const from=Math.max((p.openSec!=null?p.openSec:Math.floor(p.opened/1000))+1, p.round*RK.round+1);
     let x=rkLogAt(from-1);
     for(let sec=from; sec<=end; sec++){ x+=rkShock(sec); const px=RK.base*Math.exp(x);
-      if(p.liq!=null && (p.side==='long'? px<=p.liq : px>=p.liq)){ closePos(p.id,1,'liq',px); return; } }
+      if(p.liq!=null && (p.side==='long'? px<=p.liq : px>=p.liq)){ closePos(p.id,1,'liq',px); return; }
+      if(p.pending && sec>=p.pending.atSec){ const fr=p.pending.frac; closePos(p.id,fr,'delayed',px); if(fr>=0.999) return; continue; }
+      if(!p.pending){ const why=stopHit(p,px); if(why) p.pending={frac:1, atSec:sec+COINS[p.coin].closeDelay, why}; }
+    }
     closePos(p.id,1,'settle',RK.base*Math.exp(x));
   });
 }
@@ -1033,12 +1207,66 @@ function rkTick(){
     if((rk.sec+1) % RK.round === 0) rkSettle(rk.sec+1);   // round over: settle at the last price
     rkAdvance();
     applyTick('ROCKET', rkPrice(), rk.sec*1000);
+    if(state) state.positions.filter(p=>p.pending && p.pending.atSec<=rk.sec).forEach(p=>closePos(p.id, p.pending.frac, 'delayed'));
+    if(target - rk.sec < 3) rkNewsEvent(rk.sec);       // no stale news pop-ups when catching up after a sleep
   }
+}
+function rkNewsEvent(sec){
+  const n = rkNews(rkRound(sec)); if(sec!==n.at && sec!==n.reveal) return;
+  const care = ui.coin==='ROCKET' || (state && state.positions.some(p=>p.coin==='ROCKET'));
+  if(sec===n.at){ if(care) toast(`<b>火箭币快讯</b>　${esc(n.text)}<br><span style="opacity:.75">真假未知，几十秒内揭晓。</span>`); }
+  else if(care) toast(n.truth ? `<b>已证实</b>　「${esc(n.text)}」是真的，火箭币${n.dir>0?'暴涨':'暴跌'}。` : `<b>假消息</b>　「${esc(n.text)}」已被辟谣，火箭币反向${n.dir>0?'暴跌':'暴涨'}。`);
+  renderNews();
+}
+// the strip under the chart and in the ticket
+function renderNews(){
+  const n = rkNews(rkRound(rk.sec)), sec = rk.sec, show = ui.coin==='ROCKET' && sec>=n.at;
+  let h='';
+  if(show){
+    const st = sec<n.reveal ? '<span class="st q">真假未知 · 即将揭晓</span>' : n.truth ? '<span class="st t">已证实</span>' : '<span class="st f">假消息</span>';
+    const tail = sec<n.reveal ? '' : `<br><span class="faint">${n.truth?'消息属实，价格顺着消息':'消息是假的，价格反着'}${n.move>0?'上跳':'下跳'}约 ${Math.round(n.J*100)}%。</span>`;
+    h = `<span class="nt">快讯</span><span><span class="hl">${esc(n.text)}</span>${st}${tail}</span>`;
+  }
+  ['chNews','tNews'].forEach(id=>{ const e=$(id); if(!e) return; e.hidden=!show; if(e.dataset.h!==h){ e.dataset.h=h; e.innerHTML=h; } e.classList.toggle('wait', show && sec<n.reveal); });
 }
 function rkLeft(){ return RK.round - (rk.sec % RK.round); }   // seconds until this round ends
 function rkRoundLabel(){ const a=new Date(rkRoundStart(rk.sec)*1000), b=new Date((rkRoundStart(rk.sec)+RK.round)*1000), f=d=>d.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',hour12:false}); return f(a)+'–'+f(b); }
 const mmss = s => String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
 function rkStart(){ rkRebuild(); clearInterval(rk.timer); rk.timer = setInterval(rkTick, 250); }
+
+
+/* ---------- loans: 5% per hour, compounding ---------- */
+const LOAN_RATE = 0.05, LOAN_CAP = 3;          // per hour; you can owe at most 3× your starting money
+function debtNow(){ const L=state&&state.loan; if(!L || !(L.debt>0)) return 0; return L.debt*Math.pow(1+LOAN_RATE, (Date.now()-L.at)/3600000); }
+function loanSettle(){ if(!state) return; const d=debtNow(); state.loan = Object.assign(state.loan||{principal:0, interest:0}, {debt:d, at:Date.now()}); }
+function loanRoom(){ return state ? Math.max(0, state.initial*LOAN_CAP - debtNow()) : 0; }
+function borrow(amt){
+  if(!state) return;
+  amt = Math.floor(amt*100)/100;
+  if(!(amt>0)) return loanMsg('先填一个借款金额');
+  if(amt > loanRoom()+1e-6) return loanMsg(`最多还能借 ${fmtUSD(loanRoom())}（欠款上限是起始资金的 ${LOAN_CAP} 倍）`);
+  loanSettle(); state.loan.debt += amt; state.loan.principal += amt; state.cash += amt;
+  toast(`<b>借款到账</b>　${fmtUSD(amt)} 已存入可用资金。利息每小时 5%，利滚利，记得早点还。`);
+  unlock('loan'); loanMsg(''); afterChange();
+}
+function repay(amt){
+  if(!state) return; loanSettle();
+  const d=state.loan.debt; if(!(d>0)) return loanMsg('你没有欠款');
+  amt = Math.min(amt, d); amt = Math.floor(amt*100)/100; if(amt>=d-0.005) amt=d;
+  if(!(amt>0)) return loanMsg('先填一个还款金额');
+  if(amt > state.cash+1e-6) return loanMsg(`可用资金只有 ${fmtUSD(Math.max(0,state.cash))}，不够还这么多`);
+  state.loan.debt -= amt; state.cash -= amt; state.loan.principal = Math.min(state.loan.principal, state.loan.debt);
+  if(state.loan.debt < 0.005){ state.loan.debt=0; state.loan.principal=0; toast('<b>贷款还清</b>　无债一身轻。'); unlock('debtfree'); }
+  else toast(`<b>已还款</b>　${fmtUSD(amt)}，还欠 ${fmtUSD(state.loan.debt)}。`);
+  loanMsg(''); afterChange();
+}
+function loanMsg(m){ const e=$('loanErr'); if(e){ e.textContent=m||''; e.hidden=!m; } }
+function renderLoan(){
+  if(!state) return; const d=debtNow(), L=state.loan||{principal:0};
+  $('loanDebt').textContent = fmtUSD(d); $('loanDebt').className = 'v num '+(d>0.004?'debt':'faint');
+  $('loanInt').textContent = d>0.004 ? `本金 ${fmtUSD(Math.min(L.principal||0,d))} · 利息 ${fmtUSD(Math.max(0,d-(L.principal||0)))} · 每小时 +${fmtUSD(d*LOAN_RATE)}` : '没有欠款';
+  $('loanRoom').textContent = '还能借 '+fmtUSD(loanRoom());
+}
 
 /* ---------- trading math ---------- */
 const lev = ()=> LEVS[ui.levIdx];
@@ -1048,16 +1276,49 @@ function liqPrice(side, entry, L){ if(side==='long' && L===1) return null; retur
 // everything a position card needs, computed at the current price
 function calc(pos, px){
   if(px==null) px = pos.entry;
-  const gross = Math.max((pos.side==='long' ? px-pos.entry : pos.entry-px)*pos.qty, -pos.margin);
+  const gross = (pos.side==='long' ? px-pos.entry : pos.entry-px)*pos.qty;     // no floor: losses past the margin are yours (穿仓)
   const valueNow = pos.qty*px;
   const closeFee = valueNow*(pos.feeRate!=null ? pos.feeRate : feeOf(pos.coin));
-  const back = Math.max(0, pos.margin + gross - closeFee);
+  const back = pos.margin + gross - closeFee;   // can be negative
   const net = back - pos.margin - pos.openFee;
   return {px, gross, valueNow, valueOpen:pos.qty*pos.entry, closeFee, back, net, spent:pos.margin+pos.openFee};
 }
-function equity(){ if(!state) return 0; let e=state.cash; state.positions.forEach(p=>{ e += calc(p, market[p.coin].price).back; }); return e; }
+function equity(){ if(!state) return 0; let e=state.cash - debtNow(); state.positions.forEach(p=>{ e += calc(p, market[p.coin].price).back; }); return e; }
 function openNet(){ if(!state) return 0; return state.positions.reduce((s,p)=>s+calc(p,market[p.coin].price).net,0); }
 function maxMargin(L){ return state ? Math.max(0, state.cash/(1+L*feeOf(ui.coin))) : 0; }
+
+/* stop-loss / take-profit, set as a % of the margin (fees not included) */
+function readStops(){
+  if(ui.mode!=='pro') return {s:null, t:null};
+  const a=+$('slPct').value, b=+$('tpPct').value;
+  return {s: a>0 ? a : null, t: b>0 ? b : null};
+}
+function stopPx(side, entry, L, sp, tp){
+  return { sl: sp==null ? null : side==='long' ? entry*(1-sp/100/L) : entry*(1+sp/100/L),
+           tp: tp==null ? null : side==='long' ? entry*(1+tp/100/L) : entry*(1-tp/100/L) };
+}
+function stopErr(side, L, sp, tp){
+  if(sp!=null && side==='long' && sp/100/L>=1) return '止损设得太远了：就算价格跌到 0 也亏不到这么多。';
+  if(tp!=null && side==='short' && tp/100/L>=1) return `做空 ${L}× 最多只能赚本金的 ${L*100}%（价格跌到 0），止盈要设得小一点。`;
+  return null;
+}
+function stopHit(p, px){
+  if(p.sl!=null && (p.side==='long' ? px<=p.sl : px>=p.sl)) return 'sl';
+  if(p.tp!=null && (p.side==='long' ? px>=p.tp : px<=p.tp)) return 'tp';
+  return null;
+}
+function checkStops(coin){
+  if(!state) return; const px=market[coin].price; if(px==null) return;
+  state.positions.filter(p=>p.coin===coin && !p.pending && (p.sl!=null || p.tp!=null)).forEach(p=>{
+    const why = stopHit(p, px); if(!why) return;
+    if(why==='sl' && p.liq!=null && (p.side==='long' ? p.sl<=p.liq : p.sl>=p.liq)) return;   // liquidation comes first
+    if(COINS[coin].closeDelay){
+      p.pending = {frac:1, atSec: rk.sec + COINS[coin].closeDelay, why};
+      toast(`<b>${why==='sl'?'止损':'止盈'}触发</b>　${coin} 将在 ${COINS[coin].closeDelay} 秒后按当时的价格平仓。`);
+      saveSoon(); renderPositions(true);
+    } else closePos(p.id, 1, why);
+  });
+}
 
 function memeAcked(){ if(window.__memeAck) return true; try{ return localStorage.getItem(MEME_ACK_KEY)==='1'; }catch(e){ return false; } }
 function rocketAcked(){ if(window.__rocketAck) return true; try{ return localStorage.getItem(ROCKET_ACK_KEY)==='1'; }catch(e){ return false; } }
@@ -1071,9 +1332,14 @@ function openPos(){
   const notional = margin*L, fee = notional*feeOf(coin);
   state.cash -= margin+fee; state.feesPaid += fee;
   const pos = {id:Date.now().toString(36)+Math.random().toString(36).slice(2,6), coin, side, lev:L, margin, qty:notional/p, entry:p, liq:liqPrice(side,p,L), openFee:fee, feeRate:feeOf(coin), opened:Date.now(), round: COINS[coin].fictional ? rkRound(rk.sec) : undefined, openSec: COINS[coin].fictional ? rk.sec : undefined};
-  if(COINS[coin].cooldown) state.cd = Object.assign(state.cd||{}, {[coin]: Date.now()});
+  if(COINS[coin].fictional){
+    state.rkEntry = rkRound(rk.sec);
+    const n = rkNews(rkRound(rk.sec)); if(rk.sec>=n.at && rk.sec<n.reveal) pos.news = {round:n.round, dir:n.dir};
+  }
+  const st = readStops();
+  if(st.s!=null || st.t!=null){ const sp = stopPx(side, p, L, st.s, st.t); pos.sl=sp.sl; pos.tp=sp.tp; pos.slPct=st.s; pos.tpPct=st.t; }
   state.positions.unshift(pos);
-  toast(`<b>开仓成功</b>　${side==='long'?'做多':'做空'} ${coin} ${L}×，本金 ${fmtUSD(margin)} + 手续费 ${fmtUSD(fee)}，共扣 ${fmtUSD(margin+fee)}`);
+  toast(`<b>开仓成功</b>　${side==='long'?'做多':'做空'} ${coin} ${L}×，本金 ${fmtUSD(margin)} + 手续费 ${fmtUSD(fee)}，共扣 ${fmtUSD(margin+fee)}`+(pos.sl!=null||pos.tp!=null?`<br>${pos.sl!=null?'止损 '+fmtPx(coin,pos.sl):''}${pos.sl!=null&&pos.tp!=null?' · ':''}${pos.tp!=null?'止盈 '+fmtPx(coin,pos.tp):''}`:''));
   unlock('first'); if(side==='short') unlock('short'); if(L>=10) unlock('bold'); if(L>=50) unlock('max');
   if(['BTC','ETH','DOGE'].every(c=>state.positions.some(x=>x.coin===c))) unlock('trio');
   if(COINS[coin].meme) unlock('meme');
@@ -1083,27 +1349,42 @@ function openPos(){
 function closePos(id, frac, reason, atPx){
   const i = state.positions.findIndex(p=>p.id===id); if(i<0) return;
   const pos = state.positions[i]; const px = atPx!=null ? atPx : market[pos.coin].price; if(px==null) return;
-  if(reason==='manual' && cdLeft(pos.coin)>0){ toast(`<b>冷却中</b>　${pos.coin} 还要等 ${cdLeft(pos.coin)} 秒才能再交易`); return; }
-  if(reason==='manual' && COINS[pos.coin].cooldown) state.cd = Object.assign(state.cd||{}, {[pos.coin]: Date.now()});
+  if(reason==='manual' && COINS[pos.coin].closeDelay){
+    // ROCKET: the close is queued and fills at the price N seconds later
+    if(pos.pending) return;
+    pos.pending = {frac, atSec: rk.sec + COINS[pos.coin].closeDelay};
+    toast(`<b>平仓已提交</b>　${pos.coin} 将在 ${COINS[pos.coin].closeDelay} 秒后按当时的价格成交，期间仍可能爆仓。`);
+    saveSoon(); renderPositions(true); return;
+  }
+  if(reason==='delayed') reason = (pos.pending && pos.pending.why) || 'manual';
   frac = Math.min(1, Math.max(0, frac));
   const part = Object.assign({}, pos, {margin:pos.margin*frac, qty:pos.qty*frac, openFee:pos.openFee*frac});
   const c = calc(part, px);
   let back=c.back, closeFee=c.closeFee, gross=c.gross;
-  if(reason==='liq'){ back=0; closeFee=0; gross=-part.margin; }
+  if(reason==='liq'){ closeFee=0; back = part.margin + gross; }   // liquidation fills at the real price; a gap past it is charged
   state.cash += back; state.feesPaid += closeFee;
   const net = back - part.margin - part.openFee;
   state.history.unshift({coin:pos.coin, side:pos.side, lev:pos.lev, entry:pos.entry, exit:px, margin:part.margin, gross, fee:part.openFee+closeFee, back, pnl:net, reason, t:Date.now(), held:Date.now()-pos.opened, part:frac<0.999});
   if(state.history.length>300) state.history.length=300;
   if(frac>=0.999) state.positions.splice(i,1);
   else { pos.margin-=part.margin; pos.qty-=part.qty; pos.openFee-=part.openFee; }
+  delete pos.pending;
   const st = state.stats; st.trades++;
+  // XP only counts trades of a real size (position ≥ 5% of the starting money, held ≥ 10 s)
+  const xpOk = part.margin*pos.lev >= state.initial*0.05 && Date.now()-pos.opened >= 10000;
+  if(xpOk){ st.qt=(st.qt||0)+1; if(net>0) st.qw=(st.qw||0)+1; }
   if(reason==='liq'){
     st.liqs++; state.streak=0;
-    toast(`<b>爆仓了</b>　${pos.coin} ${pos.side==='long'?'做多':'做空'} ${pos.lev}× 的本金 ${fmtUSD(part.margin)} 没了。杠杆越高，越经不起波动。`);
+    if(back < -0.005) toast(`<b>爆仓并穿仓</b>　${pos.coin} ${pos.lev}× 价格跳空越过爆仓价，本金 ${fmtUSD(part.margin)} 全没了，还倒欠 ${fmtUSD(-back)}，已从可用资金里扣除。`);
+    else toast(`<b>爆仓了</b>　${pos.coin} ${pos.side==='long'?'做多':'做空'} ${pos.lev}× 的本金 ${fmtUSD(part.margin)} 没了。杠杆越高，越经不起波动。`);
+    if(back < -0.005) unlock('gap');
     unlock('rekt'); if(st.liqs>=5) unlock('rekt5');
   } else {
     if(reason==='settle') toast(`<b>本局结束</b>　${pos.coin} ${pos.side==='long'?'做多':'做空'} ${pos.lev}× 按 ${fmtPx(pos.coin,px)} 自动结算，扣完手续费${net>=0?'净赚':'净亏'} ${fmtUSD(Math.abs(net))}`);
-    else toast(`<b>${net>=0?'赚到了':'止损离场'}</b>　${pos.coin} ${frac<0.999?'平掉一半':'已平仓'}，到手 ${fmtUSD(back)}，扣完手续费${net>=0?'净赚':'净亏'} ${fmtUSD(Math.abs(net))}`);
+    else if(reason==='sl') toast(`<b>止损成交</b>　${pos.coin} 按 ${fmtPx(pos.coin,px)} 平仓，到手 ${fmtUSD(back)}，扣完手续费${net>=0?'净赚':'净亏'} ${fmtUSD(Math.abs(net))}。及时止损，留得青山在。`);
+    else if(reason==='tp') toast(`<b>止盈成交</b>　${pos.coin} 按 ${fmtPx(pos.coin,px)} 平仓，到手 ${fmtUSD(back)}，扣完手续费${net>=0?'净赚':'净亏'} ${fmtUSD(Math.abs(net))}。`);
+    else toast(`<b>${net>=0?'赚到了':'亏钱离场'}</b>　${pos.coin} ${frac<0.999?'平掉一半':'已平仓'}，到手 ${fmtUSD(back)}，扣完手续费${net>=0?'净赚':'净亏'} ${fmtUSD(Math.abs(net))}`);
+    if(reason==='sl') unlock('slhit'); if(reason==='tp') unlock('tphit');
     if(net>0){
       st.wins++; state.streak++; unlock('profit');
       if(pos.side==='short') unlock('shortwin');
@@ -1111,6 +1392,7 @@ function closePos(id, frac, reason, atPx){
       if(net>=part.margin && COINS[pos.coin].meme) unlock('memewin');
       if(net>=2*part.margin && COINS[pos.coin].fictional) unlock('moon');
       if(Date.now()-pos.opened<=60000) unlock('scalp');
+      if(pos.news){ const n=rkNews(pos.news.round), along=(pos.side==='long'?1:-1)===n.dir; if(rk.sec>=n.reveal){ if(!n.truth && !along) unlock('newsfade'); if(n.truth && along) unlock('newsride'); } }
       if(state.streak>=3) unlock('streak3'); if(state.streak>=5) unlock('streak5'); if(state.streak>=10) unlock('streak10');
     } else state.streak=0;
     if(Date.now()-pos.opened>3600e3) unlock('hodl');
@@ -1124,19 +1406,21 @@ function checkLiq(coin){
   if(!state) return; const p=market[coin].price;
   state.positions.filter(x=>x.coin===coin && x.liq!=null && (x.side==='long'? p<=x.liq : p>=x.liq)).forEach(x=>closePos(x.id,1,'liq'));
 }
-function cdLeft(coin){ const k=COINS[coin]; if(!k.cooldown || !state || !state.cd || !state.cd[coin]) return 0; return Math.max(0, Math.ceil((state.cd[coin] + k.cooldown*1000 - Date.now())/1000)); }
+function cdLeft(coin){ return 0; }   // (old cooldown rule, replaced by one entry per round)
+function rkJoined(){ return !!(state && state.rkEntry === rkRound(rk.sec)); }
 function validate(margin){
   if(!state) return '先选好起始资金';
-  if(cdLeft(ui.coin)>0) return `${ui.coin} 交易冷却中，还要等 ${cdLeft(ui.coin)} 秒`;
+  if(COINS[ui.coin].fictional && rkJoined()) return `火箭币每局只能参加一次，本局你已经参加过了。下一局 ${mmss(rkLeft())} 后开始。`;
   if(market[ui.coin].price==null) return '行情还没到，稍等一下';
   if(!(margin>0)) return '先填一个投入金额';
   if(margin<1) return '最少投入 $1';
   const need = margin*(1+lev()*feeOf(ui.coin));
   if(need > state.cash+1e-6) return `可用资金不够：本金加手续费一共要 ${fmtUSD(need)}。可以点「全部」自动填最大值。`;
+  const st = readStops(); const se = stopErr(ui.side, lev(), st.s, st.t); if(se) return se;
   return null;
 }
 function showErr(msg){ const e=$('tErr'); e.textContent=msg||''; e.hidden=!msg; }
-function afterChange(){ saveSoon(); renderPositions(true); renderHistory(); renderAch(); renderTrade(); renderSummary(); syncPriceLines(); sampleEquity(true); if(typeof lbSoon==='function') lbSoon(); }
+function afterChange(){ saveSoon(); checkLevel(); renderPositions(true); renderHistory(); renderAch(); renderTrade(); renderSummary(); syncPriceLines(); sampleEquity(true); if(typeof lbSoon==='function') lbSoon(); }
 
 /* ---------- achievements ---------- */
 const ACH = [
@@ -1154,15 +1438,14 @@ const ACH = [
   ['shortwin','空军司令','做空并且赚钱平仓','交易'],
   ['big','一把翻身','单笔交易净赚超过投入的本金','交易'],
   ['trio','雨露均沾','同时持有 BTC、ETH、DOGE','交易'],
-  ['board','公开挑战','加入排行榜','交易'],
-  ['top3','领奖台','排行榜进入前三（至少 3 人参赛）','交易'],
-  ['champ','榜首','排行榜第一名（至少 3 人参赛）','交易'],
   ['streak3','三连胜','连续 3 笔赚钱','交易',()=>[state.streak,3]],
   ['streak5','五连胜','连续 5 笔赚钱','交易',()=>[state.streak,5]],
   ['streak10','十连胜','连续 10 笔赚钱','交易',()=>[state.streak,10]],
   ['t10','勤奋练习','完成 10 笔交易','交易',()=>[state.stats.trades,10]],
   ['t50','老练交易员','完成 50 笔交易','交易',()=>[state.stats.trades,50]],
   ['t100','百战老兵','完成 100 笔交易','交易',()=>[state.stats.trades,100]],
+  ['slhit','及时止损','止损单第一次成交','交易'],
+  ['tphit','见好就收','止盈单第一次成交','交易'],
   ['bold','艺高人胆大','用 10× 以上杠杆开仓','冒险'],
   ['max','极限玩家','用满 50× 杠杆开仓','冒险'],
   ['rekt','爆仓体验卡','经历第一次爆仓','冒险'],
@@ -1176,13 +1459,69 @@ const ACH = [
   ['rocket','坐上火箭','第一次交易火箭币','冒险'],
   ['moon','登月','火箭币单笔净赚超过本金的 2 倍','冒险'],
   ['scalp','闪电手','一笔交易在 60 秒内平仓并赚钱','冒险'],
+  ['gap','穿仓','爆仓时价格跳空，倒欠了钱','冒险'],
+  ['neg','负翁','总资产变成负数','冒险'],
+  ['loan','借钱炒币','第一次贷款','冒险'],
+  ['debtfree','无债一身轻','还清全部贷款','冒险'],
+  ['newsfade','识破谣言','火箭币快讯出来后反着做，结果是假消息，赚钱平仓','冒险'],
+  ['newsride','消息灵通','火箭币快讯出来后跟着做，结果是真消息，赚钱平仓','冒险'],
+  ['board','公开挑战','加入排行榜','比赛'],
+  ['top3','领奖台','总榜进入前三（至少 3 人参赛）','比赛'],
+  ['champ','榜首','总榜第一名（至少 3 人参赛）','比赛'],
+  ['season3','赛季前三','在一个结束的赛季里进入前三（至少 3 人参赛）','比赛'],
+  ['seasonwin','小赛季冠军','拿下一个小赛季的第一名','比赛'],
+  ['bigwin','大赛季冠军','拿下一个大赛季的第一名','比赛'],
 ];
-const BIG = new Set(['x2','x5','x10','x100','x1000','big','streak10','comeback','champ','memewin','moon']);
+const BIG = new Set(['x2','x5','x10','x100','x1000','big','streak10','comeback','champ','memewin','moon','seasonwin','bigwin']);
 function unlock(k){
   if(!state || state.ach[k]) return; state.ach[k]=Date.now();
   const a=ACH.find(x=>x[0]===k);
   if(a) setTimeout(()=>{ toast(`<b>解锁成就</b>　${a[1]}：${a[2]}`); if(BIG.has(k)) confetti(); },350);
-  renderAch(); saveSoon();
+  renderAch(); saveSoon(); setTimeout(checkLevel, 900);
+}
+
+/* ---------- levels & titles ---------- */
+const LV_XP = [0,60,150,300,500,750,1050,1400,1800,2300,2900,3600,4400,5300,6300,7500,9000,11000,13500,16500];   // XP needed for Lv.1 … Lv.20
+const TITLES = [[1,'韭菜'],[3,'小散户'],[5,'散户'],[7,'短线客'],[9,'老韭菜'],[11,'操盘手'],[13,'大户'],[16,'庄家'],[19,'传奇']];
+function xpParts(){
+  const st=state.stats, got=ACH.filter(a=>state.ach[a[0]]), big=got.filter(a=>BIG.has(a[0])).length;
+  return {trades:(st.qt||0)*10, wins:(st.qw||0)*5, ach:got.length*40, big:big*120};
+}
+function xpOf(){ if(!state) return 0; const p=xpParts(); return p.trades+p.wins+p.ach+p.big; }
+function levelOf(xp){ let l=1; while(l<LV_XP.length && xp>=LV_XP[l]) l++; return l; }
+function titleOf(l){ let t=TITLES[0][1]; TITLES.forEach(([n,name])=>{ if(l>=n) t=name; }); return t; }
+function renderLv(){
+  if(!state) return; const xp=xpOf(), l=levelOf(xp);
+  $('lvNum').textContent='Lv.'+l; $('lvTitle').textContent=titleOf(l);
+  const a=LV_XP[l-1], b=LV_XP[l]; $('lvBar').style.width = (b==null?100:Math.min(100,(xp-a)/(b-a)*100)).toFixed(0)+'%';
+  if(!$('mLevel').hidden) renderLvModal();
+}
+function checkLevel(){
+  if(!state) return; const l=levelOf(xpOf());
+  if(state.lv==null) state.lv=l;
+  else if(l>state.lv){
+    const newTitle = titleOf(l)!==titleOf(state.lv); state.lv=l;
+    if(newTitle){ toast(`<b>升级了！Lv.${l}</b>　获得新称号「${titleOf(l)}」`); confetti(); }
+    else toast(`<b>升级 Lv.${l}</b>　离下一个称号又近了一步。`);
+    saveSoon(); if(typeof lbSoon==='function') lbSoon();
+  }
+  renderLv();
+}
+function renderLvModal(){
+  if(!state) return; const xp=xpOf(), l=levelOf(xp), p=xpParts(), a=LV_XP[l-1], b=LV_XP[l];
+  const pct = b==null?100:Math.min(100,(xp-a)/(b-a)*100);
+  $('lvBody').innerHTML = `<div style="display:flex;flex-direction:column;gap:14px">
+    <div class="lvbig"><span class="lv">${l}</span><div><b>${titleOf(l)}</b><small>经验 <span class="num">${xp}</span>${b==null?' · 已满级':` · 再拿 <span class="num">${b-xp}</span> 升到 Lv.${l+1}`}</small></div></div>
+    <div class="xpbar"><i style="width:${pct.toFixed(0)}%"></i></div>
+    <div class="xprules">
+      <span>交易 ${state.stats.qt||0} 笔 × 10</span><span>${p.trades}</span>
+      <span>赚钱 ${state.stats.qw||0} 笔 × 5</span><span>${p.wins}</span>
+      <span>成就 ${p.ach/40} 个 × 40</span><span>${p.ach}</span>
+      <span>金色成就 ${p.big/120} 个 × 再加 120</span><span>${p.big}</span>
+    </div>
+    <p style="font-size:12.5px">只有像样的交易才算经验：仓位价值至少是起始资金的 5%，并且持有 10 秒以上。称号会显示在排行榜上。</p>
+    <div class="titles">${TITLES.map(([n,name],i)=>{ const to=TITLES[i+1]?TITLES[i+1][0]-1:20; return `<div class="${l>=n&&(!TITLES[i+1]||l<TITLES[i+1][0])?'on':''}"><b>${name}</b>Lv.${n}${to>n?'–'+to:''} · ${LV_XP[n-1]} 经验</div>`; }).join('')}</div>
+  </div>`;
 }
 function checkMilestones(){
   if(!state) return; const r = equity()/state.initial;
@@ -1190,6 +1529,7 @@ function checkMilestones(){
   [[1.1,'up10'],[1.5,'up50'],[2,'x2'],[5,'x5'],[10,'x10'],[100,'x100'],[1000,'x1000']].forEach(([t,k])=>{ if(r>=t) unlock(k); });
   if(state.stats.minRatio<0.5 && r>=1) unlock('comeback');
   if(r<0.01 && state.positions.length===0) unlock('broke');
+  if(r<0) unlock('neg');
   const now=Date.now(); state.positions.forEach(p=>{ if(now-p.opened>3600e3) unlock('hodl'); if(now-p.opened>86400e3) unlock('diamond'); });
 }
 
@@ -1273,6 +1613,8 @@ function syncPriceLines(){
   state.positions.filter(p=>p.coin===ui.coin).slice(0,6).forEach(p=>{
     priceLines.push(mainSeries.createPriceLine({price:p.entry, color:p.side==='long'?cssVar('--up'):cssVar('--down'), lineWidth:1, lineStyle:2, axisLabelVisible:true, title:(p.side==='long'?'做多 ':'做空 ')+p.lev+'×'}));
     if(p.liq!=null) priceLines.push(mainSeries.createPriceLine({price:p.liq, color:cssVar('--warn'), lineWidth:1, lineStyle:1, axisLabelVisible:true, title:'爆仓'}));
+    if(p.sl!=null) priceLines.push(mainSeries.createPriceLine({price:p.sl, color:cssVar('--fg-3'), lineWidth:1, lineStyle:3, axisLabelVisible:true, title:'止损'}));
+    if(p.tp!=null) priceLines.push(mainSeries.createPriceLine({price:p.tp, color:cssVar('--accent'), lineWidth:1, lineStyle:3, axisLabelVisible:true, title:'止盈'}));
   });
 }
 function buildEqSeries(){
@@ -1343,7 +1685,7 @@ function renderChartHead(){
   const cw=$('chMeme'), K=COINS[c]; cw.hidden = !(K.meme||K.fictional); cw.classList.toggle('fic', !!K.fictional);
   if(cw.dataset.coin!==c){ cw.dataset.coin=c;
     if(K.meme) cw.innerHTML = `<b>高风险 · 迷因币</b>　${c} 是以「${K.story}」为题材的币，没有实际用途，价格靠热度和情绪推动。${K.stat}。`;
-    if(K.fictional) cw.innerHTML = `<b>虚构币 · 价格由游戏生成</b>　火箭币不是真实存在的币，所有玩家同一时刻看到同一个价格。每 15 分钟一局：整点、15、30、45 分从 $1.00 重新发射，局末自动结算未平仓位。每分钟都大涨大跌，走势没有规律可循。手续费 1%，每次交易后冷却 20 秒。`;
+    if(K.fictional) cw.innerHTML = `<b>虚构币 · 价格由游戏生成</b>　火箭币不是真实存在的币，所有玩家同一时刻看到同一个价格。每 8 分钟一局，从 $1.00 重新发射，局末自动结算未平仓位；每局只能开仓一次，点平仓后延迟 20 秒成交，手续费 5%，跳空穿仓要倒贴。每局会冒出一条真假各半的快讯，揭晓时价格大跳。走势没有规律可循。`;
     $('lgUnit').textContent = legendText(); }
   $('chPrice').textContent = fmtPx(c,m.price);
   const span = COINS[c].fictional ? ' · 本局' : (feed.mode==='live' ? ' · 24小时' : '');
@@ -1357,7 +1699,9 @@ function renderSummary(){
   $('sInitial').textContent = '起始资金 '+fmtUSD(state.initial);
   const p=$('sPnl'); p.textContent=fmtUSD(pnl,true); p.className='v num '+cls(pnl);
   const pp=$('sPnlPct'); pp.textContent=fmtPct(pnl/state.initial); pp.className='s num '+cls(pnl);
-  $('sCash').textContent = fmtUSD(state.cash);
+  $('sCash').textContent = fmtUSD(state.cash); $('sCash').className='v num '+(state.cash<-0.004?'debt':'');
+  const dn=debtNow(); $('sCashN').innerHTML = dn>0.004 ? `<span class="debt">贷款欠款 ${fmtUSD(dn)}，每小时 +5%</span>` : '还能用来开仓的钱';
+  renderLoan();
   const u=$('sUpnl'); u.textContent = state.positions.length?fmtUSD(on,true):'没有持仓'; u.className='v num '+(state.positions.length?cls(on):'faint');
   $('sUpnlN').textContent = state.positions.length? `${state.positions.length} 个仓位，现在全部平仓的结果` : '现在全部平仓的结果';
   $('sFees').textContent = fmtUSD(state.feesPaid);
@@ -1374,6 +1718,7 @@ function renderTrade(){
   document.querySelectorAll('.side').forEach(x=>x.setAttribute('aria-pressed', x.dataset.side===side));
   $('levVal').textContent = L+'×'; $('lev').value = ui.levIdx;
   const [rk,rc] = riskOf(L); const r=$('levRisk'); r.textContent=rk; r.style.color=rc;
+  const ls=$('levSimple'); ls.textContent = `${L}× · ${rk}`; ls.style.color = rc;
   document.querySelectorAll('#levChips .chip').forEach(x=>x.setAttribute('aria-pressed', +x.dataset.lev===L));
   $('avail').textContent = '可用 '+(state?fmtUSD(state.cash):'—');
   const margin = +$('amt').value || 0;
@@ -1388,7 +1733,16 @@ function renderTrade(){
     if(liq==null) say += ` 1× 做多相当于直接买币，<b>不会爆仓</b>。`;
     else say += ` 如果反向${badWord} <b>${(move*100).toFixed(move<0.1?1:0)}%</b>，就会爆仓，本金 ${fmtUSD(margin)} 全部亏掉。`;
   }
-  $('preview').innerHTML = `
+  if(ui.mode==='simple'){
+    let ss;
+    if(margin<=0 || p==null) ss = '填一个金额，这里会告诉你一共扣多少钱、可能赚多少、亏多少。';
+    else ss = `${c} 每${dirWord} 1%，你赚约 <b>${fmtUSD(notional*0.01)}</b>；每${badWord} 1%，亏约 <b>${fmtUSD(notional*0.01)}</b>。` +
+      (liq==null ? '1× 做多相当于直接买币，<b>不会爆仓</b>。' : `如果反向${badWord} <b>${(move*100).toFixed(move<0.1?1:0)}%</b>，就会爆仓，投入的 ${fmtUSD(margin)} 全部亏掉。`);
+    $('preview').innerHTML = `
+    <div class="row total" style="border:0;padding:0;margin:0"><span>这次一共扣款 <span class="faint">含手续费 ${fmtUSD(fee)}</span></span><span class="num">${fmtUSD(margin+fee)}</span></div>
+    <div class="row"><span>爆仓价</span><span class="num" style="color:${liq==null?'var(--fg-3)':'var(--warn)'}">${liq==null?'不会爆仓':fmtPx(c,liq)}</span></div>
+    <div class="say">${ss}</div>`;
+  } else $('preview').innerHTML = `
     <div class="row"><span>投入本金</span><span class="num">${fmtUSD(margin)}</span></div>
     <div class="row"><span>开仓手续费 <span class="faint">${pctStr(fr)} × 仓位价值</span></span><span class="num">${fmtUSD(fee)}</span></div>
     <div class="row total"><span>这次一共扣款</span><span class="num">${fmtUSD(margin+fee)}</span></div>
@@ -1396,11 +1750,24 @@ function renderTrade(){
     <div class="row"><span>开仓价</span><span class="num">${fmtPx(c,p)}</span></div>
     <div class="row"><span>爆仓价</span><span class="num" style="color:${liq==null?'var(--fg-3)':'var(--warn)'}">${liq==null?'不会爆仓':fmtPx(c,liq)}</span></div>
     <div class="say">${say}</div>`;
+  if(ui.mode==='pro'){
+    const st = readStops(), sp = p!=null ? stopPx(side, p, L, st.s, st.t) : {sl:null, tp:null}, se = stopErr(side, L, st.s, st.t);
+    let h;
+    if(st.s==null && st.t==null) h = '不设就不会自动平仓。设了之后，价格一碰到就按当时的价格平仓。';
+    else if(se) h = `<span class="w">${se}</span>`;
+    else {
+      h = [st.s!=null ? `止损价 <span class="num">${fmtPx(c,sp.sl)}</span>` : '', st.t!=null ? `止盈价 <span class="num">${fmtPx(c,sp.tp)}</span>` : ''].filter(Boolean).join(' · ') + '（不含手续费）';
+      if(st.s!=null && liq!=null && st.s >= LIQ*100) h += `<br><span class="w">止损比爆仓还远，会先爆仓。想让止损起作用，要小于 ${LIQ*100}%。</span>`;
+      if(COINS[c].closeDelay) h += `<br>火箭币触发后同样要等 ${COINS[c].closeDelay} 秒才成交。`;
+    }
+    $('stopsPx').innerHTML = h;
+    document.querySelectorAll('#stopChips [data-sl]').forEach(x=>x.setAttribute('aria-pressed', +x.dataset.sl===st.s));
+    document.querySelectorAll('#stopChips [data-tp]').forEach(x=>x.setAttribute('aria-pressed', +x.dataset.tp===st.t));
+  }
   const tw=$('tMeme'); tw.hidden = !(COINS[c].meme||COINS[c].fictional); tw.classList.toggle('fic', !!COINS[c].fictional);
   if(COINS[c].fictional){
     const mv=(LIQ/L*100);
-    const cd=cdLeft(c);
-    tw.innerHTML = `<b>虚构币 · 极高波动</b>　本局还剩 <b>${mmss(rkLeft())}</b>，结束时未平仓位按最后价格自动结算。手续费 ${pctStr(feeOf(c))}（普通币 0.1%），每次交易后冷却 ${COINS[c].cooldown} 秒${cd?`，<b>还要等 ${cd} 秒</b>`:''}。`+
+    tw.innerHTML = `<b>虚构币 · 极高波动</b>　本局还剩 <b>${mmss(rkLeft())}</b>${rkJoined()?'，<b>你本局已参加过</b>，下一局再来':''}。每 8 分钟一局只能开仓一次；点平仓后要等 ${COINS[c].closeDelay} 秒才按当时价格成交；手续费 ${pctStr(feeOf(c))}（普通币 0.1%）；跳空穿仓要倒贴。`+
       (L>1 ? `<br>${L}× 杠杆下，反向 ${mv.toFixed(mv<10?1:0)}% 就爆仓；在火箭币上，这可能只要${mv<=10?'几十秒':'几分钟'}。` : '<br>1× 做多不会爆仓，但一分钟亏 10% 也很正常。');
   } else if(COINS[c].meme){
     const mv=(LIQ/L*100);
@@ -1408,16 +1775,52 @@ function renderTrade(){
       (L>COINS[c].maxLev ? `<br>你选了 <b>${L}×</b>：价格反向 ${mv.toFixed(mv<10?1:0)}% 就爆仓，这个幅度它可能一天甚至几分钟内就走完。` : (L>1?`<br>${L}× 杠杆下，价格反向 ${mv.toFixed(mv<10?1:0)}% 就会爆仓。`:''));
   }
   const go=$('goBtn'); go.dataset.side=side; const cdl=cdLeft(c);
-  go.textContent = cdl ? `冷却中 · 还要等 ${cdl} 秒` : (side==='long'?'买入做多 ':'做空 ')+c+(L>1?' · '+L+'×':'');
+  const joined = COINS[c].fictional && rkJoined();
+  go.textContent = joined ? `本局已参加 · 下一局 ${mmss(rkLeft())} 后` : (side==='long'?'买入做多 ':'做空 ')+c+(L>1?' · '+L+'×':'');
   const broke = !!(state && state.positions.length===0 && state.cash<1);
   $('broke').hidden = !broke; go.hidden = broke;
-  go.disabled = !state || p==null || cdl>0;
+  if(broke){ const eq=equity(); $('brokeText').innerHTML = eq<-0.004 ? `<b>资不抵债：总资产 ${fmtUSD(eq)}。</b>穿仓和贷款利息让你倒欠了钱。可以借钱再搏一把（利息会越滚越多），也可以重新开始。` : '<b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。可以借钱再搏一把，也可以重新开始。'; }
+  go.disabled = !state || p==null || joined;
+}
+function stopsBlock(p){
+  if(ui.stopEdit===p.id){
+    return `<div class="sedit pro-only">
+      <div class="stops">
+        <label class="stop sl"><span>亏</span><input data-se="sl" type="number" inputmode="decimal" min="1" step="any" placeholder="不设" value="${p.slPct!=null?+p.slPct.toFixed(2):''}"><span>%</span><em>止损</em></label>
+        <label class="stop tp"><span>赚</span><input data-se="tp" type="number" inputmode="decimal" min="1" step="any" placeholder="不设" value="${p.tpPct!=null?+p.tpPct.toFixed(2):''}"><span>%</span><em>止盈</em></label>
+      </div>
+      <div class="stops-px" data-sepx>${stopEditText(p, p.slPct, p.tpPct)}</div>
+      <div class="btns"><button class="ok" data-act="ssave">保存</button><button data-act="scancel">取消</button>${p.sl!=null||p.tp!=null?'<button data-act="sclear">全部取消</button>':''}</div>
+    </div>`;
+  }
+  const part = (k,v,pc)=> v!=null ? `${k} <span class="num">${fmtPx(p.coin,v)}</span><span class="faint">（${k==='止损'?'亏':'赚'} ${+pc.toFixed(1)}%）</span>` : `${k} <span class="faint">未设</span>`;
+  return `<div class="srow pro-only"><span>${part('止损',p.sl,p.slPct)}</span><span>${part('止盈',p.tp,p.tpPct)}</span><button data-act="stops">${p.sl!=null||p.tp!=null?'修改':'设置止损止盈'}</button></div>`;
+}
+function stopEditText(p, sp, tp){
+  sp = sp>0 ? +sp : null; tp = tp>0 ? +tp : null;
+  if(sp==null && tp==null) return '都不填 = 不自动平仓。按本金的盈亏算，不含手续费。';
+  const e = stopErr(p.side, p.lev, sp, tp); if(e) return `<span class="w">${e}</span>`;
+  const x = stopPx(p.side, p.entry, p.lev, sp, tp);
+  let h = [sp!=null?`止损价 <span class="num">${fmtPx(p.coin,x.sl)}</span>`:'', tp!=null?`止盈价 <span class="num">${fmtPx(p.coin,x.tp)}</span>`:''].filter(Boolean).join(' · ');
+  if(sp!=null && p.liq!=null && sp>=LIQ*100) h += `<br><span class="w">止损比爆仓还远，会先爆仓。</span>`;
+  const px = market[p.coin].price; if(px!=null && stopHit(Object.assign({},p,{sl:x.sl,tp:x.tp}), px)) h += `<br><span class="w">现价已经越过这个价格，保存后会马上平仓。</span>`;
+  return h;
+}
+function saveStops(id, el){
+  const p = state.positions.find(x=>x.id===id); if(!p) return;
+  const a = +el.querySelector('[data-se="sl"]').value, b = +el.querySelector('[data-se="tp"]').value;
+  const sp = a>0 ? a : null, tp = b>0 ? b : null;
+  const e = stopErr(p.side, p.lev, sp, tp); if(e){ toast('<b>没保存</b>　'+e); return; }
+  const x = stopPx(p.side, p.entry, p.lev, sp, tp);
+  p.sl=x.sl; p.tp=x.tp; p.slPct=sp; p.tpPct=tp; ui.stopEdit=null;
+  toast(sp==null && tp==null ? `<b>已取消止损止盈</b>　${p.coin}` : `<b>已设置</b>　${p.coin} ${sp!=null?'止损 '+fmtPx(p.coin,x.sl):''}${sp!=null&&tp!=null?' · ':''}${tp!=null?'止盈 '+fmtPx(p.coin,x.tp):''}`);
+  saveSoon(); renderPositions(true); syncPriceLines(); checkStops(p.coin);
 }
 let posSig='';
 function renderPositions(force){
   if(!state) return;
   const list=state.positions; $('nPos').textContent=list.length;
-  const sig = list.map(p=>p.id+':'+p.margin.toFixed(4)).join('|');
+  const sig = list.map(p=>p.id+':'+p.margin.toFixed(4)+':'+p.sl+':'+p.tp).join('|')+'#'+ui.stopEdit;
   const box=$('pPos');
   if(force || sig!==posSig){
     posSig=sig;
@@ -1427,15 +1830,17 @@ function renderPositions(force){
         <div class="t"><div class="l1"><b>${p.coin}</b><span class="tag ${p.side}">${p.side==='long'?'做多':'做空'}</span><span class="tag lev">${p.lev}×</span></div><small>${when(p.opened)} 开仓 · 持有 <span data-held></span></small></div>
         <div class="pnl"><small>现在平仓 · 净盈亏</small><div class="a num" data-a>—</div></div>
       </div>
-      <div class="kv">
+      <div class="sline simple-only" data-sline></div>
+      <div class="kv pro-only">
         <div><small>投入本金</small><span class="num">${fmtUSD(p.margin)}</span></div>
         <div><small>仓位价值 开仓 → 现在</small><span class="num" data-val>—</span></div>
         <div><small>开仓价 → 现价</small><span class="num" data-px>—</span></div>
         <div><small>爆仓价</small><span class="num" style="color:${p.liq==null?'var(--fg-3)':'var(--warn)'}">${p.liq==null?'不会爆仓':fmtPx(p.coin,p.liq)}</span></div>
       </div>
-      <div class="eqn" data-eqn></div>
+      <div class="eqn pro-only" data-eqn></div>
+      ${stopsBlock(p)}
       <div class="pos-f"><div class="meter" data-m><span data-mt></span><span class="bar"><i data-mb></i></span></div>
-        <div class="acts"><button data-act="half">平一半</button><button class="close" data-act="close">平仓</button></div></div>
+        <div class="acts"><button data-act="half" class="pro-only">平一半</button><button class="close" data-act="close">平仓</button></div></div>
     </div>`).join('');
   }
   list.forEach(p=>{
@@ -1443,8 +1848,12 @@ function renderPositions(force){
     const px = market[p.coin].price, k = calc(p,px);
     const a=el.querySelector('[data-a]'); a.innerHTML=`${fmtUSD(k.net,true)}<span>${fmtPct(k.net/k.spent)}</span>`; a.className='a num '+cls(k.net);
     el.querySelector('[data-held]').textContent = dur(Date.now()-p.opened) + (COINS[p.coin].fictional ? ` · 本局剩余 ${mmss(rkLeft())}` : '');
-    const cdl = cdLeft(p.coin); el.querySelectorAll('.acts button').forEach(btn=>{ btn.disabled = cdl>0; btn.title = cdl>0 ? `冷却中，还要等 ${cdl} 秒` : ''; });
-    const cb = el.querySelector('.acts .close'); if(cb) cb.textContent = cdl>0 ? `冷却 ${cdl}s` : '平仓';
+    const pend = p.pending ? Math.max(0, p.pending.atSec - rk.sec) : 0;
+    el.querySelectorAll('.acts button').forEach(btn=>{ btn.disabled = !!p.pending; btn.title = p.pending ? `平仓中，${pend} 秒后成交` : ''; });
+    const cb = el.querySelector('.acts .close'); if(cb) cb.textContent = p.pending ? `平仓中 ${pend}s` : (COINS[p.coin].closeDelay ? `平仓（延迟 ${COINS[p.coin].closeDelay} 秒）` : '平仓');
+    el.querySelector('[data-sline]').innerHTML = `<span>投入 <span class="num">${fmtUSD(p.margin)}</span></span><span>开仓 <span class="num">${fmtPx(p.coin,p.entry)}</span> → 现在 <span class="num">${fmtPx(p.coin,px)}</span></span>`+
+      `<span>爆仓价 <span class="num" style="color:${p.liq==null?'var(--fg-3)':'var(--warn)'}">${p.liq==null?'不会爆仓':fmtPx(p.coin,p.liq)}</span></span>`+
+      (p.sl!=null?`<span>止损 <span class="num">${fmtPx(p.coin,p.sl)}</span></span>`:'')+(p.tp!=null?`<span>止盈 <span class="num">${fmtPx(p.coin,p.tp)}</span></span>`:'');
     el.querySelector('[data-val]').textContent = `${fmtUSD(k.valueOpen)} → ${fmtUSD(k.valueNow)}`;
     el.querySelector('[data-px]').textContent = `${fmtPx(p.coin,p.entry)} → ${fmtPx(p.coin,px)}`;
     el.querySelector('[data-eqn]').innerHTML =
@@ -1469,14 +1878,14 @@ function renderHistory(){
   const wins=h.filter(x=>x.pnl>0).length, sum=h.reduce((s,x)=>s+x.pnl,0), fees=h.reduce((s,x)=>s+(x.fee||0),0);
   box.innerHTML = `<div class="hsum"><span>共 ${h.length} 笔</span><span>赚钱 ${wins} 笔（胜率 ${(wins/h.length*100).toFixed(0)}%）</span><span>手续费合计 <span class="num">${fmtUSD(fees)}</span></span><span>净盈亏合计 <span class="num ${cls(sum)}">${fmtUSD(sum,true)}</span></span></div>` +
     h.slice(0,150).map(x=>`<div class="hrow">
-      <div class="l1"><b>${x.coin}</b><span class="tag ${x.side}">${x.side==='long'?'做多':'做空'}</span><span class="tag lev">${x.lev}×</span>${x.reason==='liq'?'<span class="tag liq">爆仓</span>':''}${x.reason==='settle'?'<span class="tag lev">本局结算</span>':''}${x.part?'<span class="tag lev">平一半</span>':''}<span class="faint" style="font-size:12px">${when(x.t)}</span>
+      <div class="l1"><b>${x.coin}</b><span class="tag ${x.side}">${x.side==='long'?'做多':'做空'}</span><span class="tag lev">${x.lev}×</span>${x.reason==='liq'?'<span class="tag liq">爆仓</span>':''}${x.reason==='settle'?'<span class="tag lev">本局结算</span>':''}${x.reason==='sl'?'<span class="tag liq">止损</span>':''}${x.reason==='tp'?'<span class="tag tpx">止盈</span>':''}${x.part?'<span class="tag lev">平一半</span>':''}<span class="faint" style="font-size:12px">${when(x.t)}</span>
         <span class="r num ${cls(x.pnl)}">${fmtUSD(x.pnl,true)}</span></div>
       <div class="l2"><span>本金 <span class="num">${fmtUSD(x.margin)}</span></span><span>开 <span class="num">${fmtPx(x.coin,x.entry)}</span> → 平 <span class="num">${fmtPx(x.coin,x.exit)}</span></span>${x.gross!=null?`<span>价格盈亏 <span class="num">${fmtUSD(x.gross,true)}</span></span>`:''}${x.fee!=null?`<span>手续费 <span class="num">${fmtUSD(x.fee)}</span></span>`:''}${x.back!=null?`<span>到手 <span class="num">${fmtUSD(x.back)}</span></span>`:''}${x.held!=null?`<span>持有 ${dur(x.held)}</span>`:''}</div>
     </div>`).join('');
 }
 function renderAch(){
   if(!state) return; const n=ACH.filter(a=>state.ach[a[0]]).length; $('nAch').textContent=n+'/'+ACH.length;
-  const groups = ['收益','交易','冒险'];
+  const groups = ['收益','交易','冒险','比赛'];
   $('pAch').innerHTML = groups.map(g=>`<div class="agroup"><h3>${g}</h3><div class="achs">${
     ACH.filter(a=>a[3]===g).map(([k,t,d,,pg])=>{ const on=!!state.ach[k]; let bar='';
       if(!on && pg){ const [cur,tot]=pg(); bar=`<div class="prog"><i style="width:${Math.min(100,cur/tot*100).toFixed(0)}%"></i></div><small class="num">${Math.min(cur,tot)} / ${tot}</small>`; }
@@ -1486,7 +1895,7 @@ function renderAch(){
 
 let rq=false, lastRender=0;
 function scheduleRender(){ if(rq) return; rq=true; const wait=Math.max(0, 250-(performance.now()-lastRender)); setTimeout(()=>requestAnimationFrame(doRender), wait); }
-function doRender(){ rq=false; lastRender=performance.now(); renderCoins(); renderChartHead(); updateMain(); renderSummary(); renderPositions(false); renderTrade(); sampleEquity(false); }
+function doRender(){ rq=false; lastRender=performance.now(); renderCoins(); renderChartHead(); renderNews(); updateMain(); renderSummary(); renderPositions(false); renderTrade(); sampleEquity(false); }
 
 
 /* ---------- leaderboard ---------- */
@@ -1498,7 +1907,7 @@ try{ lb.me = JSON.parse(localStorage.getItem(LB_KEY)||'null'); }catch(e){ lb.me=
 function lbSave(){ try{ if(lb.me) localStorage.setItem(LB_KEY, JSON.stringify(lb.me)); else localStorage.removeItem(LB_KEY); }catch(e){} }
 function rid(n){ const a=new Uint8Array(n); (window.crypto||{}).getRandomValues ? crypto.getRandomValues(a) : a.forEach((_,i)=>a[i]=Math.random()*256); return Array.from(a,b=>(b%36).toString(36)).join(''); }
 function lbPayload(me, extra){
-  return Object.assign({id:me.id, token:me.token, name:me.name, initial:state.initial, equity:+equity().toFixed(2), trades:state.stats.trades, ach:Object.keys(state.ach).length}, extra||{});
+  return Object.assign({id:me.id, token:me.token, name:me.name, initial:state.initial, equity:+equity().toFixed(2), trades:state.stats.trades, ach:Object.keys(state.ach).length, lv:levelOf(xpOf()), created:state.created||0}, extra||{});
 }
 async function lbCall(method, body){
   const opt = {method, cache:'no-store', headers:{}};
@@ -1511,9 +1920,22 @@ async function lbCall(method, body){
   finally{ clearTimeout(t); }
 }
 function lbAfterData(){
-  const d=lb.data; if(!d || !d.me || !state) return;
-  if(d.total>=3 && d.me.rank<=3) unlock('top3');
-  if(d.total>=3 && d.me.rank===1) unlock('champ');
+  const d=lb.data; if(!d || !state) return;
+  if(d.me && d.total>=3 && d.me.rank<=3) unlock('top3');
+  if(d.me && d.total>=3 && d.me.rank===1) unlock('champ');
+  const P = d.past || {};
+  ['s','S'].forEach(k=>(P[k]||[]).forEach(e=>{ if(e.top.length<3) return; const m=e.top.find(t=>t.me); if(!m) return;
+    unlock('season3'); if(m.rank===1) unlock(k==='s'?'seasonwin':'bigwin'); }));
+}
+/* seasons: 2-day small seasons and 10-day big seasons, cut on the UTC clock (same as the server) */
+const SEASONS = { s:{ms:2*86400e3, name:'小赛季', every:'每 2 天'}, S:{ms:10*86400e3, name:'大赛季', every:'每 10 天'} };
+const SEASON_BASE = Date.UTC(2026,9,2);    // season numbering starts here
+const seasonId = k => Math.floor(nowMs()/SEASONS[k].ms);
+const seasonNo = (k,id) => id - Math.floor(SEASON_BASE/SEASONS[k].ms) + 1;
+function seasonLeft(k){
+  const ms = (seasonId(k)+1)*SEASONS[k].ms - nowMs(), sec = Math.max(0, Math.floor(ms/1000));
+  const d = Math.floor(sec/86400), h = Math.floor(sec%86400/3600), m = Math.floor(sec%3600/60), x = sec%60;
+  return (d?d+' 天 ':'') + String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0');
 }
 async function lbRefresh(){
   if(!LB_API) return;
@@ -1524,13 +1946,14 @@ async function lbRefresh(){
     const t1 = Date.now();
     if(r.data.updatedAt && t1-t0 < 3000){ const sk = r.data.updatedAt - (t0+t1)/2; if(Math.abs(sk-clockSkew) > 1500) clockSkew = Math.round(sk); }
     lb.data = r.data; lb.status='ok';
-    if(lb.me && !r.data.me) lbPush(true);
+    const ss = r.data.seasons;
+    if(lb.me && (!r.data.me || (ss && (!ss.s.me || !ss.S.me)))) lbPush(true);   // not on this season's board yet
   }catch(e){ lb.status='down'; }
   lbAfterData(); renderBoard();
 }
 async function lbPush(force){
   if(!LB_API || !lb.me || !state || lb.busy) return;
-  const p = lbPayload(lb.me); const sig = [p.name,p.initial,p.equity,p.trades,p.ach].join('|');
+  const p = lbPayload(lb.me); const sig = [p.name,p.initial,p.equity,p.trades,p.ach,p.lv,p.created,seasonId('s'),seasonId('S')].join('|');
   const now = Date.now();
   if(!force && (sig===lb.lastSig || now-lb.lastPush<20000)) return;
   lb.busy=true; lb.lastPush=now;
@@ -1579,45 +2002,65 @@ function lbSoon(){
   const wait = Math.max(300, 6000-(Date.now()-lb.lastPush));
   lbSoonT = setTimeout(()=>{ if(lb.busy) lbSoon(); else lbPush(true); }, wait);
 }
-function lbRow(r){
-  const g = r.ratio-1;
+function lbRow(r, season){
+  const g = season ? r.gain : r.ratio-1;
+  const lv = r.lv ? `<span class="lvtag">Lv.${r.lv} ${titleOf(r.lv)}</span>` : '';
   return `<li class="${r.me?'me':''}"><span class="r ${r.rank<=3?'m'+r.rank:''}">${r.rank}</span>`+
-    `<span class="n">${esc(r.name)}${r.me?' <span class="tag lev">你</span>':''}</span>`+
+    `<span class="n">${esc(r.name)}${lv}${r.me?' <span class="tag lev">你</span>':''}</span>`+
     `<span class="v ${cls(g)}">${fmtPct(g)}<small>${fmtUSD(r.equity)}</small></span>`+
-    `<span class="sub">起始 ${fmtUSD(r.initial)} · ${r.trades} 笔 · ${ago(r.updatedAt)}</span></li>`;
+    `<span class="sub">${season?'总资产 '+fmtUSD(r.equity)+' · ':'起始 '+fmtUSD(r.initial)+' · '}${r.trades} 笔 · ${ago(r.updatedAt)}</span></li>`;
 }
+const MEDAL = ['#C9A227','#9AA3AE','#B9784A'];
 function renderBoard(){
   const body=$('lbBody'); if(!body) return;
+  $('lbTabs').hidden = !LB_API;
+  document.querySelectorAll('#lbTabs button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.lbtab===ui.lbTab));
   if(!LB_API){
-    body.innerHTML = '<div class="empty">排行榜只在网页版里有。用朋友分享给你的网址打开游戏，就能加入榜单。</div>';
+    body.innerHTML = '<div class="empty">排行榜和赛季只在网页版里有。用朋友分享给你的网址打开游戏，就能加入榜单。</div>';
     return;
   }
   // keep whatever the player is typing across re-renders
   const prev=$('lbName'); const typing = prev && document.activeElement===prev; const val = prev ? prev.value : null;
-  const d=lb.data; let h='';
+  const d=lb.data, tab=ui.lbTab, season = tab!=='all';
+  const v = !d ? null : !season ? {total:d.total, top:d.top, me:d.me} : (d.seasons ? d.seasons[tab] : null);
+  let h='';
+  if(season){
+    const S=SEASONS[tab], id = v ? v.id : seasonId(tab);
+    h += `<div class="lb-season"><b>第 ${seasonNo(tab,id)} ${S.name}</b><span>${S.every}一季 · 按本季收益排名</span><span class="left" id="lbLeft">还剩 ${seasonLeft(tab)}</span></div>`;
+    const last = d && d.past && d.past[tab] && d.past[tab][0];
+    if(last) h += `<div class="lb-past"><span>上一季（第 ${seasonNo(tab,last.id)} 季）</span>${last.top.map(t=>`<span class="pk ${t.me?'me':''}"><i style="background:${MEDAL[t.rank-1]}">${t.rank}</i>${esc(t.name)}${t.me?'（你）':''} <span class="num ${cls(t.gain)}">${fmtPct(t.gain)}</span></span>`).join('')}</div>`;
+  }
   if(!lb.me || lb.editing){
-    h += `<div class="lb-join"><p>${lb.me?'换一个名字：':'填一个名字加入排行榜，和朋友比谁的收益率高。'}只会上传名字、起始资金、总资产、交易笔数和成就数。</p>`+
+    h += `<div class="lb-join"><p>${lb.me?'换一个名字：':'填一个名字加入排行榜，和朋友比谁的收益率高。'}只会上传名字、起始资金、总资产、交易笔数、成就数和等级。</p>`+
       `<div class="lb-in"><input id="lbName" maxlength="16" autocomplete="off" placeholder="你的名字（最多 16 个字）" value="${esc(val!=null?val:(lb.me?lb.me.name:''))}">`+
       `<button id="lbJoinBtn" ${lb.busy?'disabled':''}>${lb.busy?'提交中…':(lb.me?'保存':'加入榜单')}</button></div>`+
       (lb.err?`<div class="err">${esc(lb.err)}</div>`:'')+
       (lb.me?'<button class="lb-link" id="lbCancel">取消</button>':'')+'</div>';
-  } else if(d && d.me){
-    h += `<div class="lb-me"><span class="rk">#${d.me.rank}</span><div><b>${esc(lb.me.name)}</b><small>共 ${d.total} 人参赛 · 你的收益率 <span class="num ${cls(d.me.ratio-1)}">${fmtPct(d.me.ratio-1)}</span></small></div></div>`;
+  } else if(v && v.me){
+    const g = season ? v.me.gain : v.me.ratio-1;
+    h += `<div class="lb-me"><span class="rk">#${v.me.rank}</span><div><b>${esc(lb.me.name)}</b><small>共 ${v.total} 人 · ${season?'本季收益':'你的收益率'} <span class="num ${cls(g)}">${fmtPct(g)}</span></small></div></div>`;
   } else {
-    h += `<div class="lb-me"><div><b>${esc(lb.me.name)}</b><small>${lb.status==='down'?'连不上榜单，恢复后会自动上传':'正在上传你的成绩…'}</small></div></div>`;
+    h += `<div class="lb-me"><div><b>${esc(lb.me.name)}</b><small>${lb.status==='down'?'连不上榜单，恢复后会自动上传':season&&v?'本季还没有你的成绩，正在上传…':'正在上传你的成绩…'}</small></div></div>`;
   }
   if(!d) h += `<div class="empty">${lb.status==='down'?'榜单暂时连不上，稍后会自动重试。':'正在加载榜单…'}</div>`;
-  else if(!d.top.length) h += '<div class="empty">还没有人上榜，你来当第一名吧。</div>';
+  else if(!v) h += '<div class="empty">榜单服务器还是旧版本，暂时没有赛季。先看「总榜」吧。</div>';
+  else if(!v.top.length) h += `<div class="empty">${season?'这一季还没有人上榜，开一单就能拿下第一名。':'还没有人上榜，你来当第一名吧。'}</div>`;
   else {
-    h += '<ol class="lb-list">'+d.top.map(lbRow).join('')+'</ol>';
-    if(d.me && !d.top.some(r=>r.me)) h += '<div class="lb-sep">⋯</div><ol class="lb-list">'+lbRow(d.me)+'</ol>';
+    h += '<ol class="lb-list">'+v.top.map(r=>lbRow(r,season)).join('')+'</ol>';
+    if(v.me && !v.top.some(r=>r.me)) h += '<div class="lb-sep">⋯</div><ol class="lb-list">'+lbRow(v.me,season)+'</ol>';
   }
   h += `<div class="lb-foot"><span>${lb.status==='down'?'连接中断，自动重试中':'自动刷新'}${d?' · '+new Date(d.updatedAt).toLocaleTimeString('zh-CN',{hour12:false}):''}</span>`+
        (lb.me && !lb.editing ? '<button id="lbEdit">改名</button><button id="lbLeave">退出榜单</button>' : '')+'</div>';
   if(lb.confirmLeave) h += '<div class="confirm lb-confirm"><span>退出后，你的成绩会从榜单上删除。确定吗？</span><div class="btns"><button class="danger" id="lbLeaveYes">退出榜单</button><button class="ghost" id="lbLeaveNo">算了</button></div></div>';
   body.innerHTML = h;
-  $('lbCount').textContent = d ? `${d.total} 人 · 按收益率` : '按收益率排名';
+  $('lbCount').textContent = v ? `${v.total} 人参赛` : '按收益率排名';
   if(typing){ const i=$('lbName'); if(i){ i.focus(); const n=i.value.length; try{ i.setSelectionRange(n,n); }catch(e){} } }
+}
+$('lbTabs').addEventListener('click', e=>{ const b=e.target.closest('button[data-lbtab]'); if(!b) return; ui.lbTab=b.dataset.lbtab; renderBoard(); });
+function lbClock(){
+  const e=$('lbLeft'); if(e && ui.lbTab!=='all') e.textContent = '还剩 '+seasonLeft(ui.lbTab);
+  const d=lb.data;   // a season just ended: fetch the new boards (and last season's champions)
+  if(LB_API && d && d.seasons && (seasonId('s')!==d.seasons.s.id) && Date.now()-lb.lastFetch>10000 && !document.hidden) lbRefresh();
 }
 $('lbBody').addEventListener('click', e=>{
   const id = e.target && e.target.id;
@@ -1651,17 +2094,64 @@ $('qLong').addEventListener('click',()=>{ ui.side='long'; renderTrade(); setView
 $('qShort').addEventListener('click',()=>{ ui.side='short'; renderTrade(); setView('trade'); });
 $('mnav').addEventListener('click', e=>{ const b=e.target.closest('button[data-go]'); if(b) setView(b.dataset.go); });
 $('lev').addEventListener('input', e=>{ ui.levIdx=+e.target.value; renderTrade(); showErr(''); });
-$('levChips').innerHTML = LEV_CHIPS.map(l=>`<button class="chip" data-lev="${l}">${l}×</button>`).join('');
+function buildLevChips(){ $('levChips').innerHTML = (ui.mode==='simple'?LEV_CHIPS_SIMPLE:LEV_CHIPS).map(l=>`<button class="chip" data-lev="${l}">${l}×</button>`).join(''); }
+buildLevChips();
+function setMode(m, quiet){
+  if(m!=='simple' && m!=='pro') return;
+  ui.mode=m; try{ localStorage.setItem(MODE_KEY, m); }catch(e){}
+  document.documentElement.dataset.mode = m;
+  document.querySelectorAll('.modeseg button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.mode===m));
+  if(m==='simple'){
+    if(lev()>10) ui.levIdx = LEVS.indexOf(10);
+    if(ui.chart!=='area'){ ui.chart='area'; $('tLine').setAttribute('aria-pressed',true); $('tCandle').setAttribute('aria-pressed',false); $('lgUnit').textContent=legendText(); buildMainSeries(); }
+    ui.stopEdit=null;
+  }
+  buildLevChips(); renderTrade(); renderPositions(true); renderSummary(); showErr('');
+  if(!quiet) toast(m==='simple' ? '<b>简易界面</b>　只留下买入、做空和杠杆。想用止损止盈、贷款，切回「高级」。' : '<b>高级界面</b>　止损止盈、费用明细、平一半、贷款和 K 线都打开了。');
+}
+document.querySelectorAll('.modeseg').forEach(g=>g.addEventListener('click', e=>{ const b=e.target.closest('button[data-mode]'); if(b && b.dataset.mode!==ui.mode) setMode(b.dataset.mode); }));
+document.querySelectorAll('.modeseg button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.mode===ui.mode));
+$('lvPill').addEventListener('click', ()=>{ renderLvModal(); openModal('mLevel'); });
+['slPct','tpPct'].forEach(id=>$(id).addEventListener('input', ()=>{ renderTrade(); showErr(''); }));
+$('stopChips').addEventListener('click', e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  if(b.dataset.clear!=null){ $('slPct').value=''; $('tpPct').value=''; }
+  else if(b.dataset.sl){ $('slPct').value = $('slPct').value===b.dataset.sl ? '' : b.dataset.sl; }
+  else if(b.dataset.tp){ $('tpPct').value = $('tpPct').value===b.dataset.tp ? '' : b.dataset.tp; }
+  renderTrade(); showErr('');
+});
 $('levChips').addEventListener('click', e=>{ const b=e.target.closest('.chip'); if(!b) return; ui.levIdx=LEVS.indexOf(+b.dataset.lev); renderTrade(); showErr(''); });
 $('pctChips').addEventListener('click', e=>{ const b=e.target.closest('.chip'); if(!b||!state) return; let v=maxMargin(lev())*(+b.dataset.pct); v=Math.floor(v*100)/100; $('amt').value = v>0?v:0; renderTrade(); showErr(''); });
 $('amt').addEventListener('input', ()=>{ renderTrade(); showErr(''); });
 $('goBtn').addEventListener('click', openPos);
 $('brokeRestart').addEventListener('click', ()=>openModal('mStart'));
+$('brokeLoan').addEventListener('click', ()=>{ setView('me'); const c=$('loanCard'); if(c) c.scrollIntoView({behavior:'smooth', block:'center'}); $('loanAmt').focus(); });
 $('memeGo').addEventListener('click', ()=>{ try{ localStorage.setItem(MEME_ACK_KEY,'1'); }catch(e){} window.__memeAck=true; closeModal('mMeme'); openPos(); });
 $('memeNo').addEventListener('click', ()=>closeModal('mMeme'));
+$('loanBorrow').addEventListener('click', ()=>borrow(+$('loanAmt').value));
+$('loanRepay').addEventListener('click', ()=>repay(+$('loanAmt').value));
+document.querySelectorAll('[data-loan]').forEach(b=>b.addEventListener('click', ()=>{
+  const v=b.dataset.loan;
+  if(v==='all'){ repay(debtNow()); return; }
+  $('loanAmt').value = v==='room' ? Math.floor(loanRoom()*100)/100 : v; loanMsg('');
+}));
 $('rocketGo').addEventListener('click', ()=>{ try{ localStorage.setItem(ROCKET_ACK_KEY,'1'); }catch(e){} window.__rocketAck=true; closeModal('mRocket'); openPos(); });
 $('rocketNo').addEventListener('click', ()=>closeModal('mRocket'));
-$('pPos').addEventListener('click', e=>{ const b=e.target.closest('button[data-act]'); if(!b) return; closePos(b.closest('.pos').dataset.id, b.dataset.act==='half'?0.5:1, 'manual'); });
+$('pPos').addEventListener('click', e=>{
+  const b=e.target.closest('button[data-act]'); if(!b) return;
+  const card=b.closest('.pos'), id=card.dataset.id, act=b.dataset.act;
+  if(act==='stops'){ ui.stopEdit=id; renderPositions(true); const i=card.isConnected?null:document.querySelector(`.pos[data-id="${id}"] [data-se="sl"]`); if(i) i.focus(); return; }
+  if(act==='scancel'){ ui.stopEdit=null; renderPositions(true); return; }
+  if(act==='sclear'){ card.querySelectorAll('[data-se]').forEach(i=>i.value=''); saveStops(id, card); return; }
+  if(act==='ssave'){ saveStops(id, card); return; }
+  closePos(id, act==='half'?0.5:1, 'manual');
+});
+$('pPos').addEventListener('input', e=>{
+  const i=e.target.closest('[data-se]'); if(!i) return;
+  const card=i.closest('.pos'), p=state.positions.find(x=>x.id===card.dataset.id); if(!p) return;
+  card.querySelector('[data-sepx]').innerHTML = stopEditText(p, card.querySelector('[data-se="sl"]').value, card.querySelector('[data-se="tp"]').value);
+});
+$('pPos').addEventListener('keydown', e=>{ const i=e.target.closest('[data-se]'); if(i && e.key==='Enter'){ e.preventDefault(); saveStops(i.closest('.pos').dataset.id, i.closest('.pos')); } });
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   ui.tab=t.dataset.tab; document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected', x===t));
   $('pPos').hidden=ui.tab!=='pos'; $('pHist').hidden=ui.tab!=='hist'; $('pAch').hidden=ui.tab!=='ach';
@@ -1671,12 +2161,12 @@ $('tLine').addEventListener('click',()=>{ ui.chart='area'; $('lgUnit').textConte
 $('tCandle').addEventListener('click',()=>{ ui.chart='candle'; $('lgUnit').textContent=legendText(); $('tCandle').setAttribute('aria-pressed',true); $('tLine').setAttribute('aria-pressed',false); buildMainSeries(); });
 $('closeBanner').addEventListener('click',()=>{ bannerClosed=true; $('simBanner').hidden=true; });
 
-function openModal(id){ $(id).hidden=false; }
+function openModal(id){ if(id==='mStart'){ modePick=ui.mode; document.querySelectorAll('#startMode .cap').forEach(b=>b.setAttribute('aria-pressed', b.dataset.smode===modePick)); } $(id).hidden=false; }
 function closeModal(id){ $(id).hidden=true; }
 document.querySelectorAll('.modal').forEach(m=>{
   m.addEventListener('click', e=>{ if((e.target===m || e.target.closest('[data-close]')) && m.id!=='mStart') closeModal(m.id); });
 });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ ['mGuide','mSettings','mMeme','mRocket'].forEach(closeModal); } });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ ['mGuide','mSettings','mMeme','mRocket','mLevel'].forEach(closeModal); } });
 $('btnGuide').addEventListener('click',()=>openModal('mGuide'));
 $('btnSettings').addEventListener('click',()=>{ $('resetConfirm').hidden=true; openModal('mSettings'); });
 function restartFeed(){ REAL.forEach(c=>{ market[c].bars=[]; market[c].reset=true; }); startFeed(); }
@@ -1696,12 +2186,16 @@ $('resetYes').addEventListener('click',()=>{ closeModal('mSettings'); openModal(
 function applyColors(){ document.documentElement.classList.toggle('intl', prefs.colors==='intl'); document.querySelectorAll('[data-colors]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.colors===prefs.colors)); }
 document.querySelectorAll('[data-colors]').forEach(b=>b.addEventListener('click',()=>{ prefs.colors=b.dataset.colors; if(state){ state.prefs=prefs; saveSoon(); } applyColors(); renderCoins(); }));
 
-let capPick=10000;
-$('caps').addEventListener('click', e=>{ const b=e.target.closest('.cap'); if(!b) return; capPick=+b.dataset.cap; $('capCustom').value=''; document.querySelectorAll('.cap').forEach(x=>x.setAttribute('aria-pressed', x===b)); });
-$('capCustom').addEventListener('input', e=>{ const v=+e.target.value; if(v>0){ capPick=v; document.querySelectorAll('.cap').forEach(x=>x.setAttribute('aria-pressed',false)); } });
+let capPick=10000, modePick=ui.mode;
+document.querySelectorAll('#startMode .cap').forEach(b=>b.setAttribute('aria-pressed', b.dataset.smode===modePick));
+$('startMode').addEventListener('click', e=>{ const b=e.target.closest('.cap'); if(!b) return; modePick=b.dataset.smode; document.querySelectorAll('#startMode .cap').forEach(x=>x.setAttribute('aria-pressed', x===b)); });
+$('caps').addEventListener('click', e=>{ const b=e.target.closest('.cap'); if(!b) return; capPick=+b.dataset.cap; $('capCustom').value=''; document.querySelectorAll('#caps .cap').forEach(x=>x.setAttribute('aria-pressed', x===b)); });
+$('capCustom').addEventListener('input', e=>{ const v=+e.target.value; if(v>0){ capPick=v; document.querySelectorAll('#caps .cap').forEach(x=>x.setAttribute('aria-pressed',false)); } });
 $('startBtn').addEventListener('click',()=>{
   const cap = Math.min(1e9, Math.max(100, Math.round(capPick||10000)));
   state = newState(cap); saveState(); closeModal('mStart');
+  if(modePick!==ui.mode) setMode(modePick, true);
+  $('slPct').value=''; $('tpPct').value='';
   $('amt').value = Math.round(cap*0.1);
   lastEqT=0; posSig='';
   buildEqSeries(); afterChange(); setView('market');
@@ -1713,15 +2207,16 @@ $('startBtn').addEventListener('click',()=>{
 applyColors();
 buildCoins();
 setView('market');
-if(!state) openModal('mStart');
+if(!state){ if(ui.mode==='simple') ui.levIdx=0; openModal('mStart'); }
 else $('amt').value = Math.max(1, Math.round(state.initial*0.1));
-renderTrade(); renderSummary(); renderPositions(true); renderHistory(); renderAch();
+renderTrade(); renderSummary(); renderPositions(true); renderHistory(); renderAch(); checkLevel();
 loadCharts();
 startFeed();
 rkStart();
 renderBoard();
 if(LB_API){ setTimeout(lbRefresh, 1200); setInterval(lbTick, 15000); document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) lbTick(); }); }
 setInterval(()=>sampleEquity(false), 5000);
+setInterval(lbClock, 1000);
 setInterval(()=>{ if(state && state.positions.length) renderPositions(false); }, 30000);
 window.addEventListener('beforeunload', saveState);
 window.addEventListener('pagehide', saveState);
