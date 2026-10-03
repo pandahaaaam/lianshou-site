@@ -7,8 +7,8 @@
 // GET /api/prices/history  → 最新价格 + 最近 6 小时的 1 分钟 K 线（CDN 缓存 60 秒）
 //
 // 数据源：Kraken 公开接口，失败时改用 Coinbase。
-const KRAKEN = { BTC: "XBTUSD", ETH: "ETHUSD", DOGE: "XDGUSD" };
-const COINBASE = { BTC: "BTC-USD", ETH: "ETH-USD", DOGE: "DOGE-USD" };
+const KRAKEN = { BTC: "XBTUSD", ETH: "ETHUSD", DOGE: "XDGUSD", PEPE: "PEPEUSD", WIF: "WIFUSD" };
+const COINBASE = { BTC: "BTC-USD", ETH: "ETH-USD", DOGE: "DOGE-USD", PEPE: "PEPE-USD", WIF: "WIF-USD" };
 const COINS = Object.keys(KRAKEN);
 const TICK_TTL = 20, HIST_TTL = 60, BARS = 360;
 
@@ -30,7 +30,7 @@ async function getJSON(url) {
 }
 const num = (v) => { const n = Number(v); if (!(n > 0) || !isFinite(n)) throw new Error("bad number"); return n; };
 function krakenKey(result, coin) {
-  const want = coin === "BTC" ? /XBT|BTC/ : coin === "ETH" ? /ETH/ : /XDG|DOGE/;
+  const want = { BTC: /XBT|BTC/, ETH: /ETH/, DOGE: /XDG|DOGE/, PEPE: /PEPE/, WIF: /WIF/ }[coin];
   return Object.keys(result).find((k) => k !== "last" && want.test(k));
 }
 
