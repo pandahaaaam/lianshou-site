@@ -23,8 +23,7 @@ const CAPITAL = 10000;
 // Plausibility limits. The game runs in the player's browser, so a save can be edited by hand; these
 // limits keep obviously impossible numbers off the board.
 const MAX_EQUITY = 1e9;        // 100,000× the starting money: nothing above this is reachable in play
-const JOIN_MAX = 1e6;          // a brand-new board entry can start with at most 100×
-const GROWTH = 5, STEP = 600e3, ALLOWANCE = 30000;   // at most ×5 per 10 minutes (+ room for farm/daily income)
+const GROWTH = 3, STEP = 600e3, MAX_STEPS = 6, ALLOWANCE = 30000;   // at most ×3 per 10 minutes, ×729 per upload at most
 // Return across all lives: every life counts as another $10,000 put in, so restarting until one lucky
 // life can't erase the losses of the others.  ratio = (final equity of past lives + this life) / (10,000 × lives)
 const ratioOf = (r) => ((r.carried || 0) + r.equity) / (CAPITAL * (r.lives || 1));
@@ -63,7 +62,7 @@ function cleanName(n) {
 }
 function pub(rec) {
   return { id: rec.id, name: rec.name, initial: rec.initial, equity: rec.equity, ratio: rec.ratio,
-           carried: rec.carried || 0, lives: rec.lives || 1, flagged: rec.flagged || 0, trades: rec.trades, ach: rec.ach, lv: rec.lv || 1, created: rec.created || 0, rb: rec.rb || 0,
+           carried: rec.carried || 0, lives: rec.lives || 1, flagged: rec.flagged || 0, ok: rec.ok || 0, trades: rec.trades, ach: rec.ach, lv: rec.lv || 1, created: rec.created || 0, rb: rec.rb || 0,
            s: rec.s || null, S: rec.S || null, joinedAt: rec.joinedAt, updatedAt: rec.updatedAt };
 }
 const gainOf = (r, k) => (r.equity - r[k].start) / r.initial;
@@ -107,8 +106,10 @@ function view(board, id) {
                    top: so.slice(0, TOP_N), me: so.find((r) => r.me) || null };
   }
   const past = {};
+  // past champions: drop impossible results (edited saves) and re-rank what's left
   for (const k of ["s", "S"]) past[k] = ((board.past && board.past[k]) || []).map((p) => ({
-    id: p.id, top: p.top.map((t) => ({ rank: t.rank, name: t.name, lv: t.lv, gain: t.gain, me: !!id && t.pid === id })) }));
+    id: p.id, top: p.top.filter((t) => isFinite(t.gain) && t.gain <= MAX_EQUITY / CAPITAL && !(board.players[t.pid] && board.players[t.pid].flagged))
+      .map((t, i) => ({ rank: i + 1, name: t.name, lv: t.lv, gain: t.gain, me: !!id && t.pid === id })) })).filter((p) => p.top.length);
   return { total: out.length, top: out.slice(0, TOP_N), me: out.find((r) => r.me) || null,
            seasons, past, updatedAt: now };
 }
@@ -196,8 +197,8 @@ export default async (req) => {
   const sameGame = existing && (!existing.created || existing.created === created);   // old records have no `created`
   // how much could this player plausibly have now? (a new life restarts from $10,000)
   const from = existing ? Math.max(sameGame ? existing.equity : CAPITAL, CAPITAL) : CAPITAL;
-  const steps = existing ? Math.min(40, Math.max(1, (now - Math.max(existing.updatedAt || now, existing.resetAt || 0)) / STEP)) : 1;
-  const allowed = existing ? (from + ALLOWANCE) * Math.pow(GROWTH, steps) : JOIN_MAX;
+  const steps = existing ? Math.min(MAX_STEPS, Math.max(1, (now - Math.max(existing.updatedAt || now, existing.resetAt || 0)) / STEP)) : 1;
+  const allowed = existing ? (from + ALLOWANCE) * Math.pow(GROWTH, steps) : MAX_EQUITY;
   if (eq > allowed)
     return json({ error: "implausible", message: "资产涨得比游戏里可能的还快，这次成绩没有上传" }, 400);
   // lives: a restart closes the previous life at its last reported equity
@@ -212,7 +213,7 @@ export default async (req) => {
     else base[k] = { id: n, start: sameGame ? existing.equity : eq };
   }
   const rec = { id, tokenHash, name, initial, equity: eq, carried, lives, ratio: (carried + eq) / (CAPITAL * lives), trades, ach, lv, created, rb,
-                flagged: existing?.flagged || 0,
+                flagged: existing?.flagged || 0, ok: 1,
                 s: base.s, S: base.S, joinedAt: existing?.joinedAt || now, updatedAt: now };
   await store.setJSON(key, rec);
   board.players[id] = pub(rec);

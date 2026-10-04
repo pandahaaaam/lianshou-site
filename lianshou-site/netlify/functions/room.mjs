@@ -11,7 +11,7 @@
 import { getStore } from "@netlify/blobs";
 
 const CAPITAL = 10000, MAX_MEMBERS = 20, HOURS = [1, 24, 72];
-const MAX_EQUITY = 1e9, GROWTH = 5, STEP = 600e3, ALLOWANCE = 30000;   // same plausibility limits as the leaderboard
+const MAX_EQUITY = 1e9, GROWTH = 3, STEP = 600e3, MAX_STEPS = 6, ALLOWANCE = 30000;   // same plausibility limits as the leaderboard
 const ID_RE = /^[a-z0-9]{16,40}$/, CODE_RE = /^[A-HJ-NP-Z2-9]{6}$/;
 const ALPHA = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const HEADERS = {
@@ -69,7 +69,6 @@ export default async (req) => {
     const name = cleanName(b.name), n = nums(b), hours = Number(b.hours);
     if (!name) return json({ error: "bad_name", message: "名字不能为空" }, 400);
     if (!n || !HOURS.includes(hours)) return json({ error: "bad_numbers", message: "数据不正确" }, 400);
-    if (n.equity > 1e6) return json({ error: "implausible", message: "资产超出了正常范围，不能开房" }, 400);
     let code = newCode();
     for (let i = 0; i < 5 && (await store.get("r/" + code, { type: "json" })); i++) code = newCode();
     const room = { code, host: id, hostName: name, hours, createdAt: now, endAt: now + hours * 3600e3,
@@ -99,7 +98,6 @@ export default async (req) => {
     if (Object.keys(room.members).length >= MAX_MEMBERS) return json({ error: "full", message: `房间满了（最多 ${MAX_MEMBERS} 人）` }, 409);
     if (Object.values(room.members).some((x) => x.name.toLowerCase() === name.toLowerCase()))
       return json({ error: "name_taken", message: "房间里已经有人叫这个名字了" }, 409);
-    if (n.equity > 1e6) return json({ error: "implausible", message: "资产超出了正常范围，不能加入" }, 400);
     room.members[id] = { id, tokenHash, name, ...n, start: n.equity, joinedAt: now, updatedAt: now };
     await store.setJSON("r/" + code, room);
     return json({ ok: true, room: view(room, id) });
@@ -108,7 +106,7 @@ export default async (req) => {
     if (!m) return json({ error: "not_member", message: "你不在这个房间里" }, 404);
     if (ended || now - (m.updatedAt || 0) < 5000) return json({ ok: true, frozen: ended, room: view(room, id) });
     const restarted = m.created && n.created !== m.created;
-    const from = Math.max(restarted ? CAPITAL : m.equity, CAPITAL), steps = Math.min(40, Math.max(1, (now - (m.updatedAt || now)) / STEP));
+    const from = Math.max(restarted ? CAPITAL : m.equity, CAPITAL), steps = Math.min(MAX_STEPS, Math.max(1, (now - (m.updatedAt || now)) / STEP));
     if (n.equity > (from + ALLOWANCE) * Math.pow(GROWTH, steps)) return json({ error: "implausible", message: "资产涨得比游戏里可能的还快，这次没有计入" }, 400);
     // restarted the game while in the room: keep the result so far
     if (restarted) m.start = n.equity - (m.equity - m.start);
