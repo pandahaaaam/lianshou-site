@@ -359,10 +359,96 @@ html[data-mode="simple"] .summary{grid-template-columns:repeat(3,1fr)}
 .news .st.f{color:#fff;background:var(--fg-3)}
 .news.wait .hl{animation:blink 1.4s infinite}
 
+/* farm */
+.a-farm{overflow:hidden}
+.farm-head{padding:14px 18px 0;background:linear-gradient(180deg,color-mix(in srgb,#3AA864 10%,var(--surface)),var(--surface))}
+.farm-head h2{font-family:var(--f-display);font-size:15px;font-weight:600;margin:0}
+.farm-head small{font-size:12px;color:var(--fg-3)}
+.farm-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:12px 18px 0;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.farm-stats div{background:var(--surface-2);padding:7px 8px;min-width:0}
+.farm-stats small{display:block;font-size:11px;color:var(--fg-3)}
+.farm-stats b{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.farm-stats b.hot{color:var(--warn)}
+.farm-body{padding:12px 18px 16px;display:flex;flex-direction:column;gap:12px}
+.farm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.plot{border:1px solid var(--line);border-radius:14px;padding:6px 6px 8px;display:flex;flex-direction:column;gap:5px;background:var(--surface);min-width:0;transition:border-color .2s, box-shadow .2s}
+.plot .scene{position:relative;height:74px;border-radius:10px;overflow:hidden;
+  background:linear-gradient(180deg,#D6ECFA 0,#EDF6FC 70%,#B98A5E 70%,#A97B51 100%)}
+.plot .scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30%;background:repeating-linear-gradient(90deg,transparent 0 9px,rgba(0,0,0,.07) 9px 11px)}
+.plot svg{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:62px;height:54px;z-index:1}
+.plot .pno{position:absolute;left:6px;top:4px;font-family:var(--f-num);font-size:10.5px;color:#5B6B7A;z-index:2}
+.plot .ptag{position:absolute;right:5px;top:4px;font-size:10.5px;padding:0 6px;border-radius:99px;background:rgba(255,255,255,.85);color:#4A5563;z-index:2;font-weight:500}
+.plot .ptag.t1{background:#3B82F6;color:#fff}.plot .ptag.t2{background:#D08A1E;color:#fff}.plot .ptag.t3{background:#16A05A;color:#fff}.plot .ptag.t4{background:#8C6B45;color:#fff}
+.plot .pbar{height:4px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.plot .pbar i{display:block;height:100%;background:linear-gradient(90deg,#7CC995,#2E9E5A);border-radius:99px;transition:width .4s}
+.plot small{font-size:11px;color:var(--fg-3);font-family:var(--f-num);min-height:16px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.plot small.warn{color:var(--red);font-weight:500}
+.plot .act{width:100%;border:0;border-radius:9px;padding:7px 0;font-size:12.5px;font-weight:700;background:var(--fg);color:var(--bg)}
+.plot .act.a1{background:#3B82F6;color:#fff}.plot .act.a2{background:#D08A1E;color:#fff}.plot .act.a3{background:#16A05A;color:#fff}.plot .act.a4{background:#8C6B45;color:#fff}
+.plot .act:disabled{background:var(--surface-2);color:var(--fg-3);cursor:default}
+.plot[data-ready="1"].s1,.plot[data-ready="1"].s2,.plot[data-ready="1"].s3{border-color:color-mix(in srgb,#16A05A 55%,var(--line));box-shadow:0 0 0 2px color-mix(in srgb,#16A05A 14%,transparent)}
+.plot.s4 .scene{background:linear-gradient(180deg,#E9E4DA 0,#F1EDE6 70%,#9C8366 70%,#8D7559 100%)}
+.plot.buy{border:1.5px dashed var(--line);background:var(--surface-2);color:var(--fg-2);align-items:center;justify-content:center;cursor:pointer;font:inherit;min-height:150px;text-align:center}
+.plot.buy:hover{border-color:var(--fg-3)}
+.plot.buy .plus{font-size:26px;line-height:1;color:var(--fg-3)}
+.plot.buy b{font-size:12.5px;font-weight:500}
+.plot.buy:disabled{opacity:.55;cursor:not-allowed}
+.farm-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--fg-3)}
+.farm-foot .primary{padding:9px 16px;font-size:14px}
+.farm-foot .primary.buyauto{background:var(--surface);color:var(--fg);border:1.5px solid var(--fg)}
+.farm-foot .primary:disabled{opacity:.45;cursor:not-allowed}
+.farm-rule{margin:0;font-size:12px;color:var(--fg-3);line-height:1.6}
+.farm-rule b{color:var(--fg-2);font-weight:500}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .plot .scene{background:linear-gradient(180deg,#1F3346 0,#273D52 70%,#5A4330 70%,#4D3928 100%)}
+  :root:not([data-theme="light"]) .plot .ptag{background:rgba(0,0,0,.45);color:#E6E9EE}:root:not([data-theme="light"]) .plot .pno{color:#9FB0C0}}
+:root[data-theme="dark"] .plot .scene{background:linear-gradient(180deg,#1F3346 0,#273D52 70%,#5A4330 70%,#4D3928 100%)}
+.daily-body{padding:8px 18px 14px;display:flex;flex-direction:column;gap:8px}
+.dtask{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:var(--surface-2)}
+.dtask .ck{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--fg-3);flex:none;display:grid;place-items:center;font-size:12px;color:#fff}
+.dtask.done .ck{background:var(--green);border-color:var(--green)}
+.dtask .dt{flex:1;min-width:0}
+.dtask .dt b{font-size:13px;font-weight:500;display:block}
+.dtask .dt small{font-size:11px;color:var(--fg-3)}
+.dtask.done .dt b{color:var(--fg-3);text-decoration:line-through}
+.dbar{height:4px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:4px}
+.dbar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.dtask.done .dbar i{background:var(--green)}
+.dtask .rw{font-size:12.5px;color:var(--fg-2);text-align:right;white-space:nowrap}
+.dtask .rw small{display:block;font-size:11px;color:var(--fg-3)}
+.dfoot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--fg-3);padding-top:2px}
+.dfoot b{color:var(--fg-2);font-weight:500}
+.ach.hid{border-style:dashed;opacity:1;background:repeating-linear-gradient(135deg,var(--surface) 0 10px,var(--surface-2) 10px 20px)}
+.ach.hid b{color:var(--fg-3)}
+.ach.hid .mk{background:var(--fg-3);color:var(--bg)}
+.ach.hid.on{border-style:solid;background:linear-gradient(135deg,color-mix(in srgb,#C2378A 10%,var(--surface)),var(--surface));border-color:#C2378A}
+.ach.hid.on b{color:var(--fg)}
+.ach.hid.on .mk{background:#C2378A;color:#fff}
+.room-list{display:flex;gap:6px;flex-wrap:wrap;margin:12px 18px 0}
+.room-list button{border:1.5px solid var(--line);background:var(--surface-2);border-radius:10px;padding:5px 10px;display:flex;flex-direction:column;align-items:flex-start;line-height:1.3}
+.room-list button b{font-size:13px;font-weight:500;letter-spacing:.06em}
+.room-list button small{font-size:10.5px;color:var(--fg-3)}
+.room-list button[aria-pressed="true"]{border-color:var(--fg);background:var(--surface)}
+.room-new{margin:10px 18px 0;padding:10px 12px;border-radius:12px;background:var(--surface-2);display:flex;flex-direction:column;gap:8px}
+.room-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--fg-2)}
+.room-row .seg{margin:0}
+.room-row input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface);font-family:var(--f-num);letter-spacing:.08em;text-transform:uppercase}
+.room-row input:focus{outline:0;border-color:var(--accent)}
+.room-btn{border:0;border-radius:10px;background:var(--fg);color:var(--bg);padding:8px 14px;font-weight:700;margin-left:auto}
+.room-btn:disabled{opacity:.5}
+.room-head{margin:12px 18px 0;display:flex;align-items:flex-start;gap:10px}
+.room-head b{font-family:var(--f-display);font-size:15px;display:block}
+.room-head small{font-size:12px;color:var(--fg-3)}
+.room-head .left{margin-left:auto;font-size:13px;color:var(--fg-2);white-space:nowrap}
+.room-acts{display:flex;gap:8px;margin:8px 18px 0}
+.room-acts button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 12px;font-size:12.5px;color:var(--fg-2)}
+.room-acts #roomCopy{background:var(--accent);border-color:var(--accent);color:#fff}
+.room-note{margin:4px 18px 12px;font-size:12px;color:var(--fg-3);line-height:1.6}
+.lifetag{font-size:10.5px;padding:0 5px;border-radius:5px;background:color-mix(in srgb,#C2378A 12%,transparent);color:#C2378A;margin-left:4px;white-space:nowrap;font-weight:500}
+
 footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
 
 /* bottom nav (phones) */
-.mnav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));display:none;grid-template-columns:repeat(5,1fr)}
+.mnav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));display:none;grid-template-columns:repeat(6,1fr)}
 .mnav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;color:var(--fg-3);padding:4px 0;position:relative}
 .mnav svg{width:22px;height:22px}
 .mnav button[aria-current="page"]{color:var(--fg)}
@@ -374,6 +460,8 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
 .sheet h3{font-family:var(--f-display);font-size:21px;margin:0;text-wrap:balance}
 .sheet p{margin:0;color:var(--fg-2)}
 .caps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.startcap{display:flex;align-items:center;gap:14px;background:var(--surface-2);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--fg-2)}
+.startcap b{font-size:22px;font-weight:500;color:var(--fg)}
 .cap{border:1.5px solid var(--line);background:var(--surface-2);border-radius:12px;padding:14px 8px;text-align:center}
 .cap b{display:block;font-family:var(--f-num);font-size:17px;font-weight:500}
 .cap small{color:var(--fg-3);font-size:12px}
@@ -428,7 +516,14 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   body[data-view="trade"] [data-view]:not([data-view~="trade"]),
   body[data-view="pos"] [data-view]:not([data-view~="pos"]),
   body[data-view="me"] [data-view]:not([data-view~="me"]),
-  body[data-view="board"] [data-view]:not([data-view~="board"]){display:none!important}
+  body[data-view="board"] [data-view]:not([data-view~="board"]),
+  body[data-view="farm"] [data-view]:not([data-view~="farm"]){display:none!important}
+  .farm-body{padding-inline:14px}
+  .daily-body{padding-inline:14px}
+  .farm-head{padding-inline:14px}
+  .farm-stats{margin-inline:14px}
+  .farm-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mnav button{font-size:11px}
   .lb-join,.lb-foot,.lb-list li{padding-inline:14px}
   .lb-me{margin-inline:14px}
   .loan-body{padding-inline:14px}
@@ -442,7 +537,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   .modeseg{order:4}
   .lvpill{padding:4px 8px 4px 5px}
   .lvpill .xp{display:none}
-  .lb-tabs,.lb-season,.lb-past{margin-inline:14px}
+  .lb-tabs,.lb-season,.lb-past,.room-list,.room-new,.room-head,.room-acts,.room-note{margin-inline:14px}
   .a-chart .news{margin-inline:14px}
   .titles{grid-template-columns:1fr 1fr}
   .mstrip{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
@@ -570,7 +665,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <div class="news" id="tNews" hidden></div>
       <div class="preview" id="preview"></div>
       <div class="err" id="tErr" hidden></div>
-      <div class="broke" id="broke" hidden><span id="brokeText"><b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。</span><div class="btns-row"><button class="primary pro-only" id="brokeLoan">去借钱翻身</button><button class="ghost" id="brokeRestart">重新开始</button></div></div>
+      <div class="broke" id="broke" hidden><span id="brokeText"><b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。</span><div class="btns-row"><button class="primary" id="brokeFarm">去种棉花挣钱</button><button class="ghost pro-only" id="brokeLoan">借钱翻身</button><button class="ghost" id="brokeRestart">重新开始</button></div></div>
       <button class="go" id="goBtn" data-side="long">买入做多 BTC</button>
     </section>
 
@@ -586,6 +681,26 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     </section>
 
     <div class="a-side">
+      <section class="card a-farm" data-view="farm" id="farmCard">
+        <div class="farm-head">
+          <div><h2>棉花田</h2><small>靠劳动挣钱：播种 → 浇水 → 施肥 → 收获，每步隔 8 分钟</small></div>
+        </div>
+        <div class="farm-stats">
+          <div><small>土地</small><b class="num" id="fsLand">1/12</b></div>
+          <div><small>待处理</small><b class="num" id="fsDue">0</b></div>
+          <div><small>已收获</small><b class="num" id="fsHarv">0</b></div>
+          <div><small>净收入</small><b class="num" id="fsNet">$0</b></div>
+        </div>
+        <div class="farm-body">
+          <div class="farm-grid" id="farmGrid"></div>
+          <div class="farm-foot"><button class="primary" id="farmAll">一键处理</button><span id="farmHint"></span></div>
+          <p class="farm-rule">种子 $100 一包，棉花卖 $800 一朵。每一步到点后 <b>1 小时内</b>要处理，否则会枯萎，种子钱就白花了。一键处理工具一次买断 $2,000。</p>
+        </div>
+      </section>
+      <section class="card a-daily" data-view="farm me" id="dailyCard">
+        <div class="card-h"><h2>每日任务</h2><span class="faint" style="font-size:12px;margin-left:auto" id="dailyLeft">—</span></div>
+        <div class="daily-body" id="dailyBody"></div>
+      </section>
     <section class="card a-equity" data-view="me">
         <div class="card-h"><h2>我的资产曲线</h2><span class="faint" style="font-size:12px;margin-left:auto">虚线 = 起始资金</span></div>
         <div id="equityChart"></div>
@@ -604,7 +719,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       </section>
       <section class="card a-board" data-view="board" id="boardCard">
         <div class="card-h"><h2>排行榜</h2><span class="faint" id="lbCount" style="font-size:12px;margin-left:auto">按收益率排名</span></div>
-        <div class="seg lb-tabs" role="group" aria-label="榜单" id="lbTabs"><button data-lbtab="s" aria-pressed="true">小赛季</button><button data-lbtab="S" aria-pressed="false">大赛季</button><button data-lbtab="all" aria-pressed="false">总榜</button></div>
+        <div class="seg lb-tabs" role="group" aria-label="榜单" id="lbTabs"><button data-lbtab="s" aria-pressed="true">小赛季</button><button data-lbtab="S" aria-pressed="false">大赛季</button><button data-lbtab="all" aria-pressed="false">总榜</button><button data-lbtab="room" aria-pressed="false">好友房</button></div>
         <div id="lbBody"></div>
       </section>
     </div>
@@ -617,6 +732,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   <button data-go="market" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M14 8h6v6"/></svg>行情</button>
   <button data-go="trade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M7 4l-3 3M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3"/></svg>交易</button>
   <button data-go="pos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 15h3"/></svg>持仓<span class="dotn" id="navPos" hidden>0</span></button>
+  <button data-go="farm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/><path d="M5 21h14"/></svg>农场<span class="dotn" id="navFarm" hidden>0</span></button>
   <button data-go="board"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>排行</button>
   <button data-go="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>我的</button>
 </nav>
@@ -627,13 +743,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     <h3 id="startTitle">欢迎来到练手交易所</h3>
     <p>这里的钱是假的，价格是真的。你可以买币、做空、开杠杆，体验交易的刺激，但不会真的亏钱。</p>
     <div class="field">
-      <div class="field-h"><span>先选一笔起始资金</span></div>
-      <div class="caps" id="caps">
-        <button class="cap" data-cap="1000"><b>$1,000</b><small>小试一下</small></button>
-        <button class="cap" data-cap="10000" aria-pressed="true"><b>$10,000</b><small>推荐</small></button>
-        <button class="cap" data-cap="100000"><b>$100,000</b><small>大户体验</small></button>
-      </div>
-      <label class="money"><span>$</span><input id="capCustom" type="number" min="100" step="100" placeholder="或输入任意金额" aria-label="自定义起始资金"></label>
+      <div class="startcap"><b class="num">$10,000</b><span>每个人的起始资金都一样，排行榜上比的是真本事。<span id="startLife"></span></span></div>
     </div>
     <div class="field">
       <div class="field-h"><span>选一个界面</span><span class="faint">随时可以在右上角切换</span></div>
@@ -646,6 +756,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <div><span><b>选一个币</b>：比特币、以太坊、狗狗币，波动极大的 PEPE、WIF，或者每分钟都在上蹿下跳的虚构「火箭币」。</span></div>
       <div><span><b>猜方向</b>：觉得会涨点「做多」，觉得会跌点「做空」。</span></div>
       <div><span><b>随时平仓</b>：把盈亏落袋，解锁成就、升级称号，在每 2 天一季的赛季里和朋友比收益。</span></div>
+      <div><span><b>亏光了也别怕</b>：到「农场」种棉花，靠劳动一点点把本钱挣回来。</span></div>
     </div>
     <button class="primary" id="startBtn">开始练习</button>
   </div>
@@ -670,12 +781,16 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <div><b>爆仓</b>价格反向走太多、本金快亏光时，系统强制平仓，本金就没了。杠杆越高越容易爆仓。</div>
       <div><b>手续费</b>开仓和平仓各收「仓位价值」的 0.1%。开了杠杆，仓位变大，手续费也跟着变大。</div>
       <div><b>净盈亏</b>价格带来的盈亏，减去开仓和平仓的手续费。这才是你真正赚到或亏掉的钱。</div>
-      <div><b>火箭币（虚构）</b>游戏生成的假币，现实中不存在。每 8 分钟一局，从 $1.00 发射，局末自动结算；每局只能开仓一次，平仓延迟 20 秒成交，手续费 5%。所有玩家看到同一个价格。现实里遇到这样波动的币，多半是骗局。</div>
+      <div><b>火箭币（虚构）</b>游戏生成的假币，现实中不存在。每 8 分钟一局，从 $1.00 发射，局末自动结算；每局只能开仓一次，平仓延迟 20 秒成交，手续费 2.5%，最多 5× 杠杆。所有玩家看到同一个价格。现实里遇到这样波动的币，多半是骗局。</div>
       <div><b>穿仓</b>价格一下子跳过了爆仓价，亏损超过了本金。超出的部分要从可用资金里倒贴，总资产可能变成负数。</div>
       <div><b>贷款</b>可以借钱继续玩，利息每小时 5%，利滚利：一天后欠款变成 3.2 倍，一周后变成约 3,600 倍。</div>
       <div><b>止损 / 止盈（高级界面）</b>开仓时提前定好：亏到本金的多少就自动卖（止损），赚到多少就自动卖（止盈）。价格一碰到就按当时价格平仓。</div>
-      <div><b>火箭币快讯</b>每局会冒出一条快讯，可能是真消息也可能是假消息，真假各一半。几十秒后揭晓：真消息价格按消息方向跳，假消息反着跳。</div>
+      <div><b>火箭币快讯</b>大约七成的局会冒出一条快讯，可能是真消息也可能是假消息，真假各一半。几十秒后揭晓：真消息价格按消息方向跳，假消息反着跳。</div>
       <div><b>赛季</b>每 2 天一个小赛季、每 10 天一个大赛季，按这一季里的收益排名，前三名进往届冠军榜。总榜照常保留。</div>
+      <div><b>农场</b>种子 $100，播种后每隔 8 分钟浇水、施肥、收获，一朵棉花卖 $800。到点后 1 小时内不处理会枯萎。可以花钱开垦更多土地，也可以花 $2,000 买一键处理。</div>
+      <div><b>每日任务</b>每天三个任务（一个种地、两个交易），每完成一个奖励 $300 和经验，三个全完成再奖励 $600。</div>
+      <div><b>好友对战房</b>在「排行 → 好友房」开房间，把邀请码发给朋友。房间开 1 小时、1 天或 3 天，比谁在这段时间里赚得多。</div>
+      <div><b>隐藏成就</b>成就页最下面有十几个隐藏成就，只给提示，不告诉你是什么。有些非常难。</div>
       <div><b>等级和称号</b>交易、赚钱、解锁成就都能加经验，从「韭菜」一路升到「传奇」。称号会显示在排行榜上。</div>
       <div><b>迷因币（PEPE、WIF）</b>源自网络梗的币：PEPE 是青蛙表情包，WIF 是戴毛线帽的柴犬。没有实际用途，价格靠热度和情绪推动，涨跌是比特币的近 3 倍，现实中很多迷因币最终归零。</div>
     </div>
@@ -711,11 +826,11 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
         <button class="ghost" id="reconnect">重新连接</button>
       </div>
       <div class="set-row">
-        <div class="lbl"><b>重新开始</b><small>清空持仓和记录，重新选择起始资金</small></div>
+        <div class="lbl"><b>重新开始（重生）</b><small>清空钱、持仓、土地和记录，带着 $10,000 重来。排行榜上会记下你是第几世。</small></div>
         <button class="ghost" id="resetAsk">重新开始</button>
       </div>
       <div class="confirm" id="resetConfirm" hidden>
-        <span>所有持仓、成交记录和成就都会被清空，确定吗？</span>
+        <span>所有钱、持仓、土地、成交记录和成就都会被清空，算作一次重生（你将进入<b id="nextLife">第 2 世</b>），确定吗？</span>
         <div class="btns"><button class="danger" id="resetYes">清空并重来</button><button class="ghost" id="resetNo">算了</button></div>
       </div>
     </div>
@@ -743,9 +858,9 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     <p>火箭币（ROCKET）不是真实存在的币，现实中买不到。它的价格由游戏按固定规则每秒生成，专门用来体验超短线的刺激。</p>
     <div class="three">
       <div><span><b>每 8 分钟一局</b>：每局从 $1.00 重新发射，局末未平仓位按最后价格自动结算；每局只能开仓一次。所有玩家看到同一条行情，走势没有规律可循，比的是胆量和运气。</span></div>
-      <div><span><b>规则更严</b>：手续费 5%（普通币 0.1%）；点平仓后要等 20 秒才按当时价格成交；价格跳空越过爆仓价时，多亏的部分要从可用资金里倒贴（穿仓）。</span></div>
-      <div><span><b>真假快讯</b>：每局会出现一条快讯，真假各一半，几十秒后揭晓。真消息价格顺着消息跳，假消息反着跳，幅度 15–40%。现实中靠「内幕消息」炒币，同样经常被假消息收割。</span></div>
-      <div><span><b>每分钟都在上蹿下跳，高杠杆几十秒就可能爆仓</b>。真实市场里没有正规的币会这样波动，遇到这样的币通常意味着骗局。</span></div>
+      <div><span><b>规则更严</b>：手续费是仓位价值的 2.5%（普通币 0.1%），所以最多只能开 5× 杠杆，5× 时一开一平的手续费是本金的 25%；点平仓后要等 20 秒才按当时价格成交；价格跳空越过爆仓价时，多亏的部分要从可用资金里倒贴（穿仓）。</span></div>
+      <div><span><b>真假快讯</b>：大约七成的局会出现一条快讯，真假各一半，几十秒后揭晓。真消息价格顺着消息跳，假消息反着跳，幅度 15–40%。现实中靠「内幕消息」炒币，同样经常被假消息收割。</span></div>
+      <div><span><b>每分钟都在上蹿下跳，但很多尖刺一闪而过</b>：点平仓或触发止盈后要等 20 秒才成交，那时尖刺往往已经回落。真正的大涨大跌来自跳空和快讯。真实市场里没有正规的币会这样波动，遇到这样的币通常意味着骗局。</span></div>
     </div>
     <div class="btns-row"><button class="primary" id="rocketGo">我知道是虚构的，开始玩</button><button class="ghost" id="rocketNo">再想想</button></div>
   </div>
@@ -788,7 +903,7 @@ const COINS = {
         story:'戴毛线帽的柴犬', stat:'近 30 天日均波动约 5.6%，是比特币的 2.9 倍；单日最大涨跌 19%'},
 };
 // ROCKET is fictional: its price is generated by the game, the same for every player
-COINS.ROCKET = {name:'火箭币', glyph:'R', color:'#C2378A', dp:4, qdp:2, seed:1, vol:0, fictional:true, barSec:5, fee:0.05, closeDelay:20};
+COINS.ROCKET = {name:'火箭币', glyph:'R', color:'#C2378A', dp:4, qdp:2, seed:1, vol:0, fictional:true, barSec:5, fee:0.025, closeDelay:20, levCap:5};   // fee is 2.5% of the position value, leverage capped at 5×
 const ORDER = ['BTC','ETH','DOGE','PEPE','WIF','ROCKET'];
 const REAL = ORDER.filter(c=>!COINS[c].fictional);
 const ROCKET_ACK_KEY = 'lianshou-rocket-ack-v1';
@@ -803,6 +918,7 @@ const MODE_KEY = 'lianshou-mode-v1';
 const FEE = 0.001;      // 0.1% of position value, charged on open and on close (ROCKET: 1%)
 const LIQ = 0.9;        // liquidated once the price loss reaches 90% of the margin
 const LS_KEY = 'lianshou-exchange-v1';
+const CAPITAL = 10000;   // everyone starts with the same money
 const FEED_KEY = 'lianshou-feed-v1';
 const RELAY_MS = 20000;   // relay polling interval
 // The hosted site serves its own relay; file copies (exe, phone file) use the public site's relay.
@@ -854,11 +970,33 @@ function migrate(s){
   s.streak = s.streak||0;
   if(s.stats.qt==null){ s.stats.qt = s.stats.trades; s.stats.qw = s.stats.wins; }   // trades that count for XP
   if(!s.created) s.created = (s.equity[0] && s.equity[0].time*1000) || Date.now();
+  if(s.loan && s.loan.debt>0 && s.loan.debt<0.01){ s.loan.debt=0; s.loan.principal=0; }   // leftovers of the old 1-cent bug
+  if(Math.abs(s.initial-CAPITAL)>0.001) rescale(s, CAPITAL/s.initial);
+  if(s.rebirth==null) s.rebirth = 0;           // counted from this version on
+  if(!s.farm) s.farm = {plots:[{st:0,t:0}], earned:0, harvests:0};
+  if(s.farm.spent==null){ s.farm.spent=0; s.farm.withered=0; s.farm.auto=false; }
+  if(s.dailyDays==null) s.dailyDays = 0;
+  if(s.stats.dxp==null) s.stats.dxp = 0;
   return s;
+}
+// Everyone now starts with $10,000. Older games are scaled so the return stays the same:
+// +$300,000 on $100,000 becomes +$30,000 on $10,000.
+function rescale(s, k){
+  const m = v => v==null ? v : v*k;
+  s.initial = CAPITAL; s.cash = m(s.cash); s.feesPaid = m(s.feesPaid);
+  s.positions.forEach(p=>{ p.margin=m(p.margin); p.qty=m(p.qty); p.openFee=m(p.openFee); });
+  s.history.forEach(h=>{ ['margin','gross','fee','back','pnl'].forEach(f=>{ if(h[f]!=null) h[f]=m(h[f]); }); });
+  s.equity.forEach(e=>{ e.value=+(e.value*k).toFixed(2); });
+  if(s.loan){ s.loan.debt=m(s.loan.debt)||0; s.loan.principal=m(s.loan.principal)||0; }
+  if(s.stats) s.stats.best = m(s.stats.best)||0;
+  s.rescaled = Date.now();
 }
 state = migrate(state);
 function newState(capital){
-  return migrate({v:2, initial:capital, cash:capital, positions:[], history:[], equity:[{time:Math.floor(Date.now()/1000), value:capital}], ach:{}, streak:0, feesPaid:0, loan:{debt:0, principal:0, at:Date.now()}, rkEntry:null, prefs, sim:(state&&state.sim)||{}, created:Date.now()});
+  // starting over = a new life (重生): money, land and records all start fresh; only the count of lives goes on
+  const rebirth = state ? (state.rebirth||0)+1 : 0;
+  const daily = state && state.daily ? state.daily : undefined, dailyDays = state ? state.dailyDays||0 : 0;   // today's tasks carry over
+  return migrate({v:2, rebirth, daily, dailyDays, initial:capital, cash:capital, positions:[], history:[], equity:[{time:Math.floor(Date.now()/1000), value:capital}], ach:{}, streak:0, feesPaid:0, loan:{debt:0, principal:0, at:Date.now()}, rkEntry:null, prefs, sim:(state&&state.sim)||{}, created:Date.now()});
 }
 
 const ui = { coin:'BTC', side:'long', levIdx:4, chart:'area', tab:'pos', view:'market', mode:'pro', lbTab:'s', stopEdit:null };
@@ -1122,11 +1260,17 @@ function simStep(){
 /* ---------- ROCKET: fictional coin, generated from the clock ----------
    Rounds of 8 minutes, aligned to the world clock (every 480 s since 1970). Each round launches at $1.00.
    Every second has a fixed random shock derived from the second's number, so every player sees
-   exactly the same price at the same moment. The walk is "fair": the expected next price equals
-   the current price, so there is no level it drifts back to and no free direction to bet on.
-   Shocks: ~0.55% per second, plus jumps (≈ every 4 min ±6–22%, ≈ every 90 min ±30–60%).
+   exactly the same price at the same moment. The price has two layers:
+   · the "real" value: a fair walk (expected next value = current value) moving ~0.12% per second,
+     with big gaps (≈ every 15 min ±10–35%, ≈ every 90 min ±30–60%) and the news jumps;
+   · a jitter on top: ±2% wiggles that fade within a few seconds (kept below the fees, so fading it does not pay). It keeps the chart jumping every
+     second but carries no value: a spike that trips a take-profit has usually faded by the time the
+     20-second close fills.
+   Fees are 2.5% of the position value each way.
    At the end of a round, open ROCKET positions are settled at the round's last price.           */
-const RK = { seed:0x5EED1234, base:1.0, sig:0.0055, round:480, pJump:1/240, pMega:1/5400, j0:0.06, j1:0.16, m0:0.30, m1:0.30 };
+const RK = { seed:0x5EED1234, base:1.0, sig:0.0012, round:480, pJump:1/900, pMega:1/5400, j0:0.10, j1:0.25, m0:0.30, m1:0.30, nz:0.02, nzMem:6, newsP:0.7 };
+const RK_A = Math.exp(-1/RK.nzMem), RK_W = RK.nz*Math.sqrt(1-RK_A*RK_A);
+const RK_V = Array.from({length:RK.round+1}, (_,t)=> RK.nz*RK.nz*(1-Math.pow(RK_A,2*t))/2);   // jitter mean correction
 const rkEcosh = (a,w)=> (Math.sinh(a+w)-Math.sinh(a))/w - 1;
 const RK_C = RK.sig*RK.sig/2 + Math.log(1 + RK.pJump*rkEcosh(RK.j0,RK.j1) + RK.pMega*rkEcosh(RK.m0,RK.m1)); // keeps E[next price] = price
 let clockSkew = 0;                       // server minus local clock, learned from the leaderboard
@@ -1143,7 +1287,8 @@ function rkShock(sec){
   if(sec===n.reveal) e += n.move*n.J - Math.log(Math.cosh(n.J));   // the news jump; −log cosh keeps the walk fair
   return e - RK_C;
 }
-/* One news flash per round, the same for everyone. It shows up 1–5 minutes into the round and is
+function rkJit(sec){ const k=(sec ^ RK.seed)>>>0, u1=rkHash(k,8)||1e-12, u2=rkHash(k,9); return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2)*RK_W; }
+/* A news flash in about 70% of the rounds, the same for everyone. It shows up 1–5 minutes into the round and is
    settled 10–39 seconds later. Half are true (the price jumps the way the headline says), half are
    fake (it jumps the other way). Since true and fake are equally likely, the headline itself tells
    you nothing about the direction: it's a test of nerve, not a free tip. All stories are made up. */
@@ -1160,29 +1305,33 @@ function rkNews(r){
   const J = 0.15 + 0.25*rkHash(k,13), dir = rkHash(k,14)<0.5 ? 1 : -1, truth = rkHash(k,15)<0.5;
   const list = dir>0 ? RK_NEWS_UP : RK_NEWS_DOWN;
   n = {round:r, at, reveal, J, dir, truth, move: truth?dir:-dir, text: list[Math.floor(rkHash(k,16)*list.length)]};
+  if(rkHash(k,17) >= RK.newsP){ n.none=true; n.at=Infinity; n.reveal=-1; }   // quiet round: no news
   if(rkNewsCache.size>64) rkNewsCache.clear();
   rkNewsCache.set(r, n); return n;
 }
 const rkRound = sec => Math.floor(sec/RK.round);
 const rkRoundStart = sec => rkRound(sec)*RK.round;
-function rkLogAt(sec){ let x=0; for(let i=rkRoundStart(sec)+1;i<=sec;i++) x+=rkShock(i); return x; }   // ≤ 480 steps
-const rk = { sec:0, x:0, timer:null };
-const rkPrice = ()=> RK.base*Math.exp(rk.x);
-function rkSet(sec){ rk.sec=sec; rk.x=rkLogAt(sec); }
-function rkAdvance(){ rk.sec++; rk.x = (rk.sec % RK.round === 0) ? 0 : rk.x + rkShock(rk.sec); }
+// state within a round: x = log of the real value, z = jitter. Both restart at the round's first second.
+function rkStep(st, sec){ if(sec % RK.round === 0){ st.x=0; st.z=0; } else { st.x += rkShock(sec); st.z = RK_A*st.z + rkJit(sec); } return st; }
+function rkPx(st, sec){ return RK.base*Math.exp(st.x + st.z - RK_V[sec - rkRoundStart(sec)]); }
+function rkStateAt(sec){ const st={x:0,z:0}; for(let i=rkRoundStart(sec)+1;i<=sec;i++) rkStep(st,i); return st; }   // ≤ 480 steps
+const rk = { sec:0, x:0, z:0, timer:null };
+const rkPrice = ()=> rkPx(rk, rk.sec);
+function rkSet(sec){ const st=rkStateAt(sec); rk.sec=sec; rk.x=st.x; rk.z=st.z; }
+function rkAdvance(){ rk.sec++; rkStep(rk, rk.sec); }
 function rkSettle(beforeSec){
   // settle positions opened in rounds that ended before `beforeSec`; replay their round for liquidations
   if(!state) return;
   state.positions.forEach(p=>{ if(COINS[p.coin].fictional && p.round==null){ p.openSec=Math.floor(p.opened/1000); p.round=rkRound(p.openSec); } });
   state.positions.filter(p=>COINS[p.coin].fictional && (p.round+1)*RK.round <= beforeSec).forEach(p=>{
     const end=(p.round+1)*RK.round-1; const from=Math.max((p.openSec!=null?p.openSec:Math.floor(p.opened/1000))+1, p.round*RK.round+1);
-    let x=rkLogAt(from-1);
-    for(let sec=from; sec<=end; sec++){ x+=rkShock(sec); const px=RK.base*Math.exp(x);
+    const st=rkStateAt(from-1); let px=rkPx(st, from-1);
+    for(let sec=from; sec<=end; sec++){ rkStep(st,sec); px=rkPx(st,sec);
       if(p.liq!=null && (p.side==='long'? px<=p.liq : px>=p.liq)){ closePos(p.id,1,'liq',px); return; }
       if(p.pending && sec>=p.pending.atSec){ const fr=p.pending.frac; closePos(p.id,fr,'delayed',px); if(fr>=0.999) return; continue; }
       if(!p.pending){ const why=stopHit(p,px); if(why) p.pending={frac:1, atSec:sec+COINS[p.coin].closeDelay, why}; }
     }
-    closePos(p.id,1,'settle',RK.base*Math.exp(x));
+    closePos(p.id,1,'settle',px);
   });
 }
 function rkRebuild(){
@@ -1249,14 +1398,17 @@ function borrow(amt){
   toast(`<b>借款到账</b>　${fmtUSD(amt)} 已存入可用资金。利息每小时 5%，利滚利，记得早点还。`);
   unlock('loan'); loanMsg(''); afterChange();
 }
-function repay(amt){
+function repay(amt, all){
   if(!state) return; loanSettle();
-  const d=state.loan.debt; if(!(d>0)) return loanMsg('你没有欠款');
-  amt = Math.min(amt, d); amt = Math.floor(amt*100)/100; if(amt>=d-0.005) amt=d;
+  const d=state.loan.debt; if(!(d>0.0001)) return loanMsg('你没有欠款');
+  // Interest keeps ticking, and the screen shows the debt rounded to the cent. Anything within a cent
+  // of the full debt (or the 「全部还清」 button) pays it off exactly, so no stray $0.01 is left behind.
+  if(all || amt >= d - 0.01) amt = d;
+  else amt = Math.floor(amt*100)/100;
   if(!(amt>0)) return loanMsg('先填一个还款金额');
-  if(amt > state.cash+1e-6) return loanMsg(`可用资金只有 ${fmtUSD(Math.max(0,state.cash))}，不够还这么多`);
+  if(amt > state.cash + 0.01) return loanMsg(`可用资金只有 ${fmtUSD(Math.max(0,state.cash))}，不够还这么多`);
   state.loan.debt -= amt; state.cash -= amt; state.loan.principal = Math.min(state.loan.principal, state.loan.debt);
-  if(state.loan.debt < 0.005){ state.loan.debt=0; state.loan.principal=0; toast('<b>贷款还清</b>　无债一身轻。'); unlock('debtfree'); }
+  if(state.loan.debt < 0.01){ state.loan.debt=0; state.loan.principal=0; toast('<b>贷款还清</b>　无债一身轻。'); unlock('debtfree'); }
   else toast(`<b>已还款</b>　${fmtUSD(amt)}，还欠 ${fmtUSD(state.loan.debt)}。`);
   loanMsg(''); afterChange();
 }
@@ -1266,6 +1418,171 @@ function renderLoan(){
   $('loanDebt').textContent = fmtUSD(d); $('loanDebt').className = 'v num '+(d>0.004?'debt':'faint');
   $('loanInt').textContent = d>0.004 ? `本金 ${fmtUSD(Math.min(L.principal||0,d))} · 利息 ${fmtUSD(Math.max(0,d-(L.principal||0)))} · 每小时 +${fmtUSD(d*LOAN_RATE)}` : '没有欠款';
   $('loanRoom').textContent = '还能借 '+fmtUSD(loanRoom());
+}
+
+/* ---------- farm: grow cotton for money ----------
+   Each plot: sow ($100 seed) → (8 min) water → (8 min) fertilise → (8 min) harvest, sold for $800.
+   After a step comes due you have 1 hour to do it; after that the plant withers and the seed is lost.
+   Time comes from the server-corrected clock (nowMs), so moving the computer's clock doesn't help.
+   The one-click button is a tool you buy once for $2,000. Land prices grow ~1.45× per plot. */
+const FARM_STEP = 8*60e3, FARM_GRACE = 60*60e3, COTTON = 800, SEED = 100, AUTO_PRICE = 2000, MAX_PLOTS = 12;
+// price of plot #2 … #12. One plot nets at most $700 per 24 min.
+const LAND_PRICES = [3000, 4500, 7000, 10000, 15000, 22000, 32000, 48000, 70000, 100000, 150000];
+const FARM_ST = [
+  {name:'空地',   act:'播种',  wait:'',           due:''},
+  {name:'发芽中', act:'浇水',  wait:'后浇水',   due:'该浇水了'},
+  {name:'长叶中', act:'施肥',  wait:'后施肥',   due:'该施肥了'},
+  {name:'结铃中', act:'收获',  wait:'后收获', due:'可以收获'},
+  {name:'枯萎了', act:'清理',  wait:'',           due:'枯萎了'},
+];
+const plotReady = p => p.st===0 || p.st===4 || nowMs() >= p.t + FARM_STEP;
+const landPrice = () => state && state.farm.plots.length < MAX_PLOTS ? LAND_PRICES[state.farm.plots.length-1] : null;
+// plants that waited more than an hour past their step wither
+function farmWither(){
+  if(!state) return 0; const now=nowMs(); let n=0;
+  state.farm.plots.forEach(p=>{ if(p.st>=1 && p.st<=3 && now >= p.t + FARM_STEP + FARM_GRACE){ p.st=4; p.t=now; n++; } });
+  if(n){ state.farm.withered = (state.farm.withered||0) + n; toast(`<b>棉花枯萎了</b>　${n} 株错过了照料时间（每一步到点后 1 小时内要处理）。清理掉重新播种吧。`);
+    if(state.farm.withered>=10) unlock('h_wither'); saveSoon(); }
+  return n;
+}
+function farmAct(i, quiet){
+  const p = state && state.farm.plots[i]; if(!p || !plotReady(p)) return 0;
+  const F = state.farm;
+  if(p.st===4){ p.st=0; p.t=0; return -1; }
+  if(p.st===0){
+    if(state.cash < SEED){ if(!quiet) toast(`<b>买不起种子</b>　一包种子 ${fmtUSD(SEED)}，你的可用资金只有 ${fmtUSD(Math.max(0,state.cash))}。`); unlock('h_seedbroke'); return 0; }
+    state.cash -= SEED; F.spent = (F.spent||0) + SEED; p.st=1; p.t=nowMs(); daily('sow'); return -1;
+  }
+  if(p.st===3){
+    p.st=0; p.t=0; state.cash += COTTON; F.earned += COTTON; F.harvests++; daily('harvest');
+    unlock('farm1'); if(F.harvests>=50) unlock('farm50'); if(F.harvests>=1000) unlock('h_cotton');
+    if(!quiet) toast(`<b>收获棉花</b>　卖了 ${fmtUSD(COTTON)}，已存入可用资金。`);
+    return COTTON;
+  }
+  p.st++; p.t = nowMs(); daily('care');
+  return -1;
+}
+function farmAll(){
+  if(!state) return;
+  if(!state.farm.auto){
+    if(state.cash < AUTO_PRICE){ toast(`<b>钱不够</b>　一键处理工具要 ${fmtUSD(AUTO_PRICE)}，你的可用资金只有 ${fmtUSD(Math.max(0,state.cash))}。`); return; }
+    state.cash -= AUTO_PRICE; state.farm.auto = true; toast(`<b>买下一键处理</b>　花了 ${fmtUSD(AUTO_PRICE)}，以后点一下就能处理所有到点的地（播种照样收种子钱）。`); afterChange(); return;
+  }
+  let got=0, n=0;
+  state.farm.plots.forEach((p,i)=>{ if(plotReady(p)){ const r=farmAct(i,true); if(r!==0) n++; if(r>0) got+=r; } });
+  if(!n){ toast('<b>一键处理</b>　现在没有能处理的地（或者买不起种子）。'); return; }
+  toast(got ? `<b>一键处理 ${n} 块地</b>　收获卖了 ${fmtUSD(got)}。` : `<b>一键处理 ${n} 块地</b>　8 分钟后再来看看。`);
+  afterChange();
+}
+function buyLand(){
+  const price = landPrice(); if(price==null) return;
+  if(state.cash < price){ toast(`<b>钱不够</b>　开垦新地要 ${fmtUSD(price)}，你的可用资金只有 ${fmtUSD(Math.max(0,state.cash))}。`); return; }
+  state.cash -= price; state.farm.plots.push({st:0,t:0});
+  const n = state.farm.plots.length;
+  toast(`<b>开垦成功</b>　你现在有 ${n} 块地。花了 ${fmtUSD(price)}，大约收 ${Math.ceil(price/(COTTON-SEED))} 朵棉花回本。`);
+  if(n>=3) unlock('land3'); if(n>=8) unlock('land8'); if(n>=MAX_PLOTS) unlock('h_land');
+  afterChange();
+}
+function plantSvg(st, ready){
+  const g='#3AA864', g2='#2A8A50', stem=`stroke="${g2}" stroke-width="2.4" stroke-linecap="round" fill="none"`;
+  const leaf=(x,y,dx,dy,c)=>`<path d="M${x} ${y}c${dx*0.2} ${-dy*0.9} ${dx*0.9} ${-dy} ${dx} ${-dy}c${-dx*0.1} ${dy*0.8} ${-dx*0.7} ${dy} ${-dx} ${dy}z" fill="${c||g}"/>`;
+  const boll=(x,y,r)=> ready ? `<g><circle cx="${x}" cy="${y}" r="${r}" fill="#fff"/><circle cx="${x-r*0.55}" cy="${y+r*0.3}" r="${r*0.7}" fill="#fff"/><circle cx="${x+r*0.55}" cy="${y+r*0.3}" r="${r*0.7}" fill="#fff"/><circle cx="${x}" cy="${y}" r="${r*1.3}" fill="none" stroke="#AEB8C4" stroke-width=".8"/></g>`
+                             : `<path d="M${x-r*0.8} ${y+r*0.6}q${r*0.8} ${-r*2.2} ${r*1.6} 0z" fill="#5DBB7C"/>`;
+  let s='';
+  if(st===0) s = '<g fill="#7A5232"><ellipse cx="22" cy="53" rx="2.2" ry="1.3"/><ellipse cx="32" cy="53" rx="2.2" ry="1.3"/><ellipse cx="42" cy="53" rx="2.2" ry="1.3"/></g>';
+  if(st===1) s = `<path d="M32 50v-9" ${stem}/>${leaf(32,43,-7,5)}${leaf(32,42,7,6)}`;
+  if(st===2) s = `<path d="M32 50V24" ${stem}/>${leaf(32,44,-11,8)}${leaf(32,38,11,9)}${leaf(32,31,-9,8)}${leaf(32,26,8,7,'#4DB874')}`;
+  if(st===3) s = `<path d="M32 50V18M32 34l-9-6M32 29l9-6" ${stem}/>${leaf(32,46,-11,7)}${leaf(32,41,11,8)}${boll(32,15,4.2)}${boll(22,26,3.6)}${boll(42,21,3.6)}`;
+  if(st===4) s = '<path d="M32 50c0-8 1-14-4-19" stroke="#8C6B45" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M28 32c-6 1-9 5-9 9 4-1 8-4 9-9zM31 40c5 0 8 3 9 7-4 0-8-2-9-7z" fill="#A98557"/>';
+  return `<svg viewBox="0 0 64 56" aria-hidden="true">${s}</svg>`;
+}
+let farmSig='', farmReadyN=0;
+function renderFarm(){
+  if(!state) return; const F=state.farm; farmWither(); const now=nowMs();
+  const ready = F.plots.map(plotReady);
+  const due = F.plots.filter((p,i)=>ready[i] && p.st>0).length;          // need work now (incl. withered)
+  const actionable = F.plots.filter((p,i)=>ready[i] && (p.st>0 || state.cash>=SEED)).length;
+  $('navFarm').hidden = !due; $('navFarm').textContent = due;
+  const needWork = F.plots.filter((p,i)=>ready[i] && p.st>=1 && p.st<=3).length;
+  if(needWork > farmReadyN && !document.hidden){ const kinds=[...new Set(F.plots.filter((p,i)=>ready[i]&&p.st>=1&&p.st<=3).map(p=>FARM_ST[p.st].act))].join('、'); toast(`<b>棉花田</b>　有 ${needWork} 块地可以${kinds}了，1 小时内不处理就会枯萎。`); }
+  farmReadyN = needWork;
+  const price = landPrice();
+  $('fsLand').textContent = `${F.plots.length}/${MAX_PLOTS}`;
+  $('fsDue').textContent = due; $('fsDue').className = 'num'+(due?' hot':'');
+  $('fsHarv').textContent = F.harvests;
+  const net = F.earned - (F.spent||0); $('fsNet').textContent = fmtUSD(net,true).replace(/\.\d\d$/,''); $('fsNet').className='num '+cls(net);
+  const fa=$('farmAll');
+  if(!F.auto){ fa.disabled=false; fa.textContent=`购买一键处理 ${fmtUSD(AUTO_PRICE)}`; fa.classList.add('buyauto'); }
+  else { fa.classList.remove('buyauto'); fa.disabled=!actionable; fa.textContent = actionable ? `一键处理（${actionable} 块地）` : '一键处理'; }
+  $('farmHint').textContent = (()=>{ const w=F.plots.filter(p=>p.st>=1&&p.st<=3&&!plotReady(p)).map(p=>p.t+FARM_STEP-now); if(due) return ''; return w.length ? '下一块地 '+mmss(Math.max(0,Math.ceil(Math.min(...w)/1000)))+' 后要处理' : (F.plots.some(p=>p.st===0) ? '空地播种后就开始生长' : ''); })();
+  const sig = F.plots.map((p,i)=>p.st+(ready[i]?'r':'')).join(',')+'|'+(price!=null && state.cash>=price)+'|'+(state.cash>=SEED);
+  if(sig!==farmSig){
+    farmSig=sig;
+    $('farmGrid').innerHTML = F.plots.map((p,i)=>{ const S=FARM_ST[p.st], r=ready[i];
+      const tag = p.st===0 ? '' : r ? `<span class="ptag t${p.st}">${S.due}</span>` : `<span class="ptag">${S.name}</span>`;
+      const label = p.st===0 ? `播种 −${fmtUSD(SEED).replace('.00','')}` : p.st===3 ? '收获 +$800' : S.act;
+      return `<div class="plot s${p.st}" data-i="${i}" data-ready="${r?1:0}"><div class="scene">${plantSvg(p.st, r)}${tag}<span class="pno">${i+1}</span></div>`+
+        `<div class="pbar"><i data-pb></i></div><small data-cd></small>`+
+        `<button class="act a${p.st}" data-farm="act" ${r && (p.st>0 || state.cash>=SEED)?'':'disabled'}>${label}</button></div>`; }).join('') +
+      (price!=null ? `<button class="plot buy" data-farm="buy" ${state.cash>=price?'':'disabled'}><span class="plus">+</span><b>开垦第 ${F.plots.length+1} 块地</b><small>${fmtUSD(price)}</small></button>` : '');
+  }
+  $('farmGrid').querySelectorAll('.plot[data-i]').forEach(el=>{ const p=F.plots[+el.dataset.i]; const cd=el.querySelector('[data-cd]'), pb=el.querySelector('[data-pb]');
+    let prog=0, txt='', warn=false;
+    if(p.st===0){ txt = state.cash>=SEED ? '种子 $100 一包' : '买不起种子'; }
+    else if(p.st===4){ txt='种子钱打水漂了'; }
+    else { const e=now-p.t; prog=((p.st-1)+Math.min(1,e/FARM_STEP))/3;
+      if(e<FARM_STEP) txt = mmss(Math.ceil((FARM_STEP-e)/1000))+' '+FARM_ST[p.st].wait;
+      else { const left=Math.ceil((p.t+FARM_STEP+FARM_GRACE-now)/1000); txt = mmss(Math.max(0,left))+' 后枯萎'; warn = left<15*60; } }
+    if(p.st===3 && plotReady(p)) prog=1;
+    cd.textContent=txt; cd.classList.toggle('warn',warn); pb.style.width=(prog*100).toFixed(1)+'%'; });
+}
+/* ---------- daily tasks: three a day (one farm, two trading), same for everyone on the same date ---------- */
+const DAILY = {
+  harvest:{t:'收获 3 朵棉花', n:3, farm:1},
+  sow:{t:'播种 4 次', n:4, farm:1},
+  care:{t:'浇水或施肥 6 次', n:6, farm:1},
+  trade:{t:'完成 3 笔像样的交易', n:3, tip:'仓位 ≥ $500，拿住 10 秒以上'},
+  win:{t:'赚钱平仓 2 笔', n:2, tip:'仓位 ≥ $500'},
+  shortwin:{t:'做空并且赚钱平仓 1 笔', n:1, tip:'仓位 ≥ $500'},
+  rocket:{t:'参加 2 局火箭币', n:2},
+  lev:{t:'用 3× 以上杠杆开仓 2 次', n:2, tip:'仓位 ≥ $500'},
+  hold:{t:'拿住一个仓位 10 分钟以上再平仓', n:1, tip:'仓位 ≥ $500'},
+  coins:{t:'今天交易 3 种不同的币', n:3, tip:'仓位 ≥ $500'},
+};
+const DAILY_REWARD = 300, DAILY_BONUS = 600, DAILY_XP = 30;
+function dayInfo(){ const d=new Date(nowMs()); const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const num=Math.floor((d.getTime() - d.getTimezoneOffset()*60000)/864e5); return {key, num}; }
+function ensureDaily(){
+  if(!state) return null; const {key,num}=dayInfo();
+  if(state.daily && state.daily.day===key) return state.daily;
+  const farm=Object.keys(DAILY).filter(k=>DAILY[k].farm), trade=Object.keys(DAILY).filter(k=>!DAILY[k].farm);
+  const h=i=>rkHash((num*7919)>>>0, 40+i);
+  const t1=trade[Math.floor(h(1)*trade.length)]; const rest=trade.filter(k=>k!==t1); const t2=rest[Math.floor(h(2)*rest.length)];
+  state.daily = {day:key, tasks:[farm[Math.floor(h(0)*farm.length)], t1, t2], prog:{}, paid:{}, bonus:false};
+  return state.daily;
+}
+function daily(ev, coin){
+  const D=ensureDaily(); if(!D || !D.tasks.includes(ev) || D.paid[ev]) return;
+  if(ev==='coins'){ const set=new Set(D.prog.coinset||[]); set.add(coin); D.prog.coinset=[...set]; D.prog.coins=set.size; }
+  else D.prog[ev]=(D.prog[ev]||0)+1;
+  if(D.prog[ev] >= DAILY[ev].n){
+    D.paid[ev]=true; state.cash += DAILY_REWARD; state.stats.dxp=(state.stats.dxp||0)+DAILY_XP;
+    setTimeout(()=>toast(`<b>每日任务完成</b>　${DAILY[ev].t}，奖励 ${fmtUSD(DAILY_REWARD)} 和 ${DAILY_XP} 经验。`), 600);
+    if(D.tasks.every(k=>D.paid[k]) && !D.bonus){ D.bonus=true; state.cash += DAILY_BONUS; state.dailyDays=(state.dailyDays||0)+1;
+      setTimeout(()=>toast(`<b>今天的任务全部完成！</b>　额外奖励 ${fmtUSD(DAILY_BONUS)}。明天再来。`), 1400);
+      if(state.dailyDays>=7) unlock('h_daily7'); }
+  }
+  saveSoon(); renderDaily();
+}
+let dailyKey='';
+function renderDaily(){
+  const D=ensureDaily(); if(!D) return; const box=$('dailyBody'); if(!box) return;
+  const d=new Date(nowMs()), mid=new Date(d.getFullYear(), d.getMonth(), d.getDate()+1).getTime();
+  $('dailyLeft').textContent = '刷新还剩 '+mmss(Math.floor((mid-nowMs())/60000)).replace(':',' 小时 ')+' 分';
+  const sig = D.day+JSON.stringify(D.prog)+JSON.stringify(D.paid); if(sig===dailyKey) return; dailyKey=sig;
+  box.innerHTML = D.tasks.map(k=>{ const T=DAILY[k], cur=Math.min(T.n, D.prog[k]||0), done=!!D.paid[k];
+    return `<div class="dtask ${done?'done':''}"><span class="ck">${done?'✓':''}</span><div class="dt"><b>${T.t}</b>${T.tip?`<small>${T.tip}</small>`:''}<div class="dbar"><i style="width:${(cur/T.n*100).toFixed(0)}%"></i></div></div><span class="rw num">${done?'已领':'+'+fmtUSD(DAILY_REWARD).replace('.00','')}<small>${cur}/${T.n}</small></span></div>`; }).join('')+
+    `<div class="dfoot"><span>${D.bonus?'今天全部完成，已领额外奖励 '+fmtUSD(DAILY_BONUS).replace('.00',''):'三个都完成再奖励 <b>'+fmtUSD(DAILY_BONUS).replace('.00','')+'</b>'}</span><span>累计全勤 ${state.dailyDays||0} 天</span></div>`;
 }
 
 /* ---------- trading math ---------- */
@@ -1343,7 +1660,8 @@ function openPos(){
   unlock('first'); if(side==='short') unlock('short'); if(L>=10) unlock('bold'); if(L>=50) unlock('max');
   if(['BTC','ETH','DOGE'].every(c=>state.positions.some(x=>x.coin===c))) unlock('trio');
   if(COINS[coin].meme) unlock('meme');
-  if(COINS[coin].fictional) unlock('rocket');
+  if(COINS[coin].fictional){ unlock('rocket'); daily('rocket'); if(rkLeft()<=10) unlock('h_lastsec'); }
+  if(notional >= state.initial*0.05){ if(L>=3) daily('lev'); daily('coins', coin); }
   afterChange();
 }
 function closePos(id, frac, reason, atPx){
@@ -1372,7 +1690,16 @@ function closePos(id, frac, reason, atPx){
   const st = state.stats; st.trades++;
   // XP only counts trades of a real size (position ≥ 5% of the starting money, held ≥ 10 s)
   const xpOk = part.margin*pos.lev >= state.initial*0.05 && Date.now()-pos.opened >= 10000;
-  if(xpOk){ st.qt=(st.qt||0)+1; if(net>0) st.qw=(st.qw||0)+1; }
+  if(xpOk){ st.qt=(st.qt||0)+1; if(net>0) st.qw=(st.qw||0)+1; daily('trade'); if(net>0) daily('win'); if(net>0 && pos.side==='short') daily('shortwin'); }
+  const held = Date.now()-pos.opened, big = part.margin*pos.lev >= state.initial*0.05;
+  if(big && held>=600e3 && reason!=='liq') daily('hold');
+  // hidden achievements
+  if(part.margin>=100 && Math.abs(net)<0.10) unlock('h_exact');
+  if(reason==='liq' && held<10000) unlock('h_fastliq');
+  if(net>0 && new Date().getHours()===3) unlock('h_night');
+  st.lstreak = net<0 ? (st.lstreak||0)+1 : 0; if(st.lstreak>=10) unlock('h_lose10');
+  if(pos.news){ const n=rkNews(pos.news.round), along=(pos.side==='long'?1:-1)===n.dir;
+    if(rk.sec>=n.reveal){ const right = n.truth ? along : !along; st.nstreak = (right && net>0) ? (st.nstreak||0)+1 : 0; if(st.nstreak>=5) unlock('h_prophet'); } }
   if(reason==='liq'){
     st.liqs++; state.streak=0;
     if(back < -0.005) toast(`<b>爆仓并穿仓</b>　${pos.coin} ${pos.lev}× 价格跳空越过爆仓价，本金 ${fmtUSD(part.margin)} 全没了，还倒欠 ${fmtUSD(-back)}，已从可用资金里扣除。`);
@@ -1414,13 +1741,14 @@ function validate(margin){
   if(market[ui.coin].price==null) return '行情还没到，稍等一下';
   if(!(margin>0)) return '先填一个投入金额';
   if(margin<1) return '最少投入 $1';
+  if(lev()>levCap()) return `${ui.coin} 最多只能开 ${levCap()}× 杠杆。`;
   const need = margin*(1+lev()*feeOf(ui.coin));
   if(need > state.cash+1e-6) return `可用资金不够：本金加手续费一共要 ${fmtUSD(need)}。可以点「全部」自动填最大值。`;
   const st = readStops(); const se = stopErr(ui.side, lev(), st.s, st.t); if(se) return se;
   return null;
 }
 function showErr(msg){ const e=$('tErr'); e.textContent=msg||''; e.hidden=!msg; }
-function afterChange(){ saveSoon(); checkLevel(); renderPositions(true); renderHistory(); renderAch(); renderTrade(); renderSummary(); syncPriceLines(); sampleEquity(true); if(typeof lbSoon==='function') lbSoon(); }
+function afterChange(){ saveSoon(); checkLevel(); renderFarm(); renderDaily(); renderPositions(true); renderHistory(); renderAch(); renderTrade(); renderSummary(); syncPriceLines(); sampleEquity(true); if(typeof lbSoon==='function') lbSoon(); }
 
 /* ---------- achievements ---------- */
 const ACH = [
@@ -1465,18 +1793,45 @@ const ACH = [
   ['debtfree','无债一身轻','还清全部贷款','冒险'],
   ['newsfade','识破谣言','火箭币快讯出来后反着做，结果是假消息，赚钱平仓','冒险'],
   ['newsride','消息灵通','火箭币快讯出来后跟着做，结果是真消息，赚钱平仓','冒险'],
+  ['reborn','重生','第一次重新开始，进入第 2 世','冒险'],
+  ['farm1','第一桶金','第一次收获棉花','劳动'],
+  ['farm50','棉花大王','累计收获 50 朵棉花','劳动',()=>[state.farm.harvests,50]],
+  ['land3','小地主','拥有 3 块地','劳动',()=>[state.farm.plots.length,3]],
+  ['land8','大地主','拥有 8 块地','劳动',()=>[state.farm.plots.length,8]],
   ['board','公开挑战','加入排行榜','比赛'],
   ['top3','领奖台','总榜进入前三（至少 3 人参赛）','比赛'],
   ['champ','榜首','总榜第一名（至少 3 人参赛）','比赛'],
   ['season3','赛季前三','在一个结束的赛季里进入前三（至少 3 人参赛）','比赛'],
   ['seasonwin','小赛季冠军','拿下一个小赛季的第一名','比赛'],
   ['bigwin','大赛季冠军','拿下一个大赛季的第一名','比赛'],
+  ['room1','约战','创建或加入一个好友对战房','比赛'],
+  ['roomwin','房间冠军','3 人以上的对战房结束时拿第一','比赛'],
 ];
-const BIG = new Set(['x2','x5','x10','x100','x1000','big','streak10','comeback','champ','memewin','moon','seasonwin','bigwin']);
+// hidden achievements: players only see a hint until they find them. [key, title, description, hint]
+const HIDDEN = [
+  ['h_reborn10','十世轮回','重生满 10 次','再来一次，再来一次……'],
+  ['h_reborn99','九十九世修行','重生满 99 次','轮回本身就是一种修行'],
+  ['h_wither','懒农夫','累计让 10 株棉花枯萎','庄稼也会伤心的'],
+  ['h_seedbroke','穷得只剩地','想播种，却连一包种子都买不起','连一包种子都……'],
+  ['h_land','地主之王','拥有全部 12 块地','放眼望去，全是你的地'],
+  ['h_cotton','棉花帝国','累计收获 1000 朵棉花','弯腰一千次'],
+  ['h_exact','白忙一场','一笔交易平仓后，净盈亏不到 10 美分','忙活半天，竟然……'],
+  ['h_fastliq','秒爆','开仓后 10 秒内就爆仓','快得来不及后悔'],
+  ['h_night','夜猫子','凌晨 3 点到 4 点之间赚钱平仓','月亮不睡我不睡'],
+  ['h_lastsec','踩点上车','火箭币本局最后 10 秒才开仓','最后一刻才上车'],
+  ['h_debt','负债累累','欠款滚到 100 万美元以上','利滚利的力量'],
+  ['h_x10000','传说中的股神','总资产达到起始资金的 10000 倍','一个亿的小目标'],
+  ['h_prophet','预言家','连续 5 次看准火箭币快讯赚钱','你好像能看穿消息'],
+  ['h_lose10','反向指标','连续 10 笔亏钱','你的操作很有参考价值'],
+  ['h_daily7','全勤奖','累计 7 天完成全部每日任务','一天都没落下'],
+  ['h_roomking','朋友圈股神','5 人以上的对战房结束时拿第一','在朋友面前封神'],
+];
+const ALL_ACH = ACH.concat(HIDDEN.map(h=>[h[0],h[1],h[2],'隐藏']));
+const BIG = new Set(['x2','x5','x10','x100','x1000','big','streak10','comeback','champ','memewin','moon','seasonwin','bigwin','roomwin','h_reborn99','h_land','h_cotton','h_x10000','h_roomking']);
 function unlock(k){
   if(!state || state.ach[k]) return; state.ach[k]=Date.now();
-  const a=ACH.find(x=>x[0]===k);
-  if(a) setTimeout(()=>{ toast(`<b>解锁成就</b>　${a[1]}：${a[2]}`); if(BIG.has(k)) confetti(); },350);
+  const a=ALL_ACH.find(x=>x[0]===k);
+  if(a) setTimeout(()=>{ toast(a[3]==='隐藏' ? `<b>发现隐藏成就！</b>　${a[1]}：${a[2]}` : `<b>解锁成就</b>　${a[1]}：${a[2]}`); if(BIG.has(k) || a[3]==='隐藏') confetti(); },350);
   renderAch(); saveSoon(); setTimeout(checkLevel, 900);
 }
 
@@ -1484,10 +1839,10 @@ function unlock(k){
 const LV_XP = [0,60,150,300,500,750,1050,1400,1800,2300,2900,3600,4400,5300,6300,7500,9000,11000,13500,16500];   // XP needed for Lv.1 … Lv.20
 const TITLES = [[1,'韭菜'],[3,'小散户'],[5,'散户'],[7,'短线客'],[9,'老韭菜'],[11,'操盘手'],[13,'大户'],[16,'庄家'],[19,'传奇']];
 function xpParts(){
-  const st=state.stats, got=ACH.filter(a=>state.ach[a[0]]), big=got.filter(a=>BIG.has(a[0])).length;
-  return {trades:(st.qt||0)*10, wins:(st.qw||0)*5, ach:got.length*40, big:big*120};
+  const st=state.stats, got=ALL_ACH.filter(a=>state.ach[a[0]]), big=got.filter(a=>BIG.has(a[0])).length;
+  return {trades:(st.qt||0)*10, wins:(st.qw||0)*5, ach:got.length*40, big:big*120, daily:st.dxp||0};
 }
-function xpOf(){ if(!state) return 0; const p=xpParts(); return p.trades+p.wins+p.ach+p.big; }
+function xpOf(){ if(!state) return 0; const p=xpParts(); return p.trades+p.wins+p.ach+p.big+p.daily; }
 function levelOf(xp){ let l=1; while(l<LV_XP.length && xp>=LV_XP[l]) l++; return l; }
 function titleOf(l){ let t=TITLES[0][1]; TITLES.forEach(([n,name])=>{ if(l>=n) t=name; }); return t; }
 function renderLv(){
@@ -1518,6 +1873,7 @@ function renderLvModal(){
       <span>赚钱 ${state.stats.qw||0} 笔 × 5</span><span>${p.wins}</span>
       <span>成就 ${p.ach/40} 个 × 40</span><span>${p.ach}</span>
       <span>金色成就 ${p.big/120} 个 × 再加 120</span><span>${p.big}</span>
+      <span>每日任务</span><span>${p.daily}</span>
     </div>
     <p style="font-size:12.5px">只有像样的交易才算经验：仓位价值至少是起始资金的 5%，并且持有 10 秒以上。称号会显示在排行榜上。</p>
     <div class="titles">${TITLES.map(([n,name],i)=>{ const to=TITLES[i+1]?TITLES[i+1][0]-1:20; return `<div class="${l>=n&&(!TITLES[i+1]||l<TITLES[i+1][0])?'on':''}"><b>${name}</b>Lv.${n}${to>n?'–'+to:''} · ${LV_XP[n-1]} 经验</div>`; }).join('')}</div>
@@ -1530,6 +1886,8 @@ function checkMilestones(){
   if(state.stats.minRatio<0.5 && r>=1) unlock('comeback');
   if(r<0.01 && state.positions.length===0) unlock('broke');
   if(r<0) unlock('neg');
+  if(r>=10000) unlock('h_x10000');
+  if(debtNow()>=1e6) unlock('h_debt');
   const now=Date.now(); state.positions.forEach(p=>{ if(now-p.opened>3600e3) unlock('hodl'); if(now-p.opened>86400e3) unlock('diamond'); });
 }
 
@@ -1685,7 +2043,7 @@ function renderChartHead(){
   const cw=$('chMeme'), K=COINS[c]; cw.hidden = !(K.meme||K.fictional); cw.classList.toggle('fic', !!K.fictional);
   if(cw.dataset.coin!==c){ cw.dataset.coin=c;
     if(K.meme) cw.innerHTML = `<b>高风险 · 迷因币</b>　${c} 是以「${K.story}」为题材的币，没有实际用途，价格靠热度和情绪推动。${K.stat}。`;
-    if(K.fictional) cw.innerHTML = `<b>虚构币 · 价格由游戏生成</b>　火箭币不是真实存在的币，所有玩家同一时刻看到同一个价格。每 8 分钟一局，从 $1.00 重新发射，局末自动结算未平仓位；每局只能开仓一次，点平仓后延迟 20 秒成交，手续费 5%，跳空穿仓要倒贴。每局会冒出一条真假各半的快讯，揭晓时价格大跳。走势没有规律可循。`;
+    if(K.fictional) cw.innerHTML = `<b>虚构币 · 价格由游戏生成</b>　火箭币不是真实存在的币，所有玩家同一时刻看到同一个价格。每 8 分钟一局，从 $1.00 重新发射，局末自动结算未平仓位；每局只能开仓一次，点平仓后延迟 20 秒成交，手续费 2.5%，最多 5× 杠杆，跳空穿仓要倒贴。大部分局（约七成）会冒出一条真假各半的快讯，揭晓时价格大跳。很多尖刺一闪而过，20 秒后成交时往往已经回落。走势没有规律可循。`;
     $('lgUnit').textContent = legendText(); }
   $('chPrice').textContent = fmtPx(c,m.price);
   const span = COINS[c].fictional ? ' · 本局' : (feed.mode==='live' ? ' · 24小时' : '');
@@ -1767,7 +2125,8 @@ function renderTrade(){
   const tw=$('tMeme'); tw.hidden = !(COINS[c].meme||COINS[c].fictional); tw.classList.toggle('fic', !!COINS[c].fictional);
   if(COINS[c].fictional){
     const mv=(LIQ/L*100);
-    tw.innerHTML = `<b>虚构币 · 极高波动</b>　本局还剩 <b>${mmss(rkLeft())}</b>${rkJoined()?'，<b>你本局已参加过</b>，下一局再来':''}。每 8 分钟一局只能开仓一次；点平仓后要等 ${COINS[c].closeDelay} 秒才按当时价格成交；手续费 ${pctStr(feeOf(c))}（普通币 0.1%）；跳空穿仓要倒贴。`+
+    tw.innerHTML = `<b>虚构币 · 极高波动</b>　本局还剩 <b>${mmss(rkLeft())}</b>${rkJoined()?'，<b>你本局已参加过</b>，下一局再来':''}。每 8 分钟一局只能开仓一次；点平仓后要等 ${COINS[c].closeDelay} 秒才按当时价格成交；手续费是仓位价值的 ${pctStr(feeOf(c))}（普通币 0.1%），最多 ${levCap(c)}× 杠杆；跳空穿仓要倒贴。`+
+      (L>1 ? `<br>${L}× 时一开一平的手续费约是本金的 <b>${pctStr(2*feeOf(c)*L)}</b>，价格要往你的方向走 ${pctStr(2*feeOf(c))} 以上才开始赚钱。` : '')+
       (L>1 ? `<br>${L}× 杠杆下，反向 ${mv.toFixed(mv<10?1:0)}% 就爆仓；在火箭币上，这可能只要${mv<=10?'几十秒':'几分钟'}。` : '<br>1× 做多不会爆仓，但一分钟亏 10% 也很正常。');
   } else if(COINS[c].meme){
     const mv=(LIQ/L*100);
@@ -1779,7 +2138,7 @@ function renderTrade(){
   go.textContent = joined ? `本局已参加 · 下一局 ${mmss(rkLeft())} 后` : (side==='long'?'买入做多 ':'做空 ')+c+(L>1?' · '+L+'×':'');
   const broke = !!(state && state.positions.length===0 && state.cash<1);
   $('broke').hidden = !broke; go.hidden = broke;
-  if(broke){ const eq=equity(); $('brokeText').innerHTML = eq<-0.004 ? `<b>资不抵债：总资产 ${fmtUSD(eq)}。</b>穿仓和贷款利息让你倒欠了钱。可以借钱再搏一把（利息会越滚越多），也可以重新开始。` : '<b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。可以借钱再搏一把，也可以重新开始。'; }
+  if(broke){ const eq=equity(); $('brokeText').innerHTML = eq<-0.004 ? `<b>资不抵债：总资产 ${fmtUSD(eq)}。</b>穿仓和贷款利息让你倒欠了钱。可以去农场种棉花慢慢还，也可以重新开始（算一次重生）。` : '<b>钱亏光了。</b>真实市场里，这就是重仓加高杠杆的代价。可以去农场种棉花，靠劳动把本钱挣回来；也可以重新开始（算一次重生）。'; }
   go.disabled = !state || p==null || joined;
 }
 function stopsBlock(p){
@@ -1884,13 +2243,17 @@ function renderHistory(){
     </div>`).join('');
 }
 function renderAch(){
-  if(!state) return; const n=ACH.filter(a=>state.ach[a[0]]).length; $('nAch').textContent=n+'/'+ACH.length;
-  const groups = ['收益','交易','冒险','比赛'];
+  if(!state) return; const n=ALL_ACH.filter(a=>state.ach[a[0]]).length; $('nAch').textContent=n+'/'+ALL_ACH.length;
+  const groups = ['收益','交易','冒险','劳动','比赛'];
+  const hn = HIDDEN.filter(h=>state.ach[h[0]]).length;
+  const hid = `<div class="agroup"><h3>隐藏成就 · 已发现 ${hn} / ${HIDDEN.length}</h3><div class="achs">${HIDDEN.map(([k,t,d,hint])=>{ const on=!!state.ach[k];
+    return on ? `<div class="ach hid on"><b><span class="mk">✓</span>${t}</b><small>${d}</small><small>${when(state.ach[k])} 发现</small></div>`
+              : `<div class="ach hid"><b><span class="mk">?</span>隐藏成就</b><small>提示：${hint}</small></div>`; }).join('')}</div></div>`;
   $('pAch').innerHTML = groups.map(g=>`<div class="agroup"><h3>${g}</h3><div class="achs">${
     ACH.filter(a=>a[3]===g).map(([k,t,d,,pg])=>{ const on=!!state.ach[k]; let bar='';
       if(!on && pg){ const [cur,tot]=pg(); bar=`<div class="prog"><i style="width:${Math.min(100,cur/tot*100).toFixed(0)}%"></i></div><small class="num">${Math.min(cur,tot)} / ${tot}</small>`; }
       return `<div class="ach ${on?'on':''} ${on&&BIG.has(k)?'gold':''}"><b><span class="mk">${on?'✓':'?'}</span>${t}</b><small>${d}</small>${on?`<small>${when(state.ach[k])} 解锁</small>`:bar}</div>`; }).join('')
-  }</div></div>`).join('');
+  }</div></div>`).join('') + hid;
 }
 
 let rq=false, lastRender=0;
@@ -1907,7 +2270,7 @@ try{ lb.me = JSON.parse(localStorage.getItem(LB_KEY)||'null'); }catch(e){ lb.me=
 function lbSave(){ try{ if(lb.me) localStorage.setItem(LB_KEY, JSON.stringify(lb.me)); else localStorage.removeItem(LB_KEY); }catch(e){} }
 function rid(n){ const a=new Uint8Array(n); (window.crypto||{}).getRandomValues ? crypto.getRandomValues(a) : a.forEach((_,i)=>a[i]=Math.random()*256); return Array.from(a,b=>(b%36).toString(36)).join(''); }
 function lbPayload(me, extra){
-  return Object.assign({id:me.id, token:me.token, name:me.name, initial:state.initial, equity:+equity().toFixed(2), trades:state.stats.trades, ach:Object.keys(state.ach).length, lv:levelOf(xpOf()), created:state.created||0}, extra||{});
+  return Object.assign({id:me.id, token:me.token, name:me.name, initial:state.initial, equity:+equity().toFixed(2), trades:state.stats.trades, ach:Object.keys(state.ach).length, lv:levelOf(xpOf()), created:state.created||0, rb:state.rebirth||0}, extra||{});
 }
 async function lbCall(method, body){
   const opt = {method, cache:'no-store', headers:{}};
@@ -1953,7 +2316,7 @@ async function lbRefresh(){
 }
 async function lbPush(force){
   if(!LB_API || !lb.me || !state || lb.busy) return;
-  const p = lbPayload(lb.me); const sig = [p.name,p.initial,p.equity,p.trades,p.ach,p.lv,p.created,seasonId('s'),seasonId('S')].join('|');
+  const p = lbPayload(lb.me); const sig = [p.name,p.initial,p.equity,p.trades,p.ach,p.lv,p.created,p.rb,seasonId('s'),seasonId('S')].join('|');
   const now = Date.now();
   if(!force && (sig===lb.lastSig || now-lb.lastPush<20000)) return;
   lb.busy=true; lb.lastPush=now;
@@ -2006,7 +2369,7 @@ function lbRow(r, season){
   const g = season ? r.gain : r.ratio-1;
   const lv = r.lv ? `<span class="lvtag">Lv.${r.lv} ${titleOf(r.lv)}</span>` : '';
   return `<li class="${r.me?'me':''}"><span class="r ${r.rank<=3?'m'+r.rank:''}">${r.rank}</span>`+
-    `<span class="n">${esc(r.name)}${lv}${r.me?' <span class="tag lev">你</span>':''}</span>`+
+    `<span class="n">${esc(r.name)}<span class="lifetag">第${(r.rb||0)+1}世</span>${lv}${r.me?' <span class="tag lev">你</span>':''}</span>`+
     `<span class="v ${cls(g)}">${fmtPct(g)}<small>${fmtUSD(r.equity)}</small></span>`+
     `<span class="sub">${season?'总资产 '+fmtUSD(r.equity)+' · ':'起始 '+fmtUSD(r.initial)+' · '}${r.trades} 笔 · ${ago(r.updatedAt)}</span></li>`;
 }
@@ -2021,6 +2384,7 @@ function renderBoard(){
   }
   // keep whatever the player is typing across re-renders
   const prev=$('lbName'); const typing = prev && document.activeElement===prev; const val = prev ? prev.value : null;
+  if(ui.lbTab==='room'){ renderRoom(body, val, typing); return; }
   const d=lb.data, tab=ui.lbTab, season = tab!=='all';
   const v = !d ? null : !season ? {total:d.total, top:d.top, me:d.me} : (d.seasons ? d.seasons[tab] : null);
   let h='';
@@ -2031,14 +2395,14 @@ function renderBoard(){
     if(last) h += `<div class="lb-past"><span>上一季（第 ${seasonNo(tab,last.id)} 季）</span>${last.top.map(t=>`<span class="pk ${t.me?'me':''}"><i style="background:${MEDAL[t.rank-1]}">${t.rank}</i>${esc(t.name)}${t.me?'（你）':''} <span class="num ${cls(t.gain)}">${fmtPct(t.gain)}</span></span>`).join('')}</div>`;
   }
   if(!lb.me || lb.editing){
-    h += `<div class="lb-join"><p>${lb.me?'换一个名字：':'填一个名字加入排行榜，和朋友比谁的收益率高。'}只会上传名字、起始资金、总资产、交易笔数、成就数和等级。</p>`+
+    h += `<div class="lb-join"><p>${lb.me?'换一个名字：':'填一个名字加入排行榜，和朋友比谁的收益率高。'}只会上传名字、起始资金、总资产、交易笔数、成就数、等级和重生次数。</p>`+
       `<div class="lb-in"><input id="lbName" maxlength="16" autocomplete="off" placeholder="你的名字（最多 16 个字）" value="${esc(val!=null?val:(lb.me?lb.me.name:''))}">`+
       `<button id="lbJoinBtn" ${lb.busy?'disabled':''}>${lb.busy?'提交中…':(lb.me?'保存':'加入榜单')}</button></div>`+
       (lb.err?`<div class="err">${esc(lb.err)}</div>`:'')+
       (lb.me?'<button class="lb-link" id="lbCancel">取消</button>':'')+'</div>';
   } else if(v && v.me){
     const g = season ? v.me.gain : v.me.ratio-1;
-    h += `<div class="lb-me"><span class="rk">#${v.me.rank}</span><div><b>${esc(lb.me.name)}</b><small>共 ${v.total} 人 · ${season?'本季收益':'你的收益率'} <span class="num ${cls(g)}">${fmtPct(g)}</span></small></div></div>`;
+    h += `<div class="lb-me"><span class="rk">#${v.me.rank}</span><div><b>${esc(lb.me.name)}<span class="lifetag">第${(state&&state.rebirth||0)+1}世</span></b><small>共 ${v.total} 人 · ${season?'本季收益':'你的收益率'} <span class="num ${cls(g)}">${fmtPct(g)}</span></small></div></div>`;
   } else {
     h += `<div class="lb-me"><div><b>${esc(lb.me.name)}</b><small>${lb.status==='down'?'连不上榜单，恢复后会自动上传':season&&v?'本季还没有你的成绩，正在上传…':'正在上传你的成绩…'}</small></div></div>`;
   }
@@ -2056,9 +2420,117 @@ function renderBoard(){
   $('lbCount').textContent = v ? `${v.total} 人参赛` : '按收益率排名';
   if(typing){ const i=$('lbName'); if(i){ i.focus(); const n=i.value.length; try{ i.setSelectionRange(n,n); }catch(e){} } }
 }
-$('lbTabs').addEventListener('click', e=>{ const b=e.target.closest('button[data-lbtab]'); if(!b) return; ui.lbTab=b.dataset.lbtab; renderBoard(); });
+$('lbTabs').addEventListener('click', e=>{ const b=e.target.closest('button[data-lbtab]'); if(!b) return; ui.lbTab=b.dataset.lbtab; renderBoard(); if(ui.lbTab==='room' && ui.room) roomRefresh(ui.room); });
+/* ---------- friend battle rooms ---------- */
+const ROOM_API = LB_API ? '/api/room' : '';
+const ROOMS_KEY = 'lianshou-rooms-v1', ROOM_CODE_RE = /^[A-HJ-NP-Z2-9]{6}$/;
+lb.rooms = []; try{ lb.rooms = JSON.parse(localStorage.getItem(ROOMS_KEY)||'[]').filter(c=>ROOM_CODE_RE.test(c)); }catch(e){}
+lb.room = {}; lb.roomHours = 24; lb.roomErr = ''; lb.roomPushed = {}; lb.roomFetch = 0; lb.roomBusy = false;
+ui.room = lb.rooms[0] || null;
+function roomsSave(){ try{ localStorage.setItem(ROOMS_KEY, JSON.stringify(lb.rooms)); }catch(e){} }
+function roomPayload(extra){ return Object.assign({id:lb.me.id, token:lb.me.token, name:lb.me.name, equity:+equity().toFixed(2), created:state.created||0, lv:levelOf(xpOf()), rb:state.rebirth||0}, extra); }
+async function roomCall(method, body, code){
+  const opt={method, cache:'no-store', headers:{}}; let url=ROOM_API;
+  if(method==='GET') url += '?code='+encodeURIComponent(code)+'&id='+encodeURIComponent(lb.me?lb.me.id:'');
+  else { opt.headers['content-type']='application/json'; opt.body=JSON.stringify(body); }
+  const r = await fetch(url, opt); let j=null; try{ j=await r.json(); }catch(e){} return {ok:r.ok, status:r.status, data:j};
+}
+function roomAfter(v){
+  if(!v || !state) return; lb.room[v.code]=v;
+  const me=v.members.find(m=>m.me);
+  if(v.ended && me && me.rank===1){ if(v.total>=3) unlock('roomwin'); if(v.total>=5) unlock('h_roomking'); }
+}
+async function roomCreate(){
+  if(!lb.me || !state || lb.roomBusy) return; lb.roomBusy=true; lb.roomErr=''; renderBoard();
+  try{ const r=await roomCall('POST', roomPayload({action:'create', hours:lb.roomHours}));
+    if(r.ok && r.data && r.data.room){ const c=r.data.room.code; lb.rooms=[c].concat(lb.rooms.filter(x=>x!==c)).slice(0,6); roomsSave(); ui.room=c; roomAfter(r.data.room); lb.roomPushed[c]={sig:'',t:Date.now()};
+      toast(`<b>房间开好了</b>　邀请码 <b>${c}</b>，点「复制邀请」发给朋友。`); unlock('room1'); }
+    else lb.roomErr=(r.data&&r.data.message)||'开房失败，稍后再试';
+  }catch(e){ lb.roomErr='连不上服务器'; } finally{ lb.roomBusy=false; renderBoard(); }
+}
+async function roomJoin(code){
+  code=String(code||'').trim().toUpperCase();
+  if(!ROOM_CODE_RE.test(code)){ lb.roomErr='邀请码是 6 位字母和数字'; renderBoard(); return; }
+  if(!lb.me || !state || lb.roomBusy) return; lb.roomBusy=true; lb.roomErr=''; renderBoard();
+  try{ const r=await roomCall('POST', roomPayload({action:'join', code}));
+    if(r.ok && r.data && r.data.room){ lb.rooms=[code].concat(lb.rooms.filter(x=>x!==code)).slice(0,6); roomsSave(); ui.room=code; roomAfter(r.data.room); lb.roomPushed[code]={sig:'',t:Date.now()};
+      lb.pendingRoom=null; lb.clearCode=true; toast(`<b>已加入房间 ${code}</b>　从现在起赚的钱算你的成绩。`); unlock('room1'); }
+    else lb.roomErr=(r.data&&r.data.message)||'加入失败';
+  }catch(e){ lb.roomErr='连不上服务器'; } finally{ lb.roomBusy=false; renderBoard(); }
+}
+async function roomRefresh(code){
+  if(!ROOM_API || !code) return; lb.roomFetch=Date.now();
+  try{ const r=await roomCall('GET', null, code);
+    if(r.status===404){ lb.rooms=lb.rooms.filter(x=>x!==code); roomsSave(); if(ui.room===code) ui.room=lb.rooms[0]||null; }
+    else if(r.ok && r.data) roomAfter(r.data);
+  }catch(e){} renderBoard();
+}
+async function roomLeave(code){
+  const v=lb.room[code];
+  try{ if(lb.me && !(v && v.ended)) await roomCall('POST', {action:'leave', code, id:lb.me.id, token:lb.me.token}); }catch(e){}
+  lb.rooms=lb.rooms.filter(x=>x!==code); roomsSave(); delete lb.room[code]; if(ui.room===code) ui.room=lb.rooms[0]||null; renderBoard();
+}
+async function roomPushAll(){
+  if(!ROOM_API || !lb.me || !state) return;
+  for(const code of lb.rooms){
+    const v=lb.room[code]; if(v && v.ended) continue;
+    const p=roomPayload({action:'update', code}), sig=[p.equity,p.lv,p.rb,p.created,p.name].join('|'), last=lb.roomPushed[code]||{sig:'',t:0};
+    if(sig===last.sig || Date.now()-last.t<20000) continue;
+    lb.roomPushed[code]={sig, t:Date.now()};
+    try{ const r=await roomCall('POST', p); if(r.ok && r.data && r.data.room) roomAfter(r.data.room); }catch(e){}
+  }
+  if(ui.lbTab==='room') renderBoard();
+}
+function roomLeftText(v){ const ms=v.endAt-nowMs(); if(ms<=0) return '已结束'; const sec=Math.floor(ms/1000), d=Math.floor(sec/86400);
+  return '还剩 '+(d?d+' 天 ':'')+String(Math.floor(sec%86400/3600)).padStart(2,'0')+':'+String(Math.floor(sec%3600/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0'); }
+function renderRoom(body, val, typing){
+  const prevCode=$('roomCode'), codeTyping=prevCode && document.activeElement===prevCode, codeVal=prevCode?prevCode.value:(lb.pendingRoom||'');
+  let h='';
+  if(!lb.me || lb.editing){
+    h += `<div class="lb-join"><p>先起个名字，就能开房间、邀请朋友对战了。</p>`+
+      `<div class="lb-in"><input id="lbName" maxlength="16" autocomplete="off" placeholder="你的名字（最多 16 个字）" value="${esc(val!=null?val:(lb.me?lb.me.name:''))}">`+
+      `<button id="lbJoinBtn" ${lb.busy?'disabled':''}>${lb.busy?'提交中…':'确定'}</button></div>`+(lb.err?`<div class="err">${esc(lb.err)}</div>`:'')+'</div>';
+    if(lb.pendingRoom) h += `<div class="room-note">朋友邀请你加入房间 <b>${esc(lb.pendingRoom)}</b>，起好名字后点「加入」。</div>`;
+  } else {
+    if(lb.rooms.length) h += `<div class="room-list">${lb.rooms.map(c=>{ const v=lb.room[c]; return `<button data-room="${c}" aria-pressed="${c===ui.room}"><b class="num">${c}</b><small>${v?(v.ended?'已结束':roomLeftText(v).replace('还剩 ','')):'…'}</small></button>`; }).join('')}</div>`;
+    h += `<div class="room-new">
+      <div class="room-row"><span>开新房间</span><div class="seg" id="roomHours">${[[1,'1 小时'],[24,'1 天'],[72,'3 天']].map(([n,t])=>`<button data-hours="${n}" aria-pressed="${lb.roomHours===n}">${t}</button>`).join('')}</div><button class="room-btn" id="roomCreate" ${lb.roomBusy?'disabled':''}>开房</button></div>
+      <div class="room-row"><input id="roomCode" maxlength="6" autocomplete="off" placeholder="输入朋友的 6 位邀请码" value="${esc(codeVal||'')}"><button class="room-btn" id="roomJoinBtn" ${lb.roomBusy?'disabled':''}>加入</button></div>
+      ${lb.roomErr?`<div class="err">${esc(lb.roomErr)}</div>`:''}</div>`;
+    const v = ui.room && lb.room[ui.room];
+    if(ui.room && !v) h += '<div class="empty">正在加载房间…</div>';
+    if(v){
+      const link = location.origin + location.pathname + '?room=' + v.code;
+      h += `<div class="room-head"><div><b>房间 <span class="num">${v.code}</span></b><small>房主 ${esc(v.hostName)} · ${v.hours===1?'1 小时':v.hours===24?'1 天':'3 天'}场 · ${v.total} 人</small></div><span class="left num" id="roomLeft">${roomLeftText(v)}</span></div>
+        <div class="room-acts"><button id="roomCopy" data-link="${esc(link)}">复制邀请</button><button id="roomLeave">${v.ended?'移除':'退出房间'}</button></div>
+        <ol class="lb-list">${v.members.map(m=>`<li class="${m.me?'me':''}"><span class="r ${m.rank<=3?'m'+m.rank:''}">${m.rank}</span><span class="n">${esc(m.name)}<span class="lifetag">第${(m.rb||0)+1}世</span><span class="lvtag">Lv.${m.lv} ${titleOf(m.lv)}</span>${m.host?'<span class="lvtag">房主</span>':''}${m.me?' <span class="tag lev">你</span>':''}</span><span class="v ${cls(m.gain)}">${fmtPct(m.gain)}<small>${fmtUSD(m.gain*CAPITAL,true)}</small></span><span class="sub">总资产 ${fmtUSD(m.equity)} · ${ago(m.updatedAt)}</span></li>`).join('')}</ol>
+        <div class="room-note">${v.ended?'比赛结束，以上是最终排名。':'按进房以后赚的钱排名，大家起点一样；中途重生不会抹掉房间里的亏损。'}</div>`;
+    } else if(!lb.rooms.length) h += '<div class="empty">开一个房间，把邀请码发给朋友，比比谁在这段时间里赚得多。</div>';
+  }
+  body.innerHTML = h;
+  if(lb.clearCode){ lb.clearCode=false; const i=$('roomCode'); if(i) i.value=''; }
+  $('lbCount').textContent = '和朋友比';
+  if(typing){ const i=$('lbName'); if(i){ i.focus(); const n=i.value.length; try{ i.setSelectionRange(n,n); }catch(e){} } }
+  if(codeTyping){ const i=$('roomCode'); if(i){ i.focus(); const n=i.value.length; try{ i.setSelectionRange(n,n); }catch(e){} } }
+}
+$('lbBody').addEventListener('click', async e=>{
+  const t=e.target.closest('button'); if(!t) return;
+  if(t.dataset.room){ ui.room=t.dataset.room; renderBoard(); roomRefresh(ui.room); return; }
+  if(t.dataset.hours){ lb.roomHours=+t.dataset.hours; renderBoard(); return; }
+  if(t.id==='roomCreate') roomCreate();
+  else if(t.id==='roomJoinBtn') roomJoin($('roomCode').value);
+  else if(t.id==='roomLeave') roomLeave(ui.room);
+  else if(t.id==='roomCopy'){ const link=t.dataset.link, code=ui.room, txt=`来练手交易所和我对战！打开 ${link} ，或者在「排行 → 好友房」输入邀请码 ${code}`;
+    try{ await navigator.clipboard.writeText(txt); toast('<b>已复制邀请</b>　发给朋友就行。'); }catch(err){ toast(`<b>邀请码 ${code}</b>　复制失败，手动发给朋友：${esc(link)}`); } }
+});
+$('lbBody').addEventListener('keydown', e=>{ if(e.key==='Enter' && e.target.id==='roomCode'){ e.preventDefault(); roomJoin(e.target.value); } });
+// invite links: ?room=ABC234
+(function(){ try{ const q=new URLSearchParams(location.search).get('room'); if(q && ROOM_CODE_RE.test(q.toUpperCase())){ lb.pendingRoom=q.toUpperCase(); ui.lbTab='room';
+  history.replaceState(null,'',location.pathname); } }catch(e){} })();
 function lbClock(){
-  const e=$('lbLeft'); if(e && ui.lbTab!=='all') e.textContent = '还剩 '+seasonLeft(ui.lbTab);
+  const e=$('lbLeft'); if(e && ui.lbTab!=='all' && ui.lbTab!=='room') e.textContent = '还剩 '+seasonLeft(ui.lbTab);
+  const rl=$('roomLeft'), rv=ui.room&&lb.room[ui.room]; if(rl && rv) rl.textContent = roomLeftText(rv);
+  if(ROOM_API && ui.lbTab==='room' && ui.room && (!isPhone()||ui.view==='board') && Date.now()-lb.roomFetch>20000 && !document.hidden) roomRefresh(ui.room);
   const d=lb.data;   // a season just ended: fetch the new boards (and last season's champions)
   if(LB_API && d && d.seasons && (seasonId('s')!==d.seasons.s.id) && Date.now()-lb.lastFetch>10000 && !document.hidden) lbRefresh();
 }
@@ -2074,7 +2546,7 @@ $('lbBody').addEventListener('click', e=>{
 $('lbBody').addEventListener('keydown', e=>{ if(e.key==='Enter' && e.target.id==='lbName'){ e.preventDefault(); lbJoin(); } });
 function lbTick(){
   if(!LB_API || document.hidden) return;
-  lbPush(false);
+  lbPush(false); roomPushAll();
   const boardShown = !isPhone() || ui.view==='board';
   if(Date.now()-lb.lastFetch > (boardShown?60000:180000)) lbRefresh();
 }
@@ -2086,7 +2558,7 @@ function setView(v){
   window.scrollTo(0,0);
   if(v==='board' && LB_API && Date.now()-lb.lastFetch>15000) lbRefresh();
 }
-function selectCoin(c){ ui.coin=c; buildMainSeries(); renderCoins(); renderChartHead(); renderTrade(); showErr(''); }
+function selectCoin(c){ ui.coin=c; clampLev(); buildLevChips(); buildMainSeries(); renderCoins(); renderChartHead(); renderTrade(); showErr(''); }
 $('coins').addEventListener('click', e=>{ const b=e.target.closest('.coin'); if(b) selectCoin(b.dataset.coin); });
 $('cswitch').addEventListener('click', e=>{ const b=e.target.closest('button[data-coin]'); if(b) selectCoin(b.dataset.coin); });
 document.querySelectorAll('.side').forEach(b=>b.addEventListener('click',()=>{ ui.side=b.dataset.side; renderTrade(); }));
@@ -2094,15 +2566,22 @@ $('qLong').addEventListener('click',()=>{ ui.side='long'; renderTrade(); setView
 $('qShort').addEventListener('click',()=>{ ui.side='short'; renderTrade(); setView('trade'); });
 $('mnav').addEventListener('click', e=>{ const b=e.target.closest('button[data-go]'); if(b) setView(b.dataset.go); });
 $('lev').addEventListener('input', e=>{ ui.levIdx=+e.target.value; renderTrade(); showErr(''); });
-function buildLevChips(){ $('levChips').innerHTML = (ui.mode==='simple'?LEV_CHIPS_SIMPLE:LEV_CHIPS).map(l=>`<button class="chip" data-lev="${l}">${l}×</button>`).join(''); }
+// hard leverage limit: ROCKET 5× (its fee is charged on the position value), simple screen 10×, otherwise 50×
+function levCap(c){ c=c||ui.coin; const base = ui.mode==='simple' ? 10 : 50; return COINS[c].levCap ? Math.min(base, COINS[c].levCap) : base; }
+function clampLev(){ const cap=levCap(); if(lev()>cap){ let i=ui.levIdx; while(i>0 && LEVS[i]>cap) i--; ui.levIdx=i; } }
+function buildLevChips(){
+  const cap=levCap(), list = COINS[ui.coin].levCap ? LEVS.filter(l=>l<=cap) : (ui.mode==='simple'?LEV_CHIPS_SIMPLE:LEV_CHIPS).filter(l=>l<=cap);
+  $('levChips').innerHTML = list.map(l=>`<button class="chip" data-lev="${l}">${l}×</button>`).join('');
+  $('lev').max = LEVS.filter(l=>l<=cap).length-1;
+}
 buildLevChips();
 function setMode(m, quiet){
   if(m!=='simple' && m!=='pro') return;
   ui.mode=m; try{ localStorage.setItem(MODE_KEY, m); }catch(e){}
   document.documentElement.dataset.mode = m;
   document.querySelectorAll('.modeseg button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.mode===m));
+  clampLev();
   if(m==='simple'){
-    if(lev()>10) ui.levIdx = LEVS.indexOf(10);
     if(ui.chart!=='area'){ ui.chart='area'; $('tLine').setAttribute('aria-pressed',true); $('tCandle').setAttribute('aria-pressed',false); $('lgUnit').textContent=legendText(); buildMainSeries(); }
     ui.stopEdit=null;
   }
@@ -2125,6 +2604,13 @@ $('pctChips').addEventListener('click', e=>{ const b=e.target.closest('.chip'); 
 $('amt').addEventListener('input', ()=>{ renderTrade(); showErr(''); });
 $('goBtn').addEventListener('click', openPos);
 $('brokeRestart').addEventListener('click', ()=>openModal('mStart'));
+$('brokeFarm').addEventListener('click', ()=>{ setView('farm'); const c=$('farmCard'); if(c && !isPhone()) c.scrollIntoView({behavior:'smooth', block:'center'}); });
+$('farmGrid').addEventListener('click', e=>{
+  const b=e.target.closest('[data-farm]'); if(!b || !state) return;
+  if(b.dataset.farm==='buy'){ buyLand(); return; }
+  const i=+b.closest('.plot').dataset.i; if(farmAct(i)!==0) afterChange();
+});
+$('farmAll').addEventListener('click', farmAll);
 $('brokeLoan').addEventListener('click', ()=>{ setView('me'); const c=$('loanCard'); if(c) c.scrollIntoView({behavior:'smooth', block:'center'}); $('loanAmt').focus(); });
 $('memeGo').addEventListener('click', ()=>{ try{ localStorage.setItem(MEME_ACK_KEY,'1'); }catch(e){} window.__memeAck=true; closeModal('mMeme'); openPos(); });
 $('memeNo').addEventListener('click', ()=>closeModal('mMeme'));
@@ -2132,7 +2618,7 @@ $('loanBorrow').addEventListener('click', ()=>borrow(+$('loanAmt').value));
 $('loanRepay').addEventListener('click', ()=>repay(+$('loanAmt').value));
 document.querySelectorAll('[data-loan]').forEach(b=>b.addEventListener('click', ()=>{
   const v=b.dataset.loan;
-  if(v==='all'){ repay(debtNow()); return; }
+  if(v==='all'){ repay(0, true); return; }
   $('loanAmt').value = v==='room' ? Math.floor(loanRoom()*100)/100 : v; loanMsg('');
 }));
 $('rocketGo').addEventListener('click', ()=>{ try{ localStorage.setItem(ROCKET_ACK_KEY,'1'); }catch(e){} window.__rocketAck=true; closeModal('mRocket'); openPos(); });
@@ -2161,7 +2647,7 @@ $('tLine').addEventListener('click',()=>{ ui.chart='area'; $('lgUnit').textConte
 $('tCandle').addEventListener('click',()=>{ ui.chart='candle'; $('lgUnit').textContent=legendText(); $('tCandle').setAttribute('aria-pressed',true); $('tLine').setAttribute('aria-pressed',false); buildMainSeries(); });
 $('closeBanner').addEventListener('click',()=>{ bannerClosed=true; $('simBanner').hidden=true; });
 
-function openModal(id){ if(id==='mStart'){ modePick=ui.mode; document.querySelectorAll('#startMode .cap').forEach(b=>b.setAttribute('aria-pressed', b.dataset.smode===modePick)); } $(id).hidden=false; }
+function openModal(id){ if(id==='mStart'){ $('startLife').textContent = state ? `这是你的第 ${(state.rebirth||0)+2} 世。` : ''; modePick=ui.mode; document.querySelectorAll('#startMode .cap').forEach(b=>b.setAttribute('aria-pressed', b.dataset.smode===modePick)); } $(id).hidden=false; }
 function closeModal(id){ $(id).hidden=true; }
 document.querySelectorAll('.modal').forEach(m=>{
   m.addEventListener('click', e=>{ if((e.target===m || e.target.closest('[data-close]')) && m.id!=='mStart') closeModal(m.id); });
@@ -2179,7 +2665,7 @@ $('feedOpts').addEventListener('click', e=>{
   bannerClosed=false; restartFeed();
   toast('<b>行情来源</b>　已切换为「'+b.querySelector('b').textContent.replace('（推荐）','')+'」');
 });
-$('resetAsk').addEventListener('click',()=>{ $('resetConfirm').hidden=false; });
+$('resetAsk').addEventListener('click',()=>{ $('nextLife').textContent = '第 '+((state?state.rebirth||0:0)+2)+' 世'; $('resetConfirm').hidden=false; });
 $('resetNo').addEventListener('click',()=>{ $('resetConfirm').hidden=true; });
 $('resetYes').addEventListener('click',()=>{ closeModal('mSettings'); openModal('mStart'); });
 
@@ -2189,17 +2675,16 @@ document.querySelectorAll('[data-colors]').forEach(b=>b.addEventListener('click'
 let capPick=10000, modePick=ui.mode;
 document.querySelectorAll('#startMode .cap').forEach(b=>b.setAttribute('aria-pressed', b.dataset.smode===modePick));
 $('startMode').addEventListener('click', e=>{ const b=e.target.closest('.cap'); if(!b) return; modePick=b.dataset.smode; document.querySelectorAll('#startMode .cap').forEach(x=>x.setAttribute('aria-pressed', x===b)); });
-$('caps').addEventListener('click', e=>{ const b=e.target.closest('.cap'); if(!b) return; capPick=+b.dataset.cap; $('capCustom').value=''; document.querySelectorAll('#caps .cap').forEach(x=>x.setAttribute('aria-pressed', x===b)); });
-$('capCustom').addEventListener('input', e=>{ const v=+e.target.value; if(v>0){ capPick=v; document.querySelectorAll('#caps .cap').forEach(x=>x.setAttribute('aria-pressed',false)); } });
 $('startBtn').addEventListener('click',()=>{
-  const cap = Math.min(1e9, Math.max(100, Math.round(capPick||10000)));
+  const cap = CAPITAL;
   state = newState(cap); saveState(); closeModal('mStart');
   if(modePick!==ui.mode) setMode(modePick, true);
   $('slPct').value=''; $('tpPct').value='';
   $('amt').value = Math.round(cap*0.1);
   lastEqT=0; posSig='';
-  buildEqSeries(); afterChange(); setView('market');
-  toast(`<b>准备好了</b>　你有 ${fmtUSD(cap)} 虚拟资金，祝你好运。`);
+  buildEqSeries(); afterChange(); setView(lb.pendingRoom ? 'board' : 'market');
+  toast(state.rebirth ? `<b>重生成功 · 第 ${state.rebirth+1} 世</b>　带着 ${fmtUSD(cap)} 重新出发，这一世稳一点。` : `<b>准备好了</b>　你有 ${fmtUSD(cap)} 虚拟资金，祝你好运。`);
+  if(state.rebirth) unlock('reborn'); if(state.rebirth>=10) unlock('h_reborn10'); if(state.rebirth>=99) unlock('h_reborn99');
   if(lb.me) setTimeout(()=>lbPush(true), 500);
 });
 
@@ -2209,14 +2694,16 @@ buildCoins();
 setView('market');
 if(!state){ if(ui.mode==='simple') ui.levIdx=0; openModal('mStart'); }
 else $('amt').value = Math.max(1, Math.round(state.initial*0.1));
-renderTrade(); renderSummary(); renderPositions(true); renderHistory(); renderAch(); checkLevel();
+renderTrade(); renderSummary(); renderPositions(true); renderHistory(); renderAch(); checkLevel(); renderFarm(); renderDaily();
 loadCharts();
 startFeed();
 rkStart();
 renderBoard();
+if(LB_API && lb.pendingRoom){ setView('board'); renderBoard(); setTimeout(()=>toast(`<b>好友邀请</b>　朋友邀请你加入对战房 ${lb.pendingRoom}。`), 1500); }
+if(ROOM_API && lb.me) lb.rooms.forEach((c,i)=>setTimeout(()=>roomRefresh(c), 1600+i*400));
 if(LB_API){ setTimeout(lbRefresh, 1200); setInterval(lbTick, 15000); document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) lbTick(); }); }
 setInterval(()=>sampleEquity(false), 5000);
-setInterval(lbClock, 1000);
+setInterval(()=>{ lbClock(); renderFarm(); renderDaily(); }, 1000);
 setInterval(()=>{ if(state && state.positions.length) renderPositions(false); }, 30000);
 window.addEventListener('beforeunload', saveState);
 window.addEventListener('pagehide', saveState);
