@@ -1021,8 +1021,7 @@ if(state && (!state.v || !Array.isArray(state.positions))) state = null;
 let tampered = false;
 if(state){
   const money = (state.cash||0) + state.positions.reduce((a,p)=>a+(p.margin||0),0);
-  let signedBefore=false; try{ signedBefore = localStorage.getItem(SIGNED_KEY)==='1'; }catch(e){}
-  if((state.sig && state.sig !== sigOf(state)) || (!state.sig && signedBefore && money > 1e6) || !isFinite(money) || money > MAX_EQUITY*((state.initial||CAPITAL)/CAPITAL)) tampered = true;
+  if((state.sig && state.sig !== sigOf(state)) || !isFinite(money) || money > MAX_EQUITY*((state.initial||CAPITAL)/CAPITAL)) tampered = true;
 }
 let prefs = (state && state.prefs) || {colors:'cn'};
 function migrate(s){
