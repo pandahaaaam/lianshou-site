@@ -2392,6 +2392,9 @@ const lb = { me:null, data:null, status: LB_API?'loading':'off', err:'', busy:fa
 try{ lb.me = JSON.parse(localStorage.getItem(LB_KEY)||'null'); }catch(e){ lb.me=null; }
 function lbSave(){ try{ if(lb.me) localStorage.setItem(LB_KEY, JSON.stringify(lb.me)); else localStorage.removeItem(LB_KEY); }catch(e){} }
 function rid(n){ const a=new Uint8Array(n); (window.crypto||{}).getRandomValues ? crypto.getRandomValues(a) : a.forEach((_,i)=>a[i]=Math.random()*256); return Array.from(a,b=>(b%36).toString(36)).join(''); }
+// saves converted from an old non-$10,000 start can't take part in the board or rooms
+const legacySave = () => !!(state && state.rescaled);
+const LEGACY_MSG = '这个存档来自旧版本，当时的起始资金不是 $10,000，成绩不能上榜，也不能参加对战房。到「设置 → 重新开始」开始新的一世（$10,000）就能正常参加。';
 function lbPayload(me, extra){
   return Object.assign({id:me.id, token:me.token, name:me.name, initial:state.initial, equity:+equity().toFixed(2), trades:state.stats.trades, ach:Object.keys(state.ach).length, lv:levelOf(xpOf()), created:state.created||0, rb:state.rebirth||0}, extra||{});
 }
@@ -2407,6 +2410,16 @@ async function lbCall(method, body){
 }
 function lbAfterData(){
   const d=lb.data; if(!d || !state) return;
+  // the server reset this account (leftover data from an old save): start a fresh $10,000 life once
+  const fx = d.me && d.me.fix;
+  if(fx && fx.id && fx.reset && !(state.fixes||[]).includes(fx.id)){
+    const rb = state.rebirth||0, fixes = [...(state.fixes||[]), fx.id];
+    state = newState(CAPITAL); state.rebirth = rb; state.fixes = fixes; saveState();
+    $('amt').value = Math.round(CAPITAL*0.1); lastEqT=0; posSig=''; buildEqSeries(); afterChange();
+    toast('<b>账号已重置</b>　你的存档里有旧版本遗留的异常数据，已重置为 $10,000 重新开始。');
+    setTimeout(()=>lbPush(true), 1500);
+    return;
+  }
   if(d.me && d.total>=3 && d.me.rank<=3) unlock('top3');
   if(d.me && d.total>=3 && d.me.rank===1) unlock('champ');
   const P = d.past || {};
@@ -2439,6 +2452,10 @@ async function lbRefresh(){
 }
 async function lbPush(force){
   if(!LB_API || !lb.me || !state || lb.busy) return;
+  if(legacySave()){   // tell the server once, so any record from this save is taken off the board
+    if(!lb.legacySent){ lb.legacySent=true; try{ const r=await lbCall('POST', lbPayload(lb.me, {legacy:1})); if(r.data && r.data.board) lb.data=r.data.board; }catch(e){} renderBoard(); }
+    return;
+  }
   const p = lbPayload(lb.me); const sig = [p.name,p.initial,p.equity,p.trades,p.ach,p.lv,p.created,p.rb,seasonId('s'),seasonId('S')].join('|');
   const now = Date.now();
   if(!force && (sig===lb.lastSig || now-lb.lastPush<20000)) return;
@@ -2455,6 +2472,7 @@ async function lbPush(force){
 async function lbJoin(){
   const inp=$('lbName'); const name=(inp?inp.value:'').trim();
   if(!state){ lb.err='先选好起始资金开始游戏'; renderBoard(); return; }
+  if(legacySave()){ lb.err=LEGACY_MSG; renderBoard(); return; }
   if(!name){ lb.err='先填一个名字'; renderBoard(); return; }
   if([...name].length>16){ lb.err='名字最多 16 个字'; renderBoard(); return; }
   const me = lb.me ? Object.assign({}, lb.me, {name}) : {id:rid(24), token:rid(32), name};
@@ -2530,6 +2548,7 @@ function renderBoard(){
   } else {
     h += `<div class="lb-me"><div><b>${esc(lb.me.name)}</b><small>${lb.status==='down'?'连不上榜单，恢复后会自动上传':season&&v?'本季还没有你的成绩，正在上传…':'正在上传你的成绩…'}</small></div></div>`;
   }
+  if(legacySave()) h += `<div class="room-note" style="margin-top:10px;color:var(--warn)">${LEGACY_MSG}</div>`;
   if(!season && d) h += '<div class="room-note" style="margin-top:8px">总榜按所有世累计：每重生一次，算多投入 $10,000。重开再多次，也抹不掉之前亏的钱。</div>';
   if(!d) h += `<div class="empty">${lb.status==='down'?'榜单暂时连不上，稍后会自动重试。':'正在加载榜单…'}</div>`;
   else if(!v) h += '<div class="empty">榜单服务器还是旧版本，暂时没有赛季。先看「总榜」吧。</div>';
@@ -2553,7 +2572,7 @@ lb.rooms = []; try{ lb.rooms = JSON.parse(localStorage.getItem(ROOMS_KEY)||'[]')
 lb.room = {}; lb.roomHours = 24; lb.roomErr = ''; lb.roomPushed = {}; lb.roomFetch = 0; lb.roomBusy = false;
 ui.room = lb.rooms[0] || null;
 function roomsSave(){ try{ localStorage.setItem(ROOMS_KEY, JSON.stringify(lb.rooms)); }catch(e){} }
-function roomPayload(extra){ return Object.assign({id:lb.me.id, token:lb.me.token, name:lb.me.name, equity:+equity().toFixed(2), created:state.created||0, lv:levelOf(xpOf()), rb:state.rebirth||0}, extra); }
+function roomPayload(extra){ return Object.assign({legacy: legacySave()?1:0, id:lb.me.id, token:lb.me.token, name:lb.me.name, equity:+equity().toFixed(2), created:state.created||0, lv:levelOf(xpOf()), rb:state.rebirth||0}, extra); }
 async function roomCall(method, body, code){
   const opt={method, cache:'no-store', headers:{}}; let url=ROOM_API;
   if(method==='GET') url += '?code='+encodeURIComponent(code)+'&id='+encodeURIComponent(lb.me?lb.me.id:'');
@@ -2830,6 +2849,7 @@ rkStart();
 renderBoard();
 if(LB_API && lb.pendingRoom){ setView('board'); renderBoard(); setTimeout(()=>toast(`<b>好友邀请</b>　朋友邀请你加入对战房 ${lb.pendingRoom}。`), 1500); }
 if(ROOM_API && lb.me) lb.rooms.forEach((c,i)=>setTimeout(()=>roomRefresh(c), 1600+i*400));
+if(LB_API && lb.me && legacySave()) setTimeout(()=>lbPush(true), 600);   // take an old-capital save's record off the board right away
 if(LB_API){ setTimeout(lbRefresh, 1200); setInterval(lbTick, 15000); document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) lbTick(); }); }
 setInterval(()=>sampleEquity(false), 5000);
 setInterval(()=>{ lbClock(); renderFarm(); renderDaily(); }, 1000);
