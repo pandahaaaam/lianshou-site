@@ -1002,10 +1002,28 @@ const isPhone = ()=> window.matchMedia('(max-width:700px)').matches;
 
 /* ---------- state ---------- */
 function loadState(){ try{ const s=localStorage.getItem(LS_KEY); return s?JSON.parse(s):null; }catch(e){ return null; } }
-function saveState(){ if(!state) return; try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+// The save carries a signature over the numbers that matter. Editing the money by hand breaks it, and
+// the game then starts a fresh $10,000 life instead of trusting the edited numbers.
+function sigOf(s){
+  const pos = (s.positions||[]).map(x=>[x.id,x.coin,x.side,x.lev,x.margin,x.qty,x.entry].join(',')).join(';');
+  const f = s.farm ? [s.farm.plots.length, s.farm.earned, s.farm.harvests, s.farm.spent, s.farm.auto?1:0].join(',') : '';
+  const str = ['lsx7', s.initial, s.cash, s.rebirth, s.created, s.feesPaid, s.loan&&s.loan.debt, s.loan&&s.loan.principal, pos, f].join('|');
+  let h = 0x811c9dc5; for(let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619)>>>0; }
+  let g = 0x9747b28c; for(let i=str.length-1;i>=0;i--){ g ^= str.charCodeAt(i); g = Math.imul(g, 0x5bd1e995)>>>0; g ^= g>>>15; }
+  return h.toString(36) + g.toString(36);
+}
+const MAX_EQUITY = 1e9;   // 100,000× the start: nothing above this is reachable in play
+const SIGNED_KEY = 'lianshou-signed-v1';
+function saveState(){ if(!state) return; try{ state.sig = sigOf(state); localStorage.setItem(LS_KEY, JSON.stringify(state)); localStorage.setItem(SIGNED_KEY,'1'); }catch(e){} }
 let saveT=null; function saveSoon(){ clearTimeout(saveT); saveT=setTimeout(saveState,700); }
 let state = loadState();
 if(state && (!state.v || !Array.isArray(state.positions))) state = null;
+let tampered = false;
+if(state){
+  const money = (state.cash||0) + state.positions.reduce((a,p)=>a+(p.margin||0),0);
+  let signedBefore=false; try{ signedBefore = localStorage.getItem(SIGNED_KEY)==='1'; }catch(e){}
+  if((state.sig && state.sig !== sigOf(state)) || (!state.sig && signedBefore && money > 1e6) || !isFinite(money) || money > MAX_EQUITY*((state.initial||CAPITAL)/CAPITAL)) tampered = true;
+}
 let prefs = (state && state.prefs) || {colors:'cn'};
 function migrate(s){
   if(!s) return s;
@@ -1039,6 +1057,9 @@ function rescale(s, k){
   s.rescaled = Date.now();
 }
 state = migrate(state);
+// an edited save ends that life: a new one starts with the standard $10,000
+if(tampered){ state = newState(CAPITAL); state.tampered = true; saveState(); }
+else if(state && !state.sig) saveState();   // saves from older versions get signed now
 function newState(capital){
   // starting over = a new life (重生): money, land and records all start fresh; only the count of lives goes on
   const rebirth = state ? (state.rebirth||0)+1 : 0;
@@ -2428,6 +2449,7 @@ async function lbPush(force){
     if(r.ok && r.data){ if(!r.data.throttled) lb.lastSig=sig; if(r.data.board){ lb.data=r.data.board; lb.status='ok'; } }
     else if(r.status===403){ lb.me=null; lbSave(); toast('<b>榜单身份失效</b>　重新填个名字加入榜单吧。'); }
     else if(r.status===409 && r.data && r.data.error==='name_taken'){ lb.editing=true; lb.err='你的名字被别人占用了，换一个吧'; }
+    else if(r.status===400 && r.data && r.data.error==='implausible' && !lb.warned){ lb.warned=true; toast('<b>成绩没有上传</b>　'+esc(r.data.message||'资产变化超出了游戏里可能的范围。')); }
   }catch(e){ lb.status='down'; }
   finally{ lb.busy=false; lbAfterData(); renderBoard(); }
 }
@@ -2474,7 +2496,7 @@ function lbRow(r, season){
   return `<li class="${r.me?'me':''}"><span class="r ${r.rank<=3?'m'+r.rank:''}">${r.rank}</span>`+
     `<span class="n">${esc(r.name)}<span class="lifetag">第${(r.rb||0)+1}世</span>${lv}${r.me?' <span class="tag lev">你</span>':''}</span>`+
     `<span class="v ${cls(g)}">${fmtPct(g)}<small>${fmtUSD(r.equity)}</small></span>`+
-    `<span class="sub">${season?'总资产 '+fmtUSD(r.equity)+' · ':'起始 '+fmtUSD(r.initial)+' · '}${r.trades} 笔 · ${ago(r.updatedAt)}</span></li>`;
+    `<span class="sub">${season?'总资产 '+fmtUSD(r.equity)+' · ':'本世资产 '+fmtUSD(r.equity)+' · 累计投入 '+fmtUSD(CAPITAL*(r.lives||1)).replace('.00','')+' · '}${r.trades} 笔 · ${ago(r.updatedAt)}</span></li>`;
 }
 const MEDAL = ['#C9A227','#9AA3AE','#B9784A'];
 function renderBoard(){
@@ -2505,10 +2527,11 @@ function renderBoard(){
       (lb.me?'<button class="lb-link" id="lbCancel">取消</button>':'')+'</div>';
   } else if(v && v.me){
     const g = season ? v.me.gain : v.me.ratio-1;
-    h += `<div class="lb-me"><span class="rk">#${v.me.rank}</span><div><b>${esc(lb.me.name)}<span class="lifetag">第${(state&&state.rebirth||0)+1}世</span></b><small>共 ${v.total} 人 · ${season?'本季收益':'你的收益率'} <span class="num ${cls(g)}">${fmtPct(g)}</span></small></div></div>`;
+    h += `<div class="lb-me"><span class="rk">#${v.me.rank}</span><div><b>${esc(lb.me.name)}<span class="lifetag">第${(state&&state.rebirth||0)+1}世</span></b><small>共 ${v.total} 人 · ${season?'本季收益':'累计收益率'} <span class="num ${cls(g)}">${fmtPct(g)}</span></small></div></div>`;
   } else {
     h += `<div class="lb-me"><div><b>${esc(lb.me.name)}</b><small>${lb.status==='down'?'连不上榜单，恢复后会自动上传':season&&v?'本季还没有你的成绩，正在上传…':'正在上传你的成绩…'}</small></div></div>`;
   }
+  if(!season && d) h += '<div class="room-note" style="margin-top:8px">总榜按所有世累计：每重生一次，算多投入 $10,000。重开再多次，也抹不掉之前亏的钱。</div>';
   if(!d) h += `<div class="empty">${lb.status==='down'?'榜单暂时连不上，稍后会自动重试。':'正在加载榜单…'}</div>`;
   else if(!v) h += '<div class="empty">榜单服务器还是旧版本，暂时没有赛季。先看「总榜」吧。</div>';
   else if(!v.top.length) h += `<div class="empty">${season?'这一季还没有人上榜，开一单就能拿下第一名。':'还没有人上榜，你来当第一名吧。'}</div>`;
@@ -2520,7 +2543,7 @@ function renderBoard(){
        (lb.me && !lb.editing ? '<button id="lbEdit">改名</button><button id="lbLeave">退出榜单</button>' : '')+'</div>';
   if(lb.confirmLeave) h += '<div class="confirm lb-confirm"><span>退出后，你的成绩会从榜单上删除。确定吗？</span><div class="btns"><button class="danger" id="lbLeaveYes">退出榜单</button><button class="ghost" id="lbLeaveNo">算了</button></div></div>';
   body.innerHTML = h;
-  $('lbCount').textContent = v ? `${v.total} 人参赛` : '按收益率排名';
+  $('lbCount').textContent = v ? `${v.total} 人参赛${season?'':' · 按累计收益率'}` : '按收益率排名';
   if(typing){ const i=$('lbName'); if(i){ i.focus(); const n=i.value.length; try{ i.setSelectionRange(n,n); }catch(e){} } }
 }
 $('lbTabs').addEventListener('click', e=>{ const b=e.target.closest('button[data-lbtab]'); if(!b) return; ui.lbTab=b.dataset.lbtab; renderBoard(); if(ui.lbTab==='room' && ui.room) roomRefresh(ui.room); });
@@ -2800,6 +2823,7 @@ buildCoins();
 setView('market');
 if(!state){ if(ui.mode==='simple') ui.levIdx=0; openModal('mStart'); }
 else $('amt').value = Math.max(1, Math.round(state.initial*0.1));
+if(state && state.tampered){ delete state.tampered; saveState(); setTimeout(()=>toast(`<b>存档被改动过</b>　检测到资金被手动修改，这一世作废，已开始第 ${(state.rebirth||0)+1} 世（$10,000）。`), 1500); }
 renderTrade(); renderSummary(); renderPositions(true); renderHistory(); renderAch(); checkLevel(); renderFarm(); renderDaily();
 loadCharts();
 startFeed();
