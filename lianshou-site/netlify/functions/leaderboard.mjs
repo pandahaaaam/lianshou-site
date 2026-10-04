@@ -20,11 +20,27 @@ const KEEP_PAST = 8;
 const sid = (k, t) => Math.floor(t / SEASON[k]);
 const CAPITAL = 10000;
 // older records used other starting amounts: scale them to $10,000, keeping the return the same
+// Plausibility limits. The game runs in the player's browser, so a save can be edited by hand; these
+// limits keep obviously impossible numbers off the board.
+const MAX_EQUITY = 1e9;        // 100,000× the starting money: nothing above this is reachable in play
+const JOIN_MAX = 1e6;          // a brand-new board entry can start with at most 100×
+const GROWTH = 5, STEP = 600e3, ALLOWANCE = 30000;   // at most ×5 per 10 minutes (+ room for farm/daily income)
+// Return across all lives: every life counts as another $10,000 put in, so restarting until one lucky
+// life can't erase the losses of the others.  ratio = (final equity of past lives + this life) / (10,000 × lives)
+const ratioOf = (r) => ((r.carried || 0) + r.equity) / (CAPITAL * (r.lives || 1));
 function norm(r) {
-  if (!r || !r.initial || Math.abs(r.initial - CAPITAL) < 0.5) return r;
-  const k = CAPITAL / r.initial;
-  r.equity = Math.round(r.equity * k * 100) / 100; r.initial = CAPITAL;
-  for (const s of ["s", "S"]) if (r[s] && typeof r[s].start === "number") r[s] = { ...r[s], start: r[s].start * k };
+  if (!r) return r;
+  if (r.initial && Math.abs(r.initial - CAPITAL) >= 0.5) {
+    const k = CAPITAL / r.initial;
+    r.equity = Math.round(r.equity * k * 100) / 100; r.initial = CAPITAL;
+    for (const s of ["s", "S"]) if (r[s] && typeof r[s].start === "number") r[s] = { ...r[s], start: r[s].start * k };
+  }
+  // impossible numbers (edited saves) are wiped back to a fresh $10,000
+  if (!isFinite(r.equity) || r.equity > MAX_EQUITY || !isFinite(r.carried || 0) || (r.carried || 0) > MAX_EQUITY * 100) {
+    r.equity = CAPITAL; r.carried = 0; r.lives = 1; r.flagged = (r.flagged || 0) + 1; r.resetAt = Date.now();
+    for (const s of ["s", "S"]) if (r[s]) r[s] = { ...r[s], start: CAPITAL };
+  }
+  r.ratio = ratioOf(r);
   return r;
 }
 
@@ -47,7 +63,7 @@ function cleanName(n) {
 }
 function pub(rec) {
   return { id: rec.id, name: rec.name, initial: rec.initial, equity: rec.equity, ratio: rec.ratio,
-           trades: rec.trades, ach: rec.ach, lv: rec.lv || 1, created: rec.created || 0, rb: rec.rb || 0,
+           carried: rec.carried || 0, lives: rec.lives || 1, flagged: rec.flagged || 0, trades: rec.trades, ach: rec.ach, lv: rec.lv || 1, created: rec.created || 0, rb: rec.rb || 0,
            s: rec.s || null, S: rec.S || null, joinedAt: rec.joinedAt, updatedAt: rec.updatedAt };
 }
 const gainOf = (r, k) => (r.equity - r[k].start) / r.initial;
@@ -77,7 +93,7 @@ function view(board, id) {
   const rows = Object.values(board.players || {});
   rows.sort((a, b) => b.ratio - a.ratio || a.joinedAt - b.joinedAt);
   const out = rows.map((r, i) => ({
-    rank: i + 1, name: r.name, initial: r.initial, equity: r.equity, ratio: r.ratio, lv: r.lv || 1, rb: r.rb || 0,
+    rank: i + 1, name: r.name, initial: r.initial, equity: r.equity, ratio: r.ratio, lives: r.lives || 1, lv: r.lv || 1, rb: r.rb || 0,
     trades: r.trades, ach: r.ach, updatedAt: r.updatedAt, me: !!id && r.id === id,
   }));
   const seasons = {};
@@ -154,8 +170,8 @@ export default async (req) => {
   // equity may be negative: gap losses and loan interest can leave a player owing money
   if (Math.abs(initial - CAPITAL) > 0.5)
     return json({ error: "old_version", message: "游戏已更新，请刷新网页" }, 400);
-  if (!isFinite(equity) || Math.abs(equity) > initial * 1e9)
-    return json({ error: "bad_numbers", message: "成绩数据不正确" }, 400);
+  if (!isFinite(equity) || equity > MAX_EQUITY || equity < -MAX_EQUITY)
+    return json({ error: "implausible", message: "成绩超出了游戏里可能达到的范围，没有上传" }, 400);
   const trades = Math.max(0, Math.min(1e7, Math.floor(Number(b.trades) || 0)));
   const ach = Math.max(0, Math.min(100, Math.floor(Number(b.ach) || 0)));
   const lv = Math.max(1, Math.min(20, Math.floor(Number(b.lv) || 1)));
@@ -178,6 +194,15 @@ export default async (req) => {
   // `created`) starts its seasons from the new capital, so a restart can't fake a season gain.
   const eq = Math.round(equity * 100) / 100;
   const sameGame = existing && (!existing.created || existing.created === created);   // old records have no `created`
+  // how much could this player plausibly have now? (a new life restarts from $10,000)
+  const from = existing ? Math.max(sameGame ? existing.equity : CAPITAL, CAPITAL) : CAPITAL;
+  const steps = existing ? Math.min(40, Math.max(1, (now - Math.max(existing.updatedAt || now, existing.resetAt || 0)) / STEP)) : 1;
+  const allowed = existing ? (from + ALLOWANCE) * Math.pow(GROWTH, steps) : JOIN_MAX;
+  if (eq > allowed)
+    return json({ error: "implausible", message: "资产涨得比游戏里可能的还快，这次成绩没有上传" }, 400);
+  // lives: a restart closes the previous life at its last reported equity
+  const lives = existing ? (sameGame ? (existing.lives || 1) : (existing.lives || 1) + 1) : 1;
+  const carried = existing ? (sameGame ? (existing.carried || 0) : (existing.carried || 0) + existing.equity) : 0;
   const base = {};
   for (const k of ["s", "S"]) {
     const n = sid(k, now), old = existing && existing[k];
@@ -186,7 +211,8 @@ export default async (req) => {
     else if (!sameGame && existing && old && old.id === n) base[k] = { id: n, start: eq - (existing.equity - old.start) };
     else base[k] = { id: n, start: sameGame ? existing.equity : eq };
   }
-  const rec = { id, tokenHash, name, initial, equity: eq, ratio: equity / initial, trades, ach, lv, created, rb,
+  const rec = { id, tokenHash, name, initial, equity: eq, carried, lives, ratio: (carried + eq) / (CAPITAL * lives), trades, ach, lv, created, rb,
+                flagged: existing?.flagged || 0,
                 s: base.s, S: base.S, joinedAt: existing?.joinedAt || now, updatedAt: now };
   await store.setJSON(key, rec);
   board.players[id] = pub(rec);
