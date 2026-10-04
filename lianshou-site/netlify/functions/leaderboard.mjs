@@ -27,18 +27,32 @@ const GROWTH = 3, STEP = 600e3, MAX_STEPS = 6, ALLOWANCE = 30000;   // at most �
 // Return across all lives: every life counts as another $10,000 put in, so restarting until one lucky
 // life can't erase the losses of the others.  ratio = (final equity of past lives + this life) / (10,000 × lives)
 const ratioOf = (r) => ((r.carried || 0) + r.equity) / (CAPITAL * (r.lives || 1));
+// One-off account resets for records left over from old saves. The player's game sees me.fix and
+// starts a fresh $10,000 life once, so its next upload matches.
+const FIXES = [
+  { id: "reset-20261004-1", name: "买英杰号,找高祖父" },
+];
+function resetRecord(r) {
+  r.equity = CAPITAL; r.carried = 0; r.lives = 1; r.flagged = (r.flagged || 0) + 1; r.resetAt = Date.now(); r.fresh = 1;
+  for (const s of ["s", "S"]) if (r[s]) r[s] = { ...r[s], start: CAPITAL };
+  r.ratio = ratioOf(r);
+}
+function applyFixes(r) {
+  for (const f of FIXES) {
+    if ((r.fixes || []).includes(f.id) || String(r.name || "").normalize("NFKC") !== f.name.normalize("NFKC")) continue;
+    resetRecord(r); r.fixes = [...(r.fixes || []), f.id]; r.fix = { id: f.id, reset: true };
+  }
+}
 function norm(r) {
   if (!r) return r;
+  applyFixes(r);
   if (r.initial && Math.abs(r.initial - CAPITAL) >= 0.5) {
     const k = CAPITAL / r.initial;
     r.equity = Math.round(r.equity * k * 100) / 100; r.initial = CAPITAL;
     for (const s of ["s", "S"]) if (r[s] && typeof r[s].start === "number") r[s] = { ...r[s], start: r[s].start * k };
   }
   // impossible numbers (edited saves) are wiped back to a fresh $10,000
-  if (!isFinite(r.equity) || r.equity > MAX_EQUITY || !isFinite(r.carried || 0) || (r.carried || 0) > MAX_EQUITY * 100) {
-    r.equity = CAPITAL; r.carried = 0; r.lives = 1; r.flagged = (r.flagged || 0) + 1; r.resetAt = Date.now();
-    for (const s of ["s", "S"]) if (r[s]) r[s] = { ...r[s], start: CAPITAL };
-  }
+  if (!isFinite(r.equity) || r.equity > MAX_EQUITY || !isFinite(r.carried || 0) || (r.carried || 0) > MAX_EQUITY * 100) resetRecord(r);
   r.ratio = ratioOf(r);
   return r;
 }
@@ -62,7 +76,8 @@ function cleanName(n) {
 }
 function pub(rec) {
   return { id: rec.id, name: rec.name, initial: rec.initial, equity: rec.equity, ratio: rec.ratio,
-           carried: rec.carried || 0, lives: rec.lives || 1, flagged: rec.flagged || 0, ok: rec.ok || 0, trades: rec.trades, ach: rec.ach, lv: rec.lv || 1, created: rec.created || 0, rb: rec.rb || 0,
+           carried: rec.carried || 0, lives: rec.lives || 1, flagged: rec.flagged || 0, ok: rec.ok || 0,
+           fixes: rec.fixes || [], fix: rec.fix || null, trades: rec.trades, ach: rec.ach, lv: rec.lv || 1, created: rec.created || 0, rb: rec.rb || 0,
            s: rec.s || null, S: rec.S || null, joinedAt: rec.joinedAt, updatedAt: rec.updatedAt };
 }
 const gainOf = (r, k) => (r.equity - r[k].start) / r.initial;
@@ -94,6 +109,7 @@ function view(board, id) {
   const out = rows.map((r, i) => ({
     rank: i + 1, name: r.name, initial: r.initial, equity: r.equity, ratio: r.ratio, lives: r.lives || 1, lv: r.lv || 1, rb: r.rb || 0,
     trades: r.trades, ach: r.ach, updatedAt: r.updatedAt, me: !!id && r.id === id,
+    ...(id && r.id === id && r.fix ? { fix: r.fix } : {}),
   }));
   const seasons = {};
   for (const k of ["s", "S"]) {
@@ -165,6 +181,14 @@ export default async (req) => {
     return json({ ok: true, board: view(board, null) });
   }
 
+  // a save converted from an old non-$10,000 start can't be on the board; its record (if any) is wiped
+  if (b.legacy) {
+    if (existing) {
+      resetRecord(existing); existing.legacy = 1; await store.setJSON(key, existing);
+      const bd = await readBoard(store, true); if (bd.players[id]) { bd.players[id] = pub(existing); await writeBoard(store, bd); }
+    }
+    return json({ error: "legacy_save", message: "这个存档来自旧版本，当时的起始资金不是 $10,000，不能上榜。重新开始一世就能参加排行。" }, 409);
+  }
   const name = cleanName(b.name);
   if (!name) return json({ error: "bad_name", message: "名字不能为空" }, 400);
   const initial = Number(b.initial), equity = Number(b.equity);
@@ -202,8 +226,10 @@ export default async (req) => {
   if (eq > allowed)
     return json({ error: "implausible", message: "资产涨得比游戏里可能的还快，这次成绩没有上传" }, 400);
   // lives: a restart closes the previous life at its last reported equity
-  const lives = existing ? (sameGame ? (existing.lives || 1) : (existing.lives || 1) + 1) : 1;
-  const carried = existing ? (sameGame ? (existing.carried || 0) : (existing.carried || 0) + existing.equity) : 0;
+  // after a reset (fresh), the player's next new life counts as their first
+  const restart = existing && !sameGame, fresh = existing && existing.fresh;
+  const lives = !existing ? 1 : restart ? (fresh ? 1 : (existing.lives || 1) + 1) : (existing.lives || 1);
+  const carried = !existing ? 0 : restart ? (fresh ? 0 : (existing.carried || 0) + existing.equity) : (existing.carried || 0);
   const base = {};
   for (const k of ["s", "S"]) {
     const n = sid(k, now), old = existing && existing[k];
@@ -213,7 +239,8 @@ export default async (req) => {
     else base[k] = { id: n, start: sameGame ? existing.equity : eq };
   }
   const rec = { id, tokenHash, name, initial, equity: eq, carried, lives, ratio: (carried + eq) / (CAPITAL * lives), trades, ach, lv, created, rb,
-                flagged: existing?.flagged || 0, ok: 1,
+                flagged: existing?.flagged || 0, ok: 1, fixes: existing?.fixes || [], fix: existing?.fix || null,
+                fresh: (existing?.fresh && !restart) ? 1 : 0,
                 s: base.s, S: base.S, joinedAt: existing?.joinedAt || now, updatedAt: now };
   await store.setJSON(key, rec);
   board.players[id] = pub(rec);

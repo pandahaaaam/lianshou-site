@@ -64,6 +64,7 @@ export default async (req) => {
   const id = String(b.id || ""), token = String(b.token || ""), action = String(b.action || "");
   if (!ID_RE.test(id) || token.length < 16 || token.length > 100) return json({ error: "bad_id", message: "身份信息不正确" }, 400);
   const tokenHash = await sha256(token), now = Date.now();
+  if (b.legacy && action !== "leave") return json({ error: "legacy_save", message: "旧版本修改过起始资金的存档不能参加对战房，重新开始一世就能参加。" }, 409);
 
   if (action === "create") {
     const name = cleanName(b.name), n = nums(b), hours = Number(b.hours);
