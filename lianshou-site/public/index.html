@@ -285,6 +285,45 @@ input[type=range]{width:100%;accent-color:var(--fg)}
 .debt{color:var(--red)}
 .loan-note{margin:0;font-size:12px;color:var(--fg-3);line-height:1.6}
 
+/* desktop pages: 交易 / 农场 / 排行 / 我的 */
+.dnav{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px;margin-right:auto}
+.dnav button{position:relative;border:0;background:none;padding:6px 16px;border-radius:9px;font-size:14px;color:var(--fg-2);font-weight:500}
+.dnav button:hover{color:var(--fg)}
+.dnav button[aria-current="page"]{background:var(--fg);color:var(--bg)}
+.dnav .ddot{position:absolute;top:5px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--up)}
+@media (min-width:701px){
+  .brand{margin-right:8px}
+  body[data-dv="trade"] [data-dv]:not([data-dv~="trade"]),
+  body[data-dv="farm"] [data-dv]:not([data-dv~="farm"]),
+  body[data-dv="board"] [data-dv]:not([data-dv~="board"]),
+  body[data-dv="me"] [data-dv]:not([data-dv~="me"]){display:none!important}
+  /* 交易: chart and positions on the left, the order ticket stays in view on the right */
+  body[data-dv="trade"] .grid{grid-template-areas:"main trade" "pos trade"}
+  body[data-dv="trade"] .a-trade{position:sticky;top:16px;align-self:start}
+  body[data-dv="trade"] .a-side{display:none}
+  body:not([data-dv="trade"]) .grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"side"}
+  .a-side{display:grid;gap:16px;align-items:start}
+  .a-farm{grid-area:farm}.a-daily{grid-area:daily}.a-equity{grid-area:eq}.a-loan{grid-area:loan}.a-board{grid-area:board}
+  /* 农场: the field, with today's tasks beside it */
+  body[data-dv="farm"] .a-side{grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"farm daily"}
+  body[data-dv="farm"] .farm-grid{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
+  body[data-dv="farm"] .plot .scene{height:88px}
+  body[data-dv="farm"] .plot svg{width:72px;height:62px;bottom:20px}
+  /* 排行: one wide, centred board */
+  body[data-dv="board"] .a-side{grid-template-columns:minmax(0,820px);justify-content:center;grid-template-areas:"board"}
+  /* 我的: asset curve big on the left; loan and tasks on the right */
+  body[data-dv="me"] .a-side{grid-template-columns:minmax(0,1fr) 360px;grid-template-areas:"eq daily" "eq loan" "eq ."}
+  body[data-dv="me"] #equityChart{height:300px}
+}
+@media (min-width:701px) and (max-width:960px){
+  body[data-dv="farm"] .a-side, body[data-dv="me"] .a-side{grid-template-columns:minmax(0,1fr);grid-template-areas:none}
+  body[data-dv="farm"] .a-side > *, body[data-dv="me"] .a-side > *{grid-area:auto}
+  body[data-dv="trade"] .grid{grid-template-areas:"main" "trade" "pos"}
+  body[data-dv="trade"] .a-trade{position:static}
+}
+@media (min-width:701px) and (max-width:1180px){ .iconbtn .lbl{display:none} .brand small{display:none} }
+@media (min-width:701px) and (max-width:1000px){ #feedText{display:none} .feed{padding:9px} .lvpill .xp{display:none} .dnav button{padding:6px 11px} .modeseg button{padding:5px 8px} }
+
 /* simple / advanced mode */
 html[data-mode="simple"] .pro-only{display:none!important}
 html:not([data-mode="simple"]) .simple-only{display:none!important}
@@ -349,7 +388,7 @@ html[data-mode="simple"] .summary{grid-template-columns:repeat(3,1fr)}
 .lb-past .pk.me{color:var(--accent);font-weight:500}
 
 /* ROCKET news */
-.news{display:flex;align-items:flex-start;gap:8px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12.5px;line-height:1.55;color:var(--fg-2);background:var(--surface-2)}
+.news{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12.5px;line-height:1.55;color:var(--fg-2);background:var(--surface-2)}
 .chart-card .news,.a-chart .news{margin:0 18px 6px}
 .news .nt{flex:none;font-size:11px;font-weight:700;padding:1px 6px;border-radius:5px;background:#C2378A;color:#fff;margin-top:1px}
 .news .hl{color:var(--fg);font-weight:500}
@@ -357,7 +396,12 @@ html[data-mode="simple"] .summary{grid-template-columns:repeat(3,1fr)}
 .news .st.q{color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,transparent)}
 .news .st.t{color:#fff;background:var(--green)}
 .news .st.f{color:#fff;background:var(--fg-3)}
-.news.wait .hl{animation:blink 1.4s infinite}
+.news .nrow{display:flex;align-items:flex-start;gap:8px}
+.news .nrow.wait .hl{animation:blink 1.4s infinite}
+.news .nt.ev{background:var(--warn)}
+.news .nt.ev.big{background:var(--red)}
+.news .st.up-b{color:#fff;background:var(--up)}
+.news .st.dn-b{color:#fff;background:var(--down)}
 
 /* farm */
 .a-farm{overflow:hidden}
@@ -574,6 +618,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
 <div class="app">
   <header class="top">
     <div class="brand"><div class="logo">练</div><div><b>练手交易所</b><small>假的钱 · 真的行情 · 零风险</small></div></div>
+    <nav class="dnav d-only" id="dnav" aria-label="页面"><button data-go="market" aria-current="page">交易</button><button data-go="farm">农场<i class="ddot" id="dnavFarm" hidden></i></button><button data-go="board">排行</button><button data-go="me">我的</button></nav>
     <div class="feed" id="feed" data-mode="connecting"><i class="dot"></i><span id="feedText">正在连接行情…</span></div>
     <div class="seg modeseg" role="group" aria-label="界面"><button data-mode="simple" aria-pressed="false">简易</button><button data-mode="pro" aria-pressed="true">高级</button></div>
     <button class="lvpill" id="lvPill" aria-label="等级与称号"><span class="lv" id="lvNum">Lv.1</span><b id="lvTitle">韭菜</b><span class="xp"><i id="lvBar" style="width:0%"></i></span></button>
@@ -581,7 +626,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     <button class="iconbtn" id="btnSettings" aria-label="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span class="lbl">设置</span></button>
   </header>
 
-  <div class="banner" id="simBanner" data-view="market" hidden>
+  <div class="banner" id="simBanner" data-view="market" data-dv="trade" hidden>
     <div><b>现在是模拟行情。</b><span id="simWhy"></span></div>
     <button id="closeBanner" aria-label="关闭提示">×</button>
   </div>
@@ -591,7 +636,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     <div><small>总盈亏</small><b id="mPnl">—</b></div>
   </div>
 
-  <section class="summary" data-view="me" aria-label="账户详情">
+  <section class="summary" data-view="me" data-dv="trade me" aria-label="账户详情">
     <div class="stat"><label>总资产</label><div class="v num" id="sEquity">—</div><div class="s" id="sInitial">起始资金 —</div></div>
     <div class="stat"><label>总盈亏</label><div class="v num" id="sPnl">—</div><div class="s num" id="sPnlPct">—</div></div>
     <div class="stat"><label>可用资金</label><div class="v num" id="sCash">—</div><div class="s" id="sCashN">还能用来开仓的钱</div></div>
@@ -600,7 +645,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
   </section>
 
   <main class="grid">
-    <div class="a-main" data-view="market">
+    <div class="a-main" data-view="market" data-dv="trade">
       <div class="coins" id="coins"></div>
       <section class="card a-chart">
         <div class="chart-top">
@@ -631,7 +676,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       </section>
     </div>
 
-    <section class="card trade a-trade" data-view="trade" aria-label="下单">
+    <section class="card trade a-trade" data-view="trade" data-dv="trade" aria-label="下单">
       <h2><span class="badge" id="tBadge"></span><span id="tTitle">交易 BTC</span><span class="tp num m-only" id="tPrice"></span></h2>
       <div class="cswitch m-only" id="cswitch" style="display:none"></div>
       <div class="sides">
@@ -669,7 +714,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <button class="go" id="goBtn" data-side="long">买入做多 BTC</button>
     </section>
 
-    <section class="card a-pos" data-view="pos">
+    <section class="card a-pos" data-view="pos" data-dv="trade">
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" data-tab="pos" aria-selected="true">持仓<span class="n" id="nPos">0</span></button>
         <button class="tab" role="tab" data-tab="hist" aria-selected="false">成交记录<span class="n" id="nHist">0</span></button>
@@ -681,7 +726,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     </section>
 
     <div class="a-side">
-      <section class="card a-farm" data-view="farm" id="farmCard">
+      <section class="card a-farm" data-view="farm" data-dv="farm" id="farmCard">
         <div class="farm-head">
           <div><h2>棉花田</h2><small>靠劳动挣钱：播种 → 浇水 → 施肥 → 收获，每步隔 8 分钟</small></div>
         </div>
@@ -697,16 +742,16 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
           <p class="farm-rule">种子 $100 一包，棉花卖 $800 一朵。每一步到点后 <b>1 小时内</b>要处理，否则会枯萎，种子钱就白花了。一键处理工具一次买断 $2,000。</p>
         </div>
       </section>
-      <section class="card a-daily" data-view="farm me" id="dailyCard">
+      <section class="card a-daily" data-view="farm me" data-dv="farm me" id="dailyCard">
         <div class="card-h"><h2>每日任务</h2><span class="faint" style="font-size:12px;margin-left:auto" id="dailyLeft">—</span></div>
         <div class="daily-body" id="dailyBody"></div>
       </section>
-    <section class="card a-equity" data-view="me">
+    <section class="card a-equity" data-view="me" data-dv="me">
         <div class="card-h"><h2>我的资产曲线</h2><span class="faint" style="font-size:12px;margin-left:auto">虚线 = 起始资金</span></div>
         <div id="equityChart"></div>
         <div class="eq-note">每 5 秒记录一次总资产（按现在全部平仓计算，已扣手续费）。线在虚线上方说明你在赚钱。</div>
       </section>
-      <section class="card a-loan pro-only" data-view="me" id="loanCard">
+      <section class="card a-loan pro-only" data-view="me" data-dv="me" id="loanCard">
         <div class="card-h"><h2>贷款</h2><span class="faint" style="font-size:12px;margin-left:auto" id="loanRoom">还能借 —</span></div>
         <div class="loan-body">
           <div><small class="faint">当前欠款</small><div class="v num" id="loanDebt">$0.00</div><small class="faint" id="loanInt">没有欠款</small></div>
@@ -717,7 +762,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
           <p class="loan-note">利息每小时 5%，利滚利：借 $1,000，1 小时后欠 $1,050，24 小时后欠 $3,225，7 天后欠约 $363 万。欠款上限是起始资金的 3 倍，还款从可用资金里扣。</p>
         </div>
       </section>
-      <section class="card a-board" data-view="board" id="boardCard">
+      <section class="card a-board" data-view="board" data-dv="board" id="boardCard">
         <div class="card-h"><h2>排行榜</h2><span class="faint" id="lbCount" style="font-size:12px;margin-left:auto">按收益率排名</span></div>
         <div class="seg lb-tabs" role="group" aria-label="榜单" id="lbTabs"><button data-lbtab="s" aria-pressed="true">小赛季</button><button data-lbtab="S" aria-pressed="false">大赛季</button><button data-lbtab="all" aria-pressed="false">总榜</button><button data-lbtab="room" aria-pressed="false">好友房</button></div>
         <div id="lbBody"></div>
@@ -785,6 +830,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
       <div><b>穿仓</b>价格一下子跳过了爆仓价，亏损超过了本金。超出的部分要从可用资金里倒贴，总资产可能变成负数。</div>
       <div><b>贷款</b>可以借钱继续玩，利息每小时 5%，利滚利：一天后欠款变成 3.2 倍，一周后变成约 3,600 倍。</div>
       <div><b>止损 / 止盈（高级界面）</b>开仓时提前定好：亏到本金的多少就自动卖（止损），赚到多少就自动卖（止盈）。价格一碰到就按当时价格平仓。</div>
+      <div><b>火箭币突发事件</b>毫无预兆地发生，涨跌各一半，没有任何提前信号。越大的越少见：约三成的局有一次 20% 左右的突发，约一成的局有一次 40% 左右的重大突发。</div>
       <div><b>火箭币快讯</b>大约七成的局会冒出一条快讯，可能是真消息也可能是假消息，真假各一半。几十秒后揭晓：真消息价格按消息方向跳，假消息反着跳。</div>
       <div><b>赛季</b>每 2 天一个小赛季、每 10 天一个大赛季，按这一季里的收益排名，前三名进往届冠军榜。总榜照常保留。</div>
       <div><b>农场</b>种子 $100，播种后每隔 8 分钟浇水、施肥、收获，一朵棉花卖 $800。到点后 1 小时内不处理会枯萎。可以花钱开垦更多土地，也可以花 $2,000 买一键处理。</div>
@@ -859,6 +905,7 @@ footer{font-size:12px;color:var(--fg-3);text-align:center;padding-top:6px}
     <div class="three">
       <div><span><b>每 8 分钟一局</b>：每局从 $1.00 重新发射，局末未平仓位按最后价格自动结算；每局只能开仓一次。所有玩家看到同一条行情，走势没有规律可循，比的是胆量和运气。</span></div>
       <div><span><b>规则更严</b>：手续费是仓位价值的 2.5%（普通币 0.1%），所以最多只能开 5× 杠杆，5× 时一开一平的手续费是本金的 25%；点平仓后要等 20 秒才按当时价格成交；价格跳空越过爆仓价时，多亏的部分要从可用资金里倒贴（穿仓）。</span></div>
+      <div><span><b>突发事件</b>：毫无预兆，涨跌各一半，谁也提前不知道。约三成的局会突然动 20% 左右，约一成的局会突然动 40% 左右。</span></div>
       <div><span><b>真假快讯</b>：大约七成的局会出现一条快讯，真假各一半，几十秒后揭晓。真消息价格顺着消息跳，假消息反着跳，幅度 15–40%。现实中靠「内幕消息」炒币，同样经常被假消息收割。</span></div>
       <div><span><b>每分钟都在上蹿下跳，但很多尖刺一闪而过</b>：点平仓或触发止盈后要等 20 秒才成交，那时尖刺往往已经回落。真正的大涨大跌来自跳空和快讯。真实市场里没有正规的币会这样波动，遇到这样的币通常意味着骗局。</span></div>
     </div>
@@ -1268,7 +1315,7 @@ function simStep(){
      20-second close fills.
    Fees are 2.5% of the position value each way.
    At the end of a round, open ROCKET positions are settled at the round's last price.           */
-const RK = { seed:0x5EED1234, base:1.0, sig:0.0012, round:480, pJump:1/900, pMega:1/5400, j0:0.10, j1:0.25, m0:0.30, m1:0.30, nz:0.02, nzMem:6, newsP:0.7 };
+const RK = { seed:0x5EED1234, base:1.0, sig:0.0012, round:480, pJump:1/900, pMega:1/5400, j0:0.10, j1:0.25, m0:0.30, m1:0.30, nz:0.02, nzMem:6, newsP:0.7, eventSmall:0.3, eventBig:0.1 };
 const RK_A = Math.exp(-1/RK.nzMem), RK_W = RK.nz*Math.sqrt(1-RK_A*RK_A);
 const RK_V = Array.from({length:RK.round+1}, (_,t)=> RK.nz*RK.nz*(1-Math.pow(RK_A,2*t))/2);   // jitter mean correction
 const rkEcosh = (a,w)=> (Math.sinh(a+w)-Math.sinh(a))/w - 1;
@@ -1285,6 +1332,8 @@ function rkShock(sec){
   else if(j<RK.pJump+RK.pMega) e+=(rkHash(k,6)<0.5?-1:1)*(RK.m0+RK.m1*rkHash(k,7));
   const n = rkNews(rkRound(sec));
   if(sec===n.reveal) e += n.move*n.J - Math.log(Math.cosh(n.J));   // the news jump; −log cosh keeps the walk fair
+  const ev = rkEvent(rkRound(sec));
+  if(sec===ev.sec) e += ev.dir*ev.J - Math.log(Math.cosh(ev.J));    // sudden event, same correction
   return e - RK_C;
 }
 function rkJit(sec){ const k=(sec ^ RK.seed)>>>0, u1=rkHash(k,8)||1e-12, u2=rkHash(k,9); return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2)*RK_W; }
@@ -1292,10 +1341,52 @@ function rkJit(sec){ const k=(sec ^ RK.seed)>>>0, u1=rkHash(k,8)||1e-12, u2=rkHa
    settled 10–39 seconds later. Half are true (the price jumps the way the headline says), half are
    fake (it jumps the other way). Since true and fake are equally likely, the headline itself tells
    you nothing about the direction: it's a test of nerve, not a free tip. All stories are made up. */
-const RK_NEWS_UP = ['链上监测：神秘巨鲸刚刚买入 2 亿枚火箭币','传闻某大型交易所即将上线火箭币','火箭币团队宣布：下周销毁一半的币',
-  '网传一家连锁奶茶店将接受火箭币付款','火箭币社区投票通过「永不增发」提案','据称火箭币刚刚冲上热搜第一','有人爆料：一家基金正在悄悄收购火箭币'];
-const RK_NEWS_DOWN = ['传闻火箭币核心开发者已经跑路','链上监测：早期大户正把 3 亿枚火箭币转进交易所','网传火箭币的智能合约有严重漏洞',
-  '传闻某交易所将下架火箭币','火箭币官方账号疑似被盗，发布了奇怪的链接','有人爆料：火箭币团队偷偷增发了 10 亿枚','据称监管部门正在调查火箭币项目'];
+const RK_NEWS_UP = [
+  '链上监测：神秘巨鲸刚刚买入 2 亿枚火箭币','传闻某大型交易所即将上线火箭币','火箭币团队宣布：下周销毁一半的币',
+  '网传一家连锁奶茶店将接受火箭币付款','火箭币社区投票通过「永不增发」提案','据称火箭币刚刚冲上热搜第一','有人爆料：一家基金正在悄悄收购火箭币',
+  '社区传言：火箭币下个月上线主网','网传某支付平台正在测试火箭币付款','据称一位神秘富豪在悄悄囤火箭币','小道消息：火箭币将和热门游戏联名',
+  '传闻火箭币团队拿到了一大笔融资','群里有人说内部人士已经开始建仓','消息称火箭币即将被纳入某指数','据传火箭币将推出质押分红',
+  '网传几家交易所正在抢着上线火箭币'];
+const RK_NEWS_DOWN = [
+  '传闻火箭币核心开发者已经跑路','链上监测：早期大户正把 3 亿枚火箭币转进交易所','网传火箭币的智能合约有严重漏洞',
+  '传闻某交易所将下架火箭币','火箭币官方账号疑似被盗，发布了奇怪的链接','有人爆料：火箭币团队偷偷增发了 10 亿枚','据称监管部门正在调查火箭币项目',
+  '网传火箭币团队正在偷偷卖币','传闻有交易所要冻结火箭币账户','小道消息：火箭币的审计报告有问题','有人爆料火箭币的交易量是刷出来的',
+  '传言火箭币项目方资金链断裂','据称一个大户准备清仓火箭币','网传火箭币官网域名快到期了没人续费','传闻火箭币核心代码被人拿去做了山寨币',
+  '消息称火箭币下周有一大批币解锁'];
+/* Sudden events (突发事件), at a random moment with no warning and nothing to read in advance. The
+   bigger the shock, the rarer: ~30% of rounds get a ~20% move, ~10% of rounds a ~40% move (重大突发).
+   The headline appears at the same instant as the jump. Up and down are equally likely and the jump
+   carries the same −log cosh correction, so it is a pure shock, not a tip. */
+const RK_EVENT_UP = [
+  '一个匿名钱包刚刚扫光了所有卖单','火箭币冲上短视频热门，散户疯狂涌入','某大户在社交平台喊单「火箭币要上月球」',
+  '交易所出现乌龙指，有人用十倍价格买入','空头集体爆仓，价格被一路挤上去','传说中的「神秘基金」开始扫货',
+  '火箭币宣布和一家连锁便利店合作','一位网红把全部身家换成了火箭币','社区发起「一起冲」活动，买单如潮',
+  '一款热门游戏宣布可以用火箭币买皮肤','链上出现巨额销毁，流通量骤减','有人在论坛晒出火箭币赚了一百倍的截图',
+  '开发团队宣布用全部收入回购火箭币','一夜之间，火箭币持币地址翻了一倍','某财经博主说「火箭币是下一个比特币」',
+  '一家海外交易所突然上线火箭币'];
+const RK_EVENT_DOWN = [
+  '交易所服务器宕机，恢复后一路砸盘','早期团队钱包突然转出 5 亿枚火箭币','火箭币被曝存在后门，可以无限增发',
+  '一头巨鲸把手里的火箭币全部市价卖出','多头集体爆仓，连环踩踏','某交易所突然暂停火箭币提现',
+  '火箭币官方网站打不开了','黑客攻击火箭币跨链桥，盗走大量代币','有人发现火箭币白皮书是抄来的',
+  '监管部门点名提示火箭币风险','创始人在直播里说漏了嘴：「我早就卖了」','链上数据显示前十大地址同时在卖',
+  '大户爆仓引发连锁反应，价格闪崩','社区内讧，核心成员宣布退出','交易所把火箭币标记为「高风险资产」',
+  '唯一的做市商宣布退出火箭币'];
+const rkEventCache = new Map();
+const rkEventPct = ev => Math.abs(Math.exp(ev.dir*ev.J - Math.log(Math.cosh(ev.J))) - 1)*100;   // the move the player actually sees
+function rkEvent(r){
+  let ev = rkEventCache.get(r); if(ev) return ev;
+  const k = ((r*2246822519) ^ 0x7A11E5)>>>0, st = r*RK.round;
+  const h = rkHash(k,21), big = h < RK.eventBig, small = !big && h < RK.eventBig + RK.eventSmall;
+  ev = {round:r, none: !big && !small, big};
+  if(!ev.none){
+    const dir = rkHash(k,22)<0.5 ? 1 : -1, list = dir>0 ? RK_EVENT_UP : RK_EVENT_DOWN;
+    // J 0.17–0.23 shows as a ~17–22% move; J 0.40–0.48 as ~38–44%
+    const J = big ? 0.40 + 0.08*rkHash(k,24) : 0.17 + 0.06*rkHash(k,24);
+    Object.assign(ev, {sec: st + 30 + Math.floor(rkHash(k,23)*420), J, dir, text: list[Math.floor(rkHash(k,25)*list.length)]});
+  } else ev.sec = -1;
+  if(rkEventCache.size>64) rkEventCache.clear();
+  rkEventCache.set(r, ev); return ev;
+}
 const rkNewsCache = new Map();
 function rkNews(r){
   let n = rkNewsCache.get(r); if(n) return n;
@@ -1361,6 +1452,13 @@ function rkTick(){
   }
 }
 function rkNewsEvent(sec){
+  const ev = rkEvent(rkRound(sec));
+  if(sec===ev.sec){
+    const care = ui.coin==='ROCKET' || (state && state.positions.some(p=>p.coin==='ROCKET'));
+    if(state) state.positions.forEach(p=>{ if(p.coin==='ROCKET') p.ev = ev.dir; });   // remember who was holding when it hit
+    if(care) toast(`<b>${ev.big?'重大突发':'突发事件'}</b>　${esc(ev.text)}，火箭币瞬间${ev.dir>0?'暴涨':'暴跌'}约 ${Math.round(rkEventPct(ev))}%！`);
+    renderNews();
+  }
   const n = rkNews(rkRound(sec)); if(sec!==n.at && sec!==n.reveal) return;
   const care = ui.coin==='ROCKET' || (state && state.positions.some(p=>p.coin==='ROCKET'));
   if(sec===n.at){ if(care) toast(`<b>火箭币快讯</b>　${esc(n.text)}<br><span style="opacity:.75">真假未知，几十秒内揭晓。</span>`); }
@@ -1369,14 +1467,17 @@ function rkNewsEvent(sec){
 }
 // the strip under the chart and in the ticket
 function renderNews(){
-  const n = rkNews(rkRound(rk.sec)), sec = rk.sec, show = ui.coin==='ROCKET' && sec>=n.at;
+  const n = rkNews(rkRound(rk.sec)), ev = rkEvent(rkRound(rk.sec)), sec = rk.sec;
+  const showN = ui.coin==='ROCKET' && sec>=n.at, showE = ui.coin==='ROCKET' && !ev.none && sec>=ev.sec, show = showN || showE;
   let h='';
-  if(show){
+  if(showE){ const pct = rkEventPct(ev);
+    h += `<div class="nrow"><span class="nt ev ${ev.big?'big':''}">${ev.big?'重大突发':'突发'}</span><span><span class="hl">${esc(ev.text)}</span><span class="st ${ev.dir>0?'up-b':'dn-b'}">${ev.dir>0?'暴涨':'暴跌'} ${Math.round(pct)}%</span></span></div>`; }
+  if(showN){
     const st = sec<n.reveal ? '<span class="st q">真假未知 · 即将揭晓</span>' : n.truth ? '<span class="st t">已证实</span>' : '<span class="st f">假消息</span>';
     const tail = sec<n.reveal ? '' : `<br><span class="faint">${n.truth?'消息属实，价格顺着消息':'消息是假的，价格反着'}${n.move>0?'上跳':'下跳'}约 ${Math.round(n.J*100)}%。</span>`;
-    h = `<span class="nt">快讯</span><span><span class="hl">${esc(n.text)}</span>${st}${tail}</span>`;
+    h += `<div class="nrow ${sec<n.reveal?'wait':''}"><span class="nt">快讯</span><span><span class="hl">${esc(n.text)}</span>${st}${tail}</span></div>`;
   }
-  ['chNews','tNews'].forEach(id=>{ const e=$(id); if(!e) return; e.hidden=!show; if(e.dataset.h!==h){ e.dataset.h=h; e.innerHTML=h; } e.classList.toggle('wait', show && sec<n.reveal); });
+  ['chNews','tNews'].forEach(id=>{ const e=$(id); if(!e) return; e.hidden=!show; if(e.dataset.h!==h){ e.dataset.h=h; e.innerHTML=h; } });
 }
 function rkLeft(){ return RK.round - (rk.sec % RK.round); }   // seconds until this round ends
 function rkRoundLabel(){ const a=new Date(rkRoundStart(rk.sec)*1000), b=new Date((rkRoundStart(rk.sec)+RK.round)*1000), f=d=>d.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',hour12:false}); return f(a)+'–'+f(b); }
@@ -1502,7 +1603,7 @@ function renderFarm(){
   const ready = F.plots.map(plotReady);
   const due = F.plots.filter((p,i)=>ready[i] && p.st>0).length;          // need work now (incl. withered)
   const actionable = F.plots.filter((p,i)=>ready[i] && (p.st>0 || state.cash>=SEED)).length;
-  $('navFarm').hidden = !due; $('navFarm').textContent = due;
+  $('navFarm').hidden = !due; $('navFarm').textContent = due; $('dnavFarm').hidden = !due;
   const needWork = F.plots.filter((p,i)=>ready[i] && p.st>=1 && p.st<=3).length;
   if(needWork > farmReadyN && !document.hidden){ const kinds=[...new Set(F.plots.filter((p,i)=>ready[i]&&p.st>=1&&p.st<=3).map(p=>FARM_ST[p.st].act))].join('、'); toast(`<b>棉花田</b>　有 ${needWork} 块地可以${kinds}了，1 小时内不处理就会枯萎。`); }
   farmReadyN = needWork;
@@ -1719,6 +1820,7 @@ function closePos(id, frac, reason, atPx){
       if(net>=part.margin && COINS[pos.coin].meme) unlock('memewin');
       if(net>=2*part.margin && COINS[pos.coin].fictional) unlock('moon');
       if(Date.now()-pos.opened<=60000) unlock('scalp');
+      if(pos.ev && pos.ev===(pos.side==='long'?1:-1)) unlock('eventwin');
       if(pos.news){ const n=rkNews(pos.news.round), along=(pos.side==='long'?1:-1)===n.dir; if(rk.sec>=n.reveal){ if(!n.truth && !along) unlock('newsfade'); if(n.truth && along) unlock('newsride'); } }
       if(state.streak>=3) unlock('streak3'); if(state.streak>=5) unlock('streak5'); if(state.streak>=10) unlock('streak10');
     } else state.streak=0;
@@ -1793,6 +1895,7 @@ const ACH = [
   ['debtfree','无债一身轻','还清全部贷款','冒险'],
   ['newsfade','识破谣言','火箭币快讯出来后反着做，结果是假消息，赚钱平仓','冒险'],
   ['newsride','消息灵通','火箭币快讯出来后跟着做，结果是真消息，赚钱平仓','冒险'],
+  ['eventwin','风口上的猪','持有火箭币时碰上突发事件，方向正好对了，赚钱平仓','冒险'],
   ['reborn','重生','第一次重新开始，进入第 2 世','冒险'],
   ['farm1','第一桶金','第一次收获棉花','劳动'],
   ['farm50','棉花大王','累计收获 50 朵棉花','劳动',()=>[state.farm.harvests,50]],
@@ -2043,7 +2146,7 @@ function renderChartHead(){
   const cw=$('chMeme'), K=COINS[c]; cw.hidden = !(K.meme||K.fictional); cw.classList.toggle('fic', !!K.fictional);
   if(cw.dataset.coin!==c){ cw.dataset.coin=c;
     if(K.meme) cw.innerHTML = `<b>高风险 · 迷因币</b>　${c} 是以「${K.story}」为题材的币，没有实际用途，价格靠热度和情绪推动。${K.stat}。`;
-    if(K.fictional) cw.innerHTML = `<b>虚构币 · 价格由游戏生成</b>　火箭币不是真实存在的币，所有玩家同一时刻看到同一个价格。每 8 分钟一局，从 $1.00 重新发射，局末自动结算未平仓位；每局只能开仓一次，点平仓后延迟 20 秒成交，手续费 2.5%，最多 5× 杠杆，跳空穿仓要倒贴。大部分局（约七成）会冒出一条真假各半的快讯，揭晓时价格大跳。很多尖刺一闪而过，20 秒后成交时往往已经回落。走势没有规律可循。`;
+    if(K.fictional) cw.innerHTML = `<b>虚构币 · 价格由游戏生成</b>　火箭币不是真实存在的币，所有玩家同一时刻看到同一个价格。每 8 分钟一局，从 $1.00 重新发射，局末自动结算未平仓位；每局只能开仓一次，点平仓后延迟 20 秒成交，手续费 2.5%，最多 5× 杠杆，跳空穿仓要倒贴。大部分局（约七成）会冒出一条真假各半的快讯，揭晓时价格大跳；还会毫无预兆地发生突发事件：约三成的局瞬间动 20% 左右，约一成的局动 40% 左右。很多尖刺一闪而过，20 秒后成交时往往已经回落。走势没有规律可循。`;
     $('lgUnit').textContent = legendText(); }
   $('chPrice').textContent = fmtPx(c,m.price);
   const span = COINS[c].fictional ? ' · 本局' : (feed.mode==='live' ? ' · 24小时' : '');
@@ -2554,7 +2657,9 @@ function lbTick(){
 /* ---------- events ---------- */
 function setView(v){
   ui.view=v; document.body.dataset.view=v;
+  const dv = (v==='market'||v==='trade'||v==='pos') ? 'trade' : v; document.body.dataset.dv = dv;   // the desktop groups market+ticket+positions into one page
   document.querySelectorAll('#mnav button').forEach(b=>{ if(b.dataset.go===v) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+  document.querySelectorAll('#dnav button').forEach(b=>{ if(b.dataset.go===dv || (dv==='trade' && b.dataset.go==='market')) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
   window.scrollTo(0,0);
   if(v==='board' && LB_API && Date.now()-lb.lastFetch>15000) lbRefresh();
 }
@@ -2565,6 +2670,7 @@ document.querySelectorAll('.side').forEach(b=>b.addEventListener('click',()=>{ u
 $('qLong').addEventListener('click',()=>{ ui.side='long'; renderTrade(); setView('trade'); });
 $('qShort').addEventListener('click',()=>{ ui.side='short'; renderTrade(); setView('trade'); });
 $('mnav').addEventListener('click', e=>{ const b=e.target.closest('button[data-go]'); if(b) setView(b.dataset.go); });
+$('dnav').addEventListener('click', e=>{ const b=e.target.closest('button[data-go]'); if(b) setView(b.dataset.go); });
 $('lev').addEventListener('input', e=>{ ui.levIdx=+e.target.value; renderTrade(); showErr(''); });
 // hard leverage limit: ROCKET 5× (its fee is charged on the position value), simple screen 10×, otherwise 50×
 function levCap(c){ c=c||ui.coin; const base = ui.mode==='simple' ? 10 : 50; return COINS[c].levCap ? Math.min(base, COINS[c].levCap) : base; }
